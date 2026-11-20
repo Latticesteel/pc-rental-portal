@@ -317,8 +317,8 @@
         </p>
         <div class="contact-chips">
           <button type="button" class="chip" style="border-color:var(--whatsapp); color:#86efac; cursor:pointer;" onclick="handleLandingTrialClick()">🎁 Claim 2-Hr Free Trial (Sign Up First)</button>
-          <a href="https://wa.me/919790342116?text=Hi%20Mohan%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." target="_blank" class="chip">🇮🇳 WhatsApp, SMS & Calls: +919790342116</a>
-          <a href="sms:+19547512404?body=Hi%20Mohan%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." class="chip">🇺🇸 US SMS & Calls: +19547512404</a>
+          <a href="https://wa.me/919790342116?text=Hi%20admin%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." target="_blank" class="chip">🇮🇳 WhatsApp, SMS & Calls: +919790342116</a>
+          <a href="sms:+19547512404?body=Hi%20admin%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." class="chip">🇺🇸 SMS & Calls: +19547512404</a>
           <a href="mailto:business@latticesteel.com?subject=Remote%20PC%20Rental%20Inquiry" class="chip">✉️ business@latticesteel.com</a>
         </div>
         <div style="font-size:0.75rem; color:var(--muted); margin-top:6px;">
@@ -583,7 +583,7 @@
       <div id="client-verify-alert" class="card hidden" style="border-color:var(--warning); background:rgba(245,158,11,0.08);">
         <strong id="verify-alert-title" style="color:var(--warning);">⏳ Awaiting Payment & Service Activation</strong>
         <p id="verify-alert-desc" style="font-size:0.87rem; color:var(--muted); margin-top:4px;">
-          Your expiry countdown will start for 30 days once your payment is received and your service is activated by Mohan.
+          Your expiry countdown will start for 30 days once your payment is received and your service is activated by admin.
         </p>
         <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
           <button id="btn-request-service" class="btn-primary btn-sm" onclick="requestServiceActivation()">🚀 Request Service Activation</button>
@@ -660,7 +660,7 @@
           <div class="card-title">💳 Payment, Scanner & Intimation</div>
           <div id="inr-upi-section">
             <p style="font-size:0.85rem; color:var(--muted); margin-bottom:12px;">
-              Scan the QR below—it loads your exact total (<strong id="qr-amount-label" style="color:var(--text);">₹0</strong>) for <strong id="qr-qty-label" style="color:var(--text);">5 PCs</strong>. Then intimate Mohan via WhatsApp, SMS, or Email!
+              Scan the QR below—it loads your exact total (<strong id="qr-amount-label" style="color:var(--text);">₹0</strong>) for <strong id="qr-qty-label" style="color:var(--text);">5 PCs</strong>. Then intimate admin via WhatsApp, SMS, or Email!
             </p>
             <div class="upi-box">
               <div>
@@ -737,7 +737,7 @@
             <button type="submit" class="btn-primary">Send</button>
           </form>
           <div id="post-msg-wa-prompt" class="hidden" style="margin-top:10px; background:rgba(37,211,102,0.12); border:1px solid var(--whatsapp); padding:9px 12px; border-radius:9px; display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
-            <span style="font-size:0.82rem;">✅ Posted! Notify Mohan directly:</span>
+            <span style="font-size:0.82rem;">✅ Posted! Notify admin directly:</span>
             <div style="display:flex; gap:6px;">
               <a id="post-msg-wa-link" href="#" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp</a>
               <a id="post-msg-sms-link" href="#" class="btn btn-primary btn-sm">🇺🇸 SMS</a>
@@ -777,11 +777,11 @@
       </div>
     </div>
 
-    <!-- ADMIN DASHBOARD (Visible ONLY to mohanrajramesh4030@gmail.com) -->
+    <!-- ADMIN DASHBOARD (Visible ONLY to adminrajramesh4030@gmail.com) -->
     <div id="admin-dashboard" class="hidden">
       <div class="card" style="border-color:var(--primary);">
         <div class="card-title">
-          <span>🛡️ Admin Control Center (Mohan)</span>
+          <span>🛡️ Admin Control Center (admin)</span>
           <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
             <span id="admin-alert-counter" class="badge badge-warn">0 Service Req | 0 Trials | 0 SOS</span>
             <button class="btn-primary btn-sm" onclick="openAddClientModal()">➕ Add New Client</button>
@@ -813,7 +813,7 @@
           </div>
 
           <div>
-            <label><strong>🟢 Server Status (5-Min Popout)</strong></label>
+            <label><strong>🟢 Server Status (30-Min Popout)</strong></label>
             <div class="switch-row" style="margin-top:6px;">
               <div>
                 <div style="font-size:0.84rem; font-weight:600;" id="sys-toggle-title">All PCs Online</div>
@@ -1072,7 +1072,7 @@
   </div>
 
   <!-- FLOATING WHATSAPP BUTTON (India Number Only) -->
-  <a href="https://wa.me/919790342116?text=Hi%20Mohan%2C%20I%20need%20help%20with%20my%20Rented%20PC." target="_blank" class="wa-float">
+  <a href="https://wa.me/919790342116?text=Hi%20admin%2C%20I%20need%20help%20with%20my%20Rented%20PC." target="_blank" class="wa-float">
     💬 WhatsApp (+91)
   </a>
 
@@ -1094,7 +1094,7 @@
     appId: "1:219094452898:web:2fc45b710ff9e2771025fb"
   };
 
-    const ADMIN_EMAIL = "mohanrajramesh4030@gmail.com";
+    const ADMIN_EMAIL = "adminrajramesh4030@gmail.com";
     const BIZ_EMAIL = "business@latticesteel.com";
     const UPI_ID = "9790342116@icici";
     const WA_IN = "919790342116";
@@ -1340,7 +1340,7 @@
         if (broadcastId && broadcastId !== lastSeenBroadcastId) {
           lastSeenBroadcastId = broadcastId;
           if (currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-            showModal("📢 Important Announcement from Mohan", currentBroadcast);
+            showModal("📢 Important Announcement from Admin", currentBroadcast);
           }
         }
       } else {
@@ -1357,7 +1357,7 @@
         const expDateStr = new Date(t.expiresAt).toLocaleString();
         document.getElementById("client-timer-meta").textContent = `Cycle: ${t.hours} Hours • Expires at: ${expDateStr}`;
         document.getElementById("client-digital-clock").textContent = formatCountdown(t.expiresAt - Date.now());
-        const tMsg = `Hi Mohan, I am ${d.name} (${d.email}). Please renew my ${t.hours}-hour timer for Machine: ${t.machineName || "Workstation"}.`;
+        const tMsg = `Hi Admin, I am ${d.name} (${d.email}). Please renew my ${t.hours}-hour timer for Machine: ${t.machineName || "Workstation"}.`;
         document.getElementById("client-timer-wa-btn").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(tMsg)}`;
         document.getElementById("client-timer-sms-btn").href = `sms:${SMS_US}?body=${encodeURIComponent(tMsg)}`;
 
@@ -1502,7 +1502,7 @@
         const vBadge = document.getElementById("verify-badge");
         const vAlert = document.getElementById("client-verify-alert");
         const reqBtn = document.getElementById("btn-request-service");
-        const nudgeText = `Hi Mohan, I am ${d.name} (${d.email}). I have requested Remote PC service activation for ${qty} PC(s) [${d.selectedPlan || "Team Rental"}]. Please review and activate.`;
+        const nudgeText = `Hi admin, I am ${d.name} (${d.email}). I have requested Remote PC service activation for ${qty} PC(s) [${d.selectedPlan || "Team Rental"}]. Please review and activate.`;
         document.getElementById("btn-wa-verify-nudge").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(nudgeText)}`;
         document.getElementById("btn-sms-verify-nudge").href = `sms:${SMS_US}?body=${encodeURIComponent(nudgeText)}`;
 
@@ -1513,14 +1513,14 @@
           vBadge.className = "badge badge-warn"; vBadge.textContent = "🚀 Activation Requested";
           vAlert.classList.remove("hidden");
           document.getElementById("verify-alert-title").textContent = "🚀 Service Activation Requested — Awaiting Payment Confirmation";
-          document.getElementById("verify-alert-desc").textContent = "Once your payment is received and approved by Mohan, your expiry countdown will start automatically from the approval date.";
+          document.getElementById("verify-alert-desc").textContent = "Once your payment is received and approved by admin, your expiry countdown will start automatically from the approval date.";
           reqBtn.textContent = "✅ Request Sent";
           reqBtn.disabled = true;
         } else if (sStatus === "rejected") {
           vBadge.className = "badge badge-expired"; vBadge.textContent = "❌ Action Needed";
           vAlert.classList.remove("hidden");
           document.getElementById("verify-alert-title").textContent = "❌ Account Verification / Payment Issue";
-          document.getElementById("verify-alert-desc").textContent = "Please contact Mohan via WhatsApp, SMS & Calls (+919790342116), SMS & Calls (+19547512404), or business@latticesteel.com.";
+          document.getElementById("verify-alert-desc").textContent = "Please contact admin via WhatsApp, SMS & Calls (+919790342116), SMS & Calls (+19547512404), or business@latticesteel.com.";
         } else {
           vBadge.className = "badge badge-warn"; vBadge.textContent = "⏳ Not Activated";
           vAlert.classList.remove("hidden");
@@ -1532,7 +1532,7 @@
         const trialSub = document.getElementById("client-trial-sub");
         if (d.trialStatus === "requested") {
           trialBtn.textContent = "⏳ 2-Hr Trial Requested";
-          trialSub.textContent = "Your 2-Hour Free Trial request has been sent to Mohan. Follow up via WhatsApp/SMS (+919790342116) or SMS (+19547512404).";
+          trialSub.textContent = "Your 2-Hour Free Trial request has been sent to admin. Follow up via WhatsApp/SMS (+919790342116) or SMS (+19547512404).";
         } else if (d.trialStatus === "completed") {
           trialBtn.textContent = "✅ 2-Hr Trial Completed";
           trialBtn.disabled = true;
@@ -1585,7 +1585,7 @@
             bar.style.background = "var(--danger)"; balText.style.color = "var(--danger)";
             if (!renewalReminderShown) {
               renewalReminderShown = true;
-              showModal("🚨 Service Expired", `Hi ${d.name}, your remote PC rental (${qty} PC(s)) expired on ${d.expiryDate}. Please pay ${sym}${finalTotal} and intimate Mohan via WhatsApp, SMS & Calls (+919790342116), SMS & Calls (+19547512404), or ${BIZ_EMAIL}.`);
+              showModal("🚨 Service Expired", `Hi ${d.name}, your remote PC rental (${qty} PC(s)) expired on ${d.expiryDate}. Please pay ${sym}${finalTotal} and intimate admin via WhatsApp, SMS & Calls (+919790342116), SMS & Calls (+19547512404), or ${BIZ_EMAIL}.`);
             }
           } else if (diffDays <= 5) {
             badge.className = "badge badge-warn"; badge.textContent = `Expiring in ${diffDays} Days`;
@@ -1610,11 +1610,11 @@
         } else {
           document.getElementById("inr-upi-section").classList.remove("hidden");
           document.getElementById("usd-pay-section").classList.add("hidden");
-          const upiUri = `upi://pay?pa=${UPI_ID}&pn=Mohan%20PC%20Rental&am=${finalTotal || ""}&cu=INR`;
+          const upiUri = `upi://pay?pa=${UPI_ID}&pn=admin%20PC%20Rental&am=${finalTotal || ""}&cu=INR`;
           document.getElementById("upi-qr").src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiUri)}`;
         }
 
-        const payText = `Hi Mohan, I am ${d.name} (${d.email}). I have paid ${sym}${finalTotal} (${qty} PC(s)${disc > 0 ? `, ${disc}% discount` : ""}) for my Remote PC plan. Please activate / extend my service.`;
+        const payText = `Hi admin, I am ${d.name} (${d.email}). I have paid ${sym}${finalTotal} (${qty} PC(s)${disc > 0 ? `, ${disc}% discount` : ""}) for my Remote PC plan. Please activate / extend my service.`;
         document.getElementById("btn-wa-renew").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(payText)}`;
         document.getElementById("btn-sms-renew-us").href = `sms:${SMS_US}?body=${encodeURIComponent(payText)}`;
         document.getElementById("btn-email-renew").href = `mailto:${BIZ_EMAIL}?subject=${encodeURIComponent("Remote PC Payment Intimation - " + d.name)}&body=${encodeURIComponent(payText)}`;
@@ -1659,7 +1659,7 @@
           list.innerHTML += `
             <div class="msg-item">
               <div><strong>You:</strong> ${escapeHtml(m.text)}</div>
-              ${m.reply ? `<div class="msg-reply"><strong>Mohan's Reply:</strong> ${escapeHtml(m.reply)}</div>` : `<div style="font-size:0.76rem; color:var(--muted); margin-top:4px;">Awaiting reply...</div>`}
+              ${m.reply ? `<div class="msg-reply"><strong>admin's Reply:</strong> ${escapeHtml(m.reply)}</div>` : `<div style="font-size:0.76rem; color:var(--muted); margin-top:4px;">Awaiting reply...</div>`}
             </div>`;
         });
       });
@@ -1714,7 +1714,7 @@
     window.triggerRebootSOS = async () => {
       if (!currentUser || !currentClientData) return;
       await updateDoc(doc(db, "users", currentUser.uid), { sosReboot: true });
-      const sosMsg = `🚨 URGENT REBOOT REQUEST: Hi Mohan, I am ${currentClientData.name} (${currentClientData.email}). My remote PC (Headscale IP: ${currentClientData.rdp?.ip || "N/A"}) is frozen/unresponsive. Please reboot it.`;
+      const sosMsg = `🚨 URGENT REBOOT REQUEST: Hi admin, I am ${currentClientData.name} (${currentClientData.email}). My remote PC (Headscale IP: ${currentClientData.rdp?.ip || "N/A"}) is frozen/unresponsive. Please reboot it.`;
       window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(sosMsg)}`, "_blank");
     };
 
@@ -1729,7 +1729,7 @@
         uid: currentUser.uid, userName, text, reply: "", createdAt: serverTimestamp()
       });
 
-      const pingMsg = `Hi Mohan, I posted a requirement on Lattice Remote PC:\nName: ${userName}\nRequest: ${text}`;
+      const pingMsg = `Hi admin, I posted a requirement on Lattice Remote PC:\nName: ${userName}\nRequest: ${text}`;
       document.getElementById("post-msg-wa-link").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(pingMsg)}`;
       document.getElementById("post-msg-sms-link").href = `sms:${SMS_US}?body=${encodeURIComponent(pingMsg)}`;
       document.getElementById("post-msg-wa-prompt").classList.remove("hidden");
@@ -2298,7 +2298,7 @@
 
     window.sharePortal = () => {
       const url = window.location.origin + window.location.pathname;
-      const text = `Check out Lattice Remote PC — Custom workstations on rent via Headscale & RDP (Min. 5 PCs | 2-Hour Free Trial for members)! WhatsApp, SMS & Calls: +919790342116 | US SMS & Calls: +19547512404 | Email: ${BIZ_EMAIL} | ${url}`;
+      const text = `Check out Lattice Remote PC — Custom workstations on rent via Headscale & RDP (Min. 5 PCs | 2-Hour Free Trial for members)! WhatsApp, SMS & Calls: +919790342116 | SMS & Calls: +19547512404 | Email: ${BIZ_EMAIL} | ${url}`;
       if (navigator.share) {
         navigator.share({ title: "Lattice Remote PC Rental", text, url }).catch(() => {});
       } else {
@@ -2320,7 +2320,7 @@
       const gpu = document.getElementById("q-gpu").value;
       const dur = document.getElementById("q-dur").value;
       const soft = document.getElementById("q-soft").value.trim() || "Standard";
-      const msg = `Hi Mohan, I want a quote for a Custom Remote PC Rental:\n• CPU: ${cpu}\n• RAM: ${ram}\n• GPU: ${gpu}\n• Plan: ${dur}\n• Software: ${soft}`;
+      const msg = `Hi admin, I want a quote for a Custom Remote PC Rental:\n• CPU: ${cpu}\n• RAM: ${ram}\n• GPU: ${gpu}\n• Plan: ${dur}\n• Software: ${soft}`;
 
       if (channel === "sms_us") {
         window.location.href = `sms:${SMS_US}?body=${encodeURIComponent(msg)}`;
@@ -2368,7 +2368,7 @@
       }
     };
     window.openNoticePopout = () => {
-      if (currentBroadcast) showModal("📢 Important Update from Mohan", currentBroadcast);
+      if (currentBroadcast) showModal("📢 Important Update from admin", currentBroadcast);
     };
     window.closeModal = () => document.getElementById("popout-modal").classList.add("hidden");
 
