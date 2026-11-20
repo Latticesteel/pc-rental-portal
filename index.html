@@ -128,6 +128,69 @@
     }
     .chip:hover { border-color: var(--primary); color: #fff; }
 
+    /* Team / Enterprise / Long-Term Tier Showcase Cards */
+    .tier-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 20px;
+    }
+    .tier-card {
+      background: linear-gradient(160deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.96) 100%);
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 18px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative; overflow: hidden;
+    }
+    .tier-card:hover {
+      transform: translateY(-4px); border-color: #60a5fa;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
+    }
+    .tier-card.featured {
+      border-color: rgba(56, 189, 248, 0.65);
+      background: linear-gradient(160deg, rgba(29, 78, 216, 0.26) 0%, rgba(15, 23, 42, 0.97) 100%);
+    }
+    .tier-tag {
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px;
+      padding: 3px 9px; border-radius: 99px; display: inline-block; margin-bottom: 8px;
+      background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.4);
+    }
+    .tier-card.featured .tier-tag {
+      background: rgba(6, 182, 212, 0.22); color: #67e8f9; border-color: rgba(6, 182, 212, 0.5);
+    }
+    .tier-card.longterm .tier-tag {
+      background: rgba(245, 158, 11, 0.2); color: #fcd34d; border-color: rgba(245, 158, 11, 0.45);
+    }
+    .tier-title { font-size: 1.08rem; font-weight: 800; margin-bottom: 4px; }
+    .tier-sub { font-size: 0.82rem; color: #38bdf8; font-weight: 700; margin-bottom: 10px; }
+    .tier-list { list-style: none; font-size: 0.83rem; color: #cbd5e1; margin-bottom: 14px; }
+    .tier-list li { padding: 3px 0; display: flex; align-items: center; gap: 6px; }
+
+    /* Hourly Timer Digital Display */
+    .timer-banner {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.16), rgba(30, 58, 138, 0.35));
+      border: 1px solid rgba(34, 211, 238, 0.55);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+    .digital-clock {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.9rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #22d3ee;
+      text-shadow: 0 0 14px rgba(34, 211, 238, 0.35);
+    }
+    .digital-clock.warn { color: var(--warning); text-shadow: 0 0 14px rgba(245, 158, 11, 0.35); }
+    .digital-clock.expired { color: var(--danger); text-shadow: 0 0 14px rgba(239, 68, 68, 0.35); }
+    .timer-custom-msg {
+      margin-top: 10px;
+      background: rgba(245, 158, 11, 0.14);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: 0.86rem;
+      color: #fde68a;
+    }
+
     /* Highlighted Admin Broadcast Banner */
     .broadcast-banner {
       background: linear-gradient(90deg, rgba(245, 158, 11, 0.24), rgba(59, 130, 246, 0.24));
@@ -218,7 +281,7 @@
 </head>
 <body>
 
-  <!-- FULL-WIDTH MAINTENANCE BANNER (Shows automatically when Admin turns Maintenance Mode ON) -->
+  <!-- FULL-WIDTH MAINTENANCE BANNER -->
   <div id="global-maint-banner" class="maint-banner hidden">
     🛠️ Scheduled Maintenance: We are currently under maintenance and will be back shortly. Thank you for your patience!
   </div>
@@ -246,10 +309,11 @@
         <div class="offer-pills">
           <span class="offer-pill">🎁 2-Hour Free Trial (Signed-Up Users Only)</span>
           <span class="offer-pill gold">🤝 +2 Free Days Per Referral</span>
+          <span class="offer-pill">👥 Minimum 5 PCs / Users</span>
         </div>
         <h2 style="font-size:1.25rem; margin:4px 0 6px;">Remote Workstations Rented Strictly as Per Your Custom Requirements</h2>
         <p style="font-size:0.87rem; color:#cbd5e1;">
-          Dedicated Ryzen/Intel CPU, high-speed DDR5 RAM, and NVIDIA RTX GPU workstations connected via <strong>Headscale & RDP</strong> for CAD, 3D Steel Detailing (SDS/2, Tekla, AutoCAD), and Rendering. <strong>Sign up free to unlock your 2-Hour Free Trial booking!</strong>
+          Dedicated Ryzen/Intel CPU, high-speed DDR5 RAM, and NVIDIA RTX GPU workstations connected via <strong>Headscale & RDP</strong> for CAD, 3D Steel Detailing (SDS/2, Tekla, AutoCAD), and Rendering (Minimum 5 PC users). <strong>Sign up free to unlock your 2-Hour Free Trial booking!</strong>
         </p>
         <div class="contact-chips">
           <button type="button" class="chip" style="border-color:var(--whatsapp); color:#86efac; cursor:pointer;" onclick="handleLandingTrialClick()">🎁 Claim 2-Hr Free Trial (Sign Up First)</button>
@@ -284,6 +348,54 @@
           </linearGradient>
         </defs>
       </svg>
+    </div>
+
+    <!-- TEAM, ENTERPRISE & LONG-TERM PLAN TIERS (Visible Before Sign-Up AND on Logged-In User Side) -->
+    <div id="rental-tiers-showcase" class="tier-grid">
+      <div class="tier-card">
+        <div>
+          <span class="tier-tag">👥 Team Starter</span>
+          <div class="tier-title">Team Rental Plan</div>
+          <div class="tier-sub">5 to 9 PCs • 30-Day Monthly Cycle</div>
+          <ul class="tier-list">
+            <li>✅ Minimum 5 Dedicated Remote PCs</li>
+            <li>✅ Isolated Headscale & RDP Access</li>
+            <li>✅ Pre-installed SDS/2, Tekla & AutoCAD</li>
+            <li>✅ 2-Hour Free Trial for New Sign-Ups</li>
+          </ul>
+        </div>
+        <button type="button" class="btn-outline btn-sm" style="width:100%;" onclick="selectRentalTier('Team Rental (5 PCs)', 5, 30)">Select Team Plan (5 PCs)</button>
+      </div>
+
+      <div class="tier-card featured">
+        <div>
+          <span class="tier-tag">🏢 Most Popular • Enterprise</span>
+          <div class="tier-title">Enterprise Bulk Plan</div>
+          <div class="tier-sub">10 to 25+ PCs • High-Concurrency Nodes</div>
+          <ul class="tier-list">
+            <li>✅ 10+ Dedicated Workstation Nodes</li>
+            <li>✅ Custom CPU / 64GB–128GB RAM / RTX GPU</li>
+            <li>✅ Priority Reboot & SLA Support</li>
+            <li>✅ Eligible for Admin % Volume Discounts</li>
+          </ul>
+        </div>
+        <button type="button" class="btn-primary btn-sm" style="width:100%;" onclick="selectRentalTier('Enterprise Bulk (10 PCs)', 10, 30)">Select Enterprise Plan (10 PCs)</button>
+      </div>
+
+      <div class="tier-card longterm">
+        <div>
+          <span class="tier-tag">📅 Best Value • Long-Term</span>
+          <div class="tier-title">Long-Term Contract</div>
+          <div class="tier-sub">3+ Months • Reserved Hardware</div>
+          <ul class="tier-list">
+            <li>✅ Minimum 5 PCs Locked for 90+ Days</li>
+            <li>✅ Dedicated Reserved Server Hardware</li>
+            <li>✅ Priority Hardware & Software Upgrades</li>
+            <li>✅ +2 Free Bonus Days Per Friend Referral</li>
+          </ul>
+        </div>
+        <button type="button" class="btn-warn btn-sm" style="width:100%;" onclick="selectRentalTier('Long-Term (3+ Months / 5+ PCs)', 5, 90)">Select Long-Term Plan</button>
+      </div>
     </div>
 
     <!-- HIGHLIGHTED ADMIN BROADCAST BANNER -->
@@ -345,8 +457,8 @@
           </div>
           <div class="grid-2" style="gap:10px;">
             <div class="form-group">
-              <label>Initial PC Count Needed *</label>
-              <input type="number" id="signup-pccount" min="1" max="100" value="1" required />
+              <label>Initial PC Count Needed (Min. 5) *</label>
+              <input type="number" id="signup-pccount" min="5" max="100" value="5" required />
             </div>
             <div class="form-group">
               <label>Referred By (+2 Free Days!)</label>
@@ -354,7 +466,7 @@
             </div>
           </div>
 
-          <!-- CONDITIONAL KYC FIELDS (Controlled by Admin Toggle) -->
+          <!-- CONDITIONAL KYC FIELDS -->
           <div id="kyc-signup-fields" class="hidden">
             <div class="form-group">
               <label>Aadhaar / Govt ID Number *</label>
@@ -378,7 +490,7 @@
           <div>
             <div style="font-size:1.05rem; font-weight:700;">🛠️ Custom PC Rental Quote Builder</div>
             <p style="font-size:0.83rem; color:var(--muted); margin-top:3px;">
-              Configure your required workstation specs & PC count to get an instant quote via WhatsApp, SMS, or Email.
+              Configure your required workstation specs & PC count (minimum 5 users) to get an instant quote via WhatsApp, SMS, or Email.
             </p>
           </div>
           <svg class="gpu-3d-svg" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -424,12 +536,11 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Number of PCs & Duration</label>
+            <label>Number of PCs & Duration (Min. 5)</label>
             <select id="q-dur">
-              <option>1 PC — 30-Day Monthly Rental</option>
-              <option>2 to 5 PCs — Team Rental</option>
-              <option>5 to 10+ PCs — Enterprise Bulk</option>
-              <option>Long-Term (3+ Months)</option>
+              <option value="Team Rental (5 PCs) — 30-Day Monthly">5 PCs (Team) — 30-Day Monthly</option>
+              <option value="Enterprise Bulk (10+ PCs) — 30-Day Monthly">10+ PCs (Enterprise) — 30-Day Monthly</option>
+              <option value="Long-Term (3+ Months / 5+ PCs)">Long-Term (3+ Months / 5+ PCs)</option>
             </select>
           </div>
         </div>
@@ -439,7 +550,7 @@
         </div>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
           <button type="button" class="btn-whatsapp" style="flex:1;" onclick="sendCustomQuote('wa')">🇮🇳 WhatsApp (+91)</button>
-          <button type="button" class="btn-primary" style="flex:1;" onclick="sendCustomQuote('sms_us')">🇺🇸 US SMS (+1)</button>
+          <button type="button" class="btn-primary" style="flex:1;" onclick="sendCustomQuote('sms_us')">🇺🇸 SMS (+1)</button>
           <button type="button" class="btn-outline" style="flex:1;" onclick="sendCustomQuote('email')">✉️ Email Quote</button>
         </div>
       </div>
@@ -447,6 +558,27 @@
 
     <!-- CLIENT DASHBOARD -->
     <div id="client-dashboard" class="hidden">
+
+      <!-- HOURLY TIMER CARD (Controlled by Admin "Show Timer to All" + Per-User Visibility & Custom Message) -->
+      <div id="client-hourly-timer-card" class="timer-banner hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;">
+          <div>
+            <div style="font-size:0.76rem; text-transform:uppercase; letter-spacing:0.8px; color:#67e8f9; font-weight:800;">
+              ⏱️ Active Session / Machine Timer (<span id="client-timer-machine">Machine Assigned</span>)
+            </div>
+            <div id="client-digital-clock" class="digital-clock">102h 00m 00s</div>
+            <div id="client-timer-meta" style="font-size:0.82rem; color:#cbd5e1; margin-top:2px;">
+              Cycle: 102 Hours • Expires at: --
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a id="client-timer-wa-btn" href="#" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 Request Timer Renewal (WhatsApp)</a>
+            <a id="client-timer-sms-btn" href="#" class="btn btn-outline btn-sm">🇺🇸 SMS Renewal</a>
+          </div>
+        </div>
+        <div id="client-timer-custom-msg" class="timer-custom-msg hidden"></div>
+      </div>
+
       <!-- Verification / Service Activation Banner -->
       <div id="client-verify-alert" class="card hidden" style="border-color:var(--warning); background:rgba(245,158,11,0.08);">
         <strong id="verify-alert-title" style="color:var(--warning);">⏳ Awaiting Payment & Service Activation</strong>
@@ -456,7 +588,7 @@
         <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
           <button id="btn-request-service" class="btn-primary btn-sm" onclick="requestServiceActivation()">🚀 Request Service Activation</button>
           <a id="btn-wa-verify-nudge" href="#" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp (+91)</a>
-          <a id="btn-sms-verify-nudge" href="#" class="btn btn-outline btn-sm">🇺🇸 US SMS (+1)</a>
+          <a id="btn-sms-verify-nudge" href="#" class="btn btn-outline btn-sm">🇺🇸 SMS (+1)</a>
         </div>
       </div>
 
@@ -471,7 +603,7 @@
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
             <button id="btn-book-trial" class="btn-whatsapp btn-sm" onclick="bookSignedUpFreeTrial('wa')">🎁 Book Trial (WhatsApp)</button>
-            <button class="btn-outline btn-sm" onclick="bookSignedUpFreeTrial('sms')">🇺🇸 Book Trial (US SMS)</button>
+            <button class="btn-outline btn-sm" onclick="bookSignedUpFreeTrial('sms')">🇺🇸 Book Trial (SMS)</button>
           </div>
         </div>
       </div>
@@ -479,7 +611,7 @@
       <!-- Subscription, Multi-PC Pricing & Renewal Countdown -->
       <div class="card">
         <div class="card-title">
-          <span>⏳ Rental Period, PC Quantity & Renewal Status</span>
+          <span>⏳ Rental Period, PC Quantity & Renewal Status <span id="disp-selected-tier" class="badge badge-active" style="margin-left:6px;">Team Rental</span></span>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
             <span id="verify-badge" class="badge badge-warn">Not Activated</span>
             <span id="status-badge" class="badge badge-warn">Awaiting Payment</span>
@@ -494,17 +626,17 @@
             <div id="disp-discount-note" style="font-size:0.75rem; color:var(--success); margin-top:2px;">Standard per-PC rate</div>
           </div>
           <div class="stat">
-            <div class="stat-label">Required PC Count</div>
+            <div class="stat-label">Required PC Count (Min. 5)</div>
             <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
-              <input type="number" id="client-pc-qty" min="1" max="100" value="1" style="width:78px; padding:6px 8px; font-weight:800; font-size:1.1rem;" />
+              <input type="number" id="client-pc-qty" min="5" max="100" value="5" style="width:78px; padding:6px 8px; font-weight:800; font-size:1.1rem;" />
               <button class="btn-primary btn-sm" onclick="updateClientPcQty()">Update</button>
             </div>
-            <div style="font-size:0.73rem; color:var(--muted); margin-top:3px;">Enter 1, 5, 10+ PCs</div>
+            <div style="font-size:0.73rem; color:var(--muted); margin-top:3px;">Minimum 5 PCs / users</div>
           </div>
           <div class="stat" style="border-color:var(--primary);">
             <div class="stat-label">Final Total Payable</div>
             <div class="stat-value" id="disp-total-payable" style="color:#60a5fa;">₹0</div>
-            <div id="disp-calc-breakdown" style="font-size:0.74rem; color:var(--muted); margin-top:2px;">1 PC × ₹0</div>
+            <div id="disp-calc-breakdown" style="font-size:0.74rem; color:var(--muted); margin-top:2px;">5 PCs × ₹0</div>
           </div>
           <div class="stat">
             <div class="stat-label">Balance Days Remaining</div>
@@ -523,12 +655,12 @@
       </div>
 
       <div class="grid-2">
-        <!-- Payment & Intimation (India UPI/WhatsApp + US SMS/Email) -->
+        <!-- Payment & Intimation -->
         <div class="card">
           <div class="card-title">💳 Payment, Scanner & Intimation</div>
           <div id="inr-upi-section">
             <p style="font-size:0.85rem; color:var(--muted); margin-bottom:12px;">
-              Scan the QR below—it loads your exact total (<strong id="qr-amount-label" style="color:var(--text);">₹0</strong>) for <strong id="qr-qty-label" style="color:var(--text);">1 PC</strong>. Then intimate Mohan via WhatsApp, SMS, or Email!
+              Scan the QR below—it loads your exact total (<strong id="qr-amount-label" style="color:var(--text);">₹0</strong>) for <strong id="qr-qty-label" style="color:var(--text);">5 PCs</strong>. Then intimate Mohan via WhatsApp, SMS, or Email!
             </p>
             <div class="upi-box">
               <div>
@@ -545,7 +677,7 @@
               <div>
                 <div style="font-size:0.85rem; color:#93c5fd; font-weight:700;">International / USD Billing (<span id="usd-total-label">$0</span>)</div>
                 <div style="font-size:0.84rem; color:var(--muted); margin-top:4px;">
-                  Contact us via Email (<strong>business@latticesteel.com</strong>) or US SMS (<strong>+19547512404</strong>) for international payment instructions.
+                  Contact us via Email (<strong>business@latticesteel.com</strong>) or SMS (<strong>+19547512404</strong>) for international payment instructions.
                 </div>
               </div>
             </div>
@@ -556,7 +688,7 @@
               🇮🇳 WhatsApp (+91)
             </a>
             <a id="btn-sms-renew-us" href="#" class="btn btn-primary" style="flex:1;">
-              🇺🇸 SMS (+1 US)
+              🇺🇸 SMS (+1)
             </a>
             <a id="btn-email-renew" href="#" class="btn btn-outline" style="flex:1;">
               ✉️ Email
@@ -608,7 +740,7 @@
             <span style="font-size:0.82rem;">✅ Posted! Notify Mohan directly:</span>
             <div style="display:flex; gap:6px;">
               <a id="post-msg-wa-link" href="#" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp</a>
-              <a id="post-msg-sms-link" href="#" class="btn btn-primary btn-sm">🇺🇸 US SMS</a>
+              <a id="post-msg-sms-link" href="#" class="btn btn-primary btn-sm">🇺🇸 SMS</a>
             </div>
           </div>
         </div>
@@ -656,22 +788,22 @@
           </div>
         </div>
 
-        <div class="grid-3">
+        <div class="grid-4">
           <div>
-            <label><strong>📢 Post Highlighted Notice & Live Popout</strong></label>
+            <label><strong>📢 Highlighted Notice & Popout</strong></label>
             <div style="display:flex; gap:6px; margin-top:6px;">
               <input type="text" id="admin-broadcast-input" placeholder="Pops up live on all client screens..." />
-              <button class="btn-primary btn-sm" onclick="saveBroadcast()">Post & Pop</button>
+              <button class="btn-primary btn-sm" onclick="saveBroadcast()">Post</button>
               <button class="btn-outline btn-sm" onclick="clearBroadcast()">Clear</button>
             </div>
           </div>
 
           <div>
-            <label><strong>🪪 Sign-Up KYC Requirement</strong></label>
+            <label><strong>🪪 Sign-Up KYC Toggle</strong></label>
             <div class="switch-row" style="margin-top:6px;">
               <div>
-                <div style="font-size:0.85rem; font-weight:600;">Aadhaar & Digital Proof</div>
-                <div style="font-size:0.74rem; color:var(--muted);" id="kyc-status-label">Currently OFF</div>
+                <div style="font-size:0.84rem; font-weight:600;">Aadhaar & Proof</div>
+                <div style="font-size:0.72rem; color:var(--muted);" id="kyc-status-label">Currently OFF</div>
               </div>
               <label class="switch">
                 <input type="checkbox" id="toggle-kyc" onchange="toggleKycSetting(this.checked)" />
@@ -681,11 +813,11 @@
           </div>
 
           <div>
-            <label><strong>🟢 Workstation Server Status (5-Min Popout)</strong></label>
+            <label><strong>🟢 Server Status (5-Min Popout)</strong></label>
             <div class="switch-row" style="margin-top:6px;">
               <div>
-                <div style="font-size:0.85rem; font-weight:600;" id="sys-toggle-title">All Workstations Online</div>
-                <div style="font-size:0.74rem; color:var(--muted);">Popout alerts every 5 min (Live / Maint)</div>
+                <div style="font-size:0.84rem; font-weight:600;" id="sys-toggle-title">All PCs Online</div>
+                <div style="font-size:0.72rem; color:var(--muted);">Popout every 5 min</div>
               </div>
               <label class="switch">
                 <input type="checkbox" id="toggle-sys" checked onchange="toggleSysSetting(this.checked)" />
@@ -693,6 +825,88 @@
               </label>
             </div>
           </div>
+
+          <div>
+            <label><strong>👁️ Show Timer to All Users</strong></label>
+            <div class="switch-row" style="margin-top:6px;">
+              <div>
+                <div style="font-size:0.84rem; font-weight:600;" id="show-timer-all-label">OFF (Per-User Only)</div>
+                <div style="font-size:0.72rem; color:var(--muted);">Toggle ON for everyone</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-show-timer-all" onchange="toggleShowTimerToAll(this.checked)" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEDICATED 102-HOUR MACHINE / USER TIMER CONTROL PANEL (Admin Only) -->
+      <div class="card" style="border-color:rgba(34, 211, 238, 0.55);">
+        <div class="card-title">
+          <span>⏱️ Hourly Machine / User Timer Control (Default: <span id="disp-default-hours">102</span> Hours)</span>
+          <span style="font-size:0.78rem; color:var(--muted);">Alerts at 24h, 12h, 8h, 4h, 2h, 1h, 30m, 15m & Expiry</span>
+        </div>
+
+        <div class="grid-3" style="margin-bottom:14px;">
+          <!-- Edit & Save Constant Default Hours -->
+          <div class="cred-box" style="margin-top:0;">
+            <label><strong>⚙️ Edit Default Constant Hours</strong></label>
+            <div style="display:flex; gap:6px; margin-top:6px;">
+              <input type="number" id="admin-default-hours-inp" min="1" max="9999" value="102" />
+              <button class="btn-primary btn-sm" onclick="saveDefaultTimerHours()">Save Default</button>
+            </div>
+            <small style="color:var(--muted); font-size:0.73rem;">Stays fixed as default until you edit again.</small>
+          </div>
+
+          <!-- Pick User / Machine, Visibility, Custom Message & Start/Renew -->
+          <div class="cred-box" style="margin-top:0; grid-column: span 2;">
+            <label><strong>🖥️ Assign / Renew Timer, Visibility & Custom Message for Selected User / Machine</strong></label>
+            <div class="grid-3" style="gap:8px; margin-top:6px;">
+              <select id="timer-target-uid" onchange="loadUserTimerFieldsToForm(this.value)">
+                <option value="">-- Select User / ID --</option>
+              </select>
+              <input type="text" id="timer-machine-name" placeholder="Machine Name / ID (e.g., WS-NODE-01)" />
+              <select id="timer-user-visibility">
+                <option value="auto">Visibility: Active Timer Only</option>
+                <option value="show">Visibility: Force Show to User</option>
+                <option value="hide">Visibility: Hide Timer from User</option>
+              </select>
+            </div>
+            <div class="grid-2" style="gap:8px; margin-top:8px; align-items:center;">
+              <input type="text" id="timer-custom-msg" placeholder="Custom message to show this user (leave blank for none)..." />
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                <label class="switch-row" style="padding:6px 10px; margin:0; flex:1;">
+                  <span style="font-size:0.78rem; font-weight:600;">Show Message</span>
+                  <span class="switch">
+                    <input type="checkbox" id="timer-show-msg-toggle" checked />
+                    <span class="slider"></span>
+                  </span>
+                </label>
+                <button class="btn-whatsapp btn-sm" onclick="startOrRenewUserTimer()">▶️ Start / Renew (<span id="btn-hrs-lbl">102</span>h)</button>
+                <button class="btn-danger btn-sm" onclick="stopUserTimer()">Stop</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Hourly Timers Live Table -->
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>User ID & Machine ID</th>
+                <th>Cycle & Visibility</th>
+                <th>Live Balance (Hours & Days)</th>
+                <th>User Message Rule</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-timers-tbody">
+              <tr><td colspan="5" style="color:var(--muted);">No hourly timers active. Select a user/machine above to start a 102-hour timer.</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -707,7 +921,7 @@
               <tr>
                 <th>Client & Referral</th>
                 <th>Service Status, Trial & SOS</th>
-                <th>PC Qty, Rate & Expiry Control</th>
+                <th>PC Qty (Min 5), Rate & Expiry</th>
                 <th>PC Specs & Headscale/RDP</th>
                 <th>Quick Actions</th>
               </tr>
@@ -732,8 +946,9 @@
       <h3 id="modal-title" style="margin-bottom:10px; color:var(--warning);">🔔 Notice</h3>
       <p id="modal-body" style="font-size:0.94rem; color:var(--text); margin-bottom:18px; white-space:pre-line;"></p>
       <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+        <button id="modal-renew-timer-btn" class="btn-success btn-sm hidden" onclick="renewFromModal()">🔄 Renew Timer Now</button>
         <a id="modal-wa-btn" href="https://wa.me/919790342116" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp (+91)</a>
-        <a href="sms:+19547512404" class="btn btn-primary btn-sm">🇺🇸 US SMS (+1)</a>
+        <a href="sms:+19547512404" class="btn btn-primary btn-sm">🇺🇸 SMS (+1)</a>
         <a href="mailto:business@latticesteel.com" class="btn btn-outline btn-sm">✉️ Email</a>
         <button class="btn-outline btn-sm" onclick="closeModal()">Got It</button>
       </div>
@@ -771,10 +986,10 @@
         <div class="grid-3" style="gap:8px; margin-top:8px;">
           <div class="form-group"><label>Date</label><input type="date" id="new-hist-date" /></div>
           <div class="form-group"><label>Type / Label</label><input type="text" id="new-hist-label" placeholder="e.g., 30d Renewal or 2-Hr Trial" /></div>
-          <div class="form-group"><label>PC Count</label><input type="number" id="new-hist-pcs" value="1" min="1" /></div>
+          <div class="form-group"><label>PC Count (Min 5)</label><input type="number" id="new-hist-pcs" value="5" min="5" /></div>
         </div>
         <div class="grid-3" style="gap:8px;">
-          <div class="form-group"><label>Amount Paid</label><input type="number" id="new-hist-amt" value="3500" /></div>
+          <div class="form-group"><label>Amount Paid</label><input type="number" id="new-hist-amt" value="17500" /></div>
           <div class="form-group"><label>Days Added</label><input type="number" id="new-hist-days" value="30" /></div>
           <div class="form-group"><label>Expiry Date</label><input type="date" id="new-hist-exp" /></div>
         </div>
@@ -821,7 +1036,7 @@
           </select>
         </div>
         <div class="form-group"><label>Per-PC Rate</label><input type="number" id="edit-rent" value="3500" /></div>
-        <div class="form-group"><label>PC Qty (Users)</label><input type="number" id="edit-pccount" value="1" min="1" /></div>
+        <div class="form-group"><label>PC Qty (Min 5)</label><input type="number" id="edit-pccount" value="5" min="5" /></div>
         <div class="form-group"><label>Discount (%)</label><input type="number" id="edit-discount" value="0" min="0" max="100" /></div>
       </div>
 
@@ -870,20 +1085,34 @@
     // =========================================================================
     // PASTE YOUR FREE FIREBASE SPARK CONFIG HERE
     // =========================================================================
-    const firebaseConfig = {
-      apiKey: "PASTE_YOUR_API_KEY",
-      authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "PASTE_YOUR_PROJECT_ID",
-      storageBucket: "PASTE_YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "PASTE_YOUR_SENDER_ID",
-      appId: "PASTE_YOUR_APP_ID"
-    };
+      const firebaseConfig = {
+    apiKey: "AIzaSyDHQkwAASTmkXQ-dCxcRedfX1pQ6AEl4G8",
+    authDomain: "remote-pc-rental.firebaseapp.com",
+    projectId: "remote-pc-rental",
+    storageBucket: "remote-pc-rental.firebasestorage.app",
+    messagingSenderId: "219094452898",
+    appId: "1:219094452898:web:2fc45b710ff9e2771025fb"
+  };
 
     const ADMIN_EMAIL = "mohanrajramesh4030@gmail.com";
     const BIZ_EMAIL = "business@latticesteel.com";
     const UPI_ID = "9790342116@payment";
     const WA_IN = "919790342116";
     const SMS_US = "+19547512404";
+    const MIN_PC_QTY = 5;
+
+    // 9 Prior Intimation Checkpoints (in minutes remaining)
+    const TIMER_THRESHOLDS = [
+      { key: "24h", mins: 24 * 60, label: "24 Hours Before Expiry" },
+      { key: "12h", mins: 12 * 60, label: "12 Hours Before Expiry" },
+      { key: "8h",  mins: 8 * 60,  label: "8 Hours Before Expiry" },
+      { key: "4h",  mins: 4 * 60,  label: "4 Hours Before Expiry" },
+      { key: "2h",  mins: 2 * 60,  label: "2 Hours Before Expiry" },
+      { key: "1h",  mins: 1 * 60,  label: "1 Hour Before Expiry" },
+      { key: "30m", mins: 30,      label: "30 Min Before Expiry" },
+      { key: "15m", mins: 15,      label: "15 Min Before Expiry" },
+      { key: "exp", mins: 0,       label: "EXPIRED (Due for Renewal)" }
+    ];
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
@@ -892,34 +1121,115 @@
     let currentUser = null;
     let currentClientData = null;
     let kycRequired = false;
+    let showTimerToAll = false;
     let currentBroadcast = "";
     let lastSeenBroadcastId = null;
     let cachedClients = {};
     let currentSysOnline = true;
     let lastSysStateSeen = null;
+    let defaultTimerHours = 102;
+    let modalRenewTargetUid = null;
+
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission().catch(() => {});
+    }
+
+    function formatCountdown(msRemaining) {
+      if (msRemaining <= 0) return "00h 00m 00s (EXPIRED)";
+      const totalSec = Math.floor(msRemaining / 1000);
+      const hrs = Math.floor(totalSec / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+      return `${String(hrs).padStart(2, "0")}h ${String(mins).padStart(2, "0")}m ${String(secs).padStart(2, "0")}s`;
+    }
+
+    function shouldClientSeeTimer(d) {
+      const t = d && d.hourlyTimer;
+      if (!t || !t.expiresAt) return false;
+      const vis = t.visibility || "auto";
+      if (vis === "hide") return false;
+      if (vis === "show") return true;
+      return Boolean(t.active) || Boolean(showTimerToAll);
+    }
 
     function triggerSysStatusPopout(isOnline) {
       if (isOnline) {
         showModal(
           "🟢 All Workstations Live & Online",
-          "All Lattice Remote PC workstations and Headscale / RDP connections are live and running normally.\n\nWhatsApp, SMS & Calls: +919790342116 | US SMS & Calls: +19547512404"
+          "All Lattice Remote PC workstations and Headscale / RDP connections are live and running normally.\n\nWhatsApp, SMS & Calls: +919790342116 | SMS & Calls: +19547512404"
         );
       } else {
         showModal(
           "🛠️ Scheduled Maintenance",
-          "We are currently under scheduled maintenance and will be back shortly. Thank you for your patience!\n\nFor urgent queries: WhatsApp/SMS/Calls +919790342116 | US SMS/Calls +19547512404"
+          "We are currently under scheduled maintenance and will be back shortly. Thank you for your patience!\n\nFor urgent queries: WhatsApp, SMS & Calls +919790342116 | SMS & Calls +19547512404"
         );
       }
     }
 
-    // Popout once every 5 minutes (300,000 ms) whether Live or Under Maintenance
     setInterval(() => {
       triggerSysStatusPopout(currentSysOnline);
     }, 5 * 60 * 1000);
 
+    // 1-Second Live Ticker for Client Timer & Admin Timers + Milestone Alerts
+    setInterval(() => {
+      const now = Date.now();
+
+      if (currentClientData && shouldClientSeeTimer(currentClientData)) {
+        const t = currentClientData.hourlyTimer;
+        const remMs = t.expiresAt - now;
+        const clockEl = document.getElementById("client-digital-clock");
+        clockEl.textContent = formatCountdown(remMs);
+        if (remMs <= 0) {
+          clockEl.className = "digital-clock expired";
+        } else if (remMs <= 4 * 3600 * 1000) {
+          clockEl.className = "digital-clock warn";
+        } else {
+          clockEl.className = "digital-clock";
+        }
+      }
+
+      if (currentUser && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        Object.entries(cachedClients).forEach(([uid, u]) => {
+          const t = u.hourlyTimer;
+          if (!t || !t.active || !t.expiresAt) return;
+
+          const remMs = t.expiresAt - now;
+          const cell = document.getElementById(`admin-timer-cell-${uid}`);
+          if (cell) {
+            const remHrs = (remMs / 3600000).toFixed(1);
+            const remDays = (remMs / 86400000).toFixed(2);
+            cell.innerHTML = remMs <= 0
+              ? `<strong style="color:var(--danger);">EXPIRED — Due for Renewal</strong>`
+              : `<strong style="color:#22d3ee; font-family:monospace;">${formatCountdown(remMs)}</strong><br><small style="color:var(--muted);">Balance: ${remHrs} hrs (${remDays} days)</small>`;
+          }
+
+          const remMins = remMs / 60000;
+          const fired = t.notifiedMilestones || {};
+          for (const step of TIMER_THRESHOLDS) {
+            if (remMins <= step.mins && !fired[step.key]) {
+              fired[step.key] = true;
+              u.hourlyTimer.notifiedMilestones = fired;
+              updateDoc(doc(db, "users", uid), { [`hourlyTimer.notifiedMilestones.${step.key}`]: true }).catch(() => {});
+
+              const mLabel = t.machineName || u.name;
+              const remHrsTxt = (remMs / 3600000).toFixed(1);
+              const alertMsg = `⏱️ TIMER ALERT [${step.label}]\n\n• User: ${u.name} (${uid})\n• Machine / ID: ${mLabel}\n• Cycle: ${t.hours} Hours\n• Remaining: ${remMs <= 0 ? "EXPIRED — Renew Now!" : `${formatCountdown(remMs)} (${remHrsTxt} hrs)`}\n\nClick "Renew Timer Now" or forward this reminder to your WhatsApp (+919790342116).`;
+              const waForward = `https://wa.me/${WA_IN}?text=${encodeURIComponent(alertMsg)}`;
+
+              showModal(`⏱️ ${t.hours}h Timer Alert: ${step.label}`, alertMsg, waForward, uid);
+              if ("Notification" in window && Notification.permission === "granted") {
+                new Notification(`Timer Alert: ${mLabel}`, { body: `${step.label} — ${u.name}` });
+              }
+              break;
+            }
+          }
+        });
+      }
+    }, 1000);
+
     function calcTotals(u) {
       const rate = Number(u.rentAmount || 0);
-      const qty = Math.max(1, Number(u.pcCount || 1));
+      const qty = Math.max(MIN_PC_QTY, Number(u.pcCount || MIN_PC_QTY));
       const disc = Math.min(100, Math.max(0, Number(u.discountPercent || 0)));
       const subtotal = rate * qty;
       const discountAmt = Math.round((subtotal * disc) / 100);
@@ -932,16 +1242,51 @@
       document.getElementById("signup-ref").value = urlParams.get("ref");
     }
 
-    // Listen to Global Settings (Broadcast Popout, KYC Toggle, Maintenance Mode Banner + 5-Min Popout)
+    window.selectRentalTier = async (planName, suggestedQty, suggestedDays) => {
+      const qty = Math.max(MIN_PC_QTY, suggestedQty);
+      if (currentUser && currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          pcCount: qty,
+          totalDays: suggestedDays,
+          selectedPlan: planName
+        });
+        alert(`Applied "${planName}" (${qty} PCs, ${suggestedDays} days)! Your total payable amount and QR scanner have updated.`);
+      } else {
+        showAuth("signup");
+        document.getElementById("signup-pccount").value = qty;
+        document.getElementById("auth-section").scrollIntoView({ behavior: "smooth" });
+        document.getElementById("auth-msg").textContent = `Selected: ${planName}. Complete your free sign-up below to continue!`;
+      }
+    };
+
+    // Listen to Global Settings
     onSnapshot(doc(db, "settings", "global"), (snap) => {
-      const data = snap.exists() ? snap.data() : { kycRequired: false, broadcast: "", broadcastId: 0, sysOnline: true };
+      const data = snap.exists() ? snap.data() : { kycRequired: false, showTimerToAll: false, broadcast: "", broadcastId: 0, sysOnline: true, defaultTimerHours: 102 };
       kycRequired = !!data.kycRequired;
+      showTimerToAll = !!data.showTimerToAll;
       currentBroadcast = data.broadcast || "";
       const broadcastId = data.broadcastId || 0;
       const sysOnline = data.sysOnline !== false;
       currentSysOnline = sysOnline;
 
-      // Update Header Pill & Full-Width Maintenance Banner
+      defaultTimerHours = Number(data.defaultTimerHours || 102);
+      const defDisp = document.getElementById("disp-default-hours");
+      const defInp = document.getElementById("admin-default-hours-inp");
+      const btnLbl = document.getElementById("btn-hrs-lbl");
+      if (defDisp) defDisp.textContent = defaultTimerHours;
+      if (defInp && document.activeElement !== defInp) defInp.value = defaultTimerHours;
+      if (btnLbl) btnLbl.textContent = defaultTimerHours;
+
+      const showAllToggle = document.getElementById("toggle-show-timer-all");
+      if (showAllToggle) {
+        showAllToggle.checked = showTimerToAll;
+        document.getElementById("show-timer-all-label").textContent = showTimerToAll ? "ON (Visible to All)" : "OFF (Per-User Only)";
+      }
+
+      if (currentClientData && currentUser && currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        renderClientTimerCard(currentClientData);
+      }
+
       const sysPill = document.getElementById("header-sys-status");
       const maintBanner = document.getElementById("global-maint-banner");
       if (sysOnline) {
@@ -954,7 +1299,6 @@
         maintBanner.classList.remove("hidden");
       }
 
-      // Pop up immediately when toggled between Live and Maintenance (or when Maintenance is active on load)
       if (lastSysStateSeen === null) {
         lastSysStateSeen = sysOnline;
         if (!sysOnline) triggerSysStatusPopout(false);
@@ -966,7 +1310,7 @@
       const sysToggle = document.getElementById("toggle-sys");
       if (sysToggle) {
         sysToggle.checked = sysOnline;
-        document.getElementById("sys-toggle-title").textContent = sysOnline ? "All Workstations Online" : "Maintenance Mode Active";
+        document.getElementById("sys-toggle-title").textContent = sysOnline ? "All PCs Online" : "Maintenance Active";
       }
 
       const kycBox = document.getElementById("kyc-signup-fields");
@@ -985,7 +1329,7 @@
       const toggleEl = document.getElementById("toggle-kyc");
       if (toggleEl) {
         toggleEl.checked = kycRequired;
-        document.getElementById("kyc-status-label").textContent = kycRequired ? "Currently ON (Shown on Sign-Up)" : "Currently OFF (Hidden on Sign-Up)";
+        document.getElementById("kyc-status-label").textContent = kycRequired ? "Currently ON" : "Currently OFF";
       }
 
       const banner = document.getElementById("broadcast-banner");
@@ -1004,10 +1348,37 @@
       }
     });
 
+    function renderClientTimerCard(d) {
+      const timerCard = document.getElementById("client-hourly-timer-card");
+      if (shouldClientSeeTimer(d) && d.hourlyTimer && d.hourlyTimer.expiresAt) {
+        const t = d.hourlyTimer;
+        timerCard.classList.remove("hidden");
+        document.getElementById("client-timer-machine").textContent = t.machineName || "Assigned Workstation";
+        const expDateStr = new Date(t.expiresAt).toLocaleString();
+        document.getElementById("client-timer-meta").textContent = `Cycle: ${t.hours} Hours • Expires at: ${expDateStr}`;
+        document.getElementById("client-digital-clock").textContent = formatCountdown(t.expiresAt - Date.now());
+        const tMsg = `Hi Mohan, I am ${d.name} (${d.email}). Please renew my ${t.hours}-hour timer for Machine: ${t.machineName || "Workstation"}.`;
+        document.getElementById("client-timer-wa-btn").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(tMsg)}`;
+        document.getElementById("client-timer-sms-btn").href = `sms:${SMS_US}?body=${encodeURIComponent(tMsg)}`;
+
+        const msgBox = document.getElementById("client-timer-custom-msg");
+        if (t.showMessage && t.customMessage && t.customMessage.trim()) {
+          msgBox.textContent = "💬 Admin Note: " + t.customMessage.trim();
+          msgBox.classList.remove("hidden");
+        } else {
+          msgBox.classList.add("hidden");
+        }
+      } else {
+        timerCard.classList.add("hidden");
+      }
+    }
+
     // Auth State Listener
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
+      const tiersBox = document.getElementById("rental-tiers-showcase");
       if (!user) {
+        tiersBox.classList.remove("hidden");
         document.getElementById("auth-section").classList.remove("hidden");
         document.getElementById("client-dashboard").classList.add("hidden");
         document.getElementById("admin-dashboard").classList.add("hidden");
@@ -1032,9 +1403,11 @@
       }
 
       if (user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        tiersBox.classList.add("hidden");
         document.getElementById("admin-dashboard").classList.remove("hidden");
         loadAdminPanel();
       } else {
+        tiersBox.classList.remove("hidden");
         document.getElementById("client-dashboard").classList.remove("hidden");
         loadClientDashboard(user.uid);
       }
@@ -1051,7 +1424,7 @@
       });
     }
 
-    // Sign Up Handler — Starts in "awaiting_payment" with NO expiry date until paid & approved
+    // Sign Up Handler
     window.handleSignUp = async (e) => {
       e.preventDefault();
       const msgEl = document.getElementById("auth-msg");
@@ -1062,7 +1435,11 @@
         const password = document.getElementById("signup-password").value;
         const phone = document.getElementById("signup-phone").value.trim();
         const address = document.getElementById("signup-address").value.trim();
-        const pcCount = Math.max(1, Number(document.getElementById("signup-pccount").value || 1));
+        const rawPcCount = Number(document.getElementById("signup-pccount").value || MIN_PC_QTY);
+        if (rawPcCount < MIN_PC_QTY) {
+          throw new Error(`Minimum PC user count is ${MIN_PC_QTY}.`);
+        }
+        const pcCount = rawPcCount;
         const referredBy = document.getElementById("signup-ref").value.trim();
         const aadhaar = kycRequired ? document.getElementById("signup-aadhaar").value.trim() : "";
         const proofFile = kycRequired ? document.getElementById("signup-proof").files[0] : null;
@@ -1072,6 +1449,7 @@
 
         await setDoc(doc(db, "users", cred.user.uid), {
           name, email, phone, address, referredBy, aadhaar, proofBase64,
+          selectedPlan: pcCount >= 10 ? "Enterprise Bulk (10+ PCs)" : "Team Rental (5 PCs)",
           serviceStatus: "awaiting_payment",
           trialStatus: "eligible",
           sosReboot: false,
@@ -1117,10 +1495,14 @@
         const { rate, qty, disc, finalTotal } = calcTotals(d);
         const sStatus = d.serviceStatus || (d.expiryDate ? "active" : "awaiting_payment");
 
+        renderClientTimerCard(d);
+
+        document.getElementById("disp-selected-tier").textContent = d.selectedPlan || (qty >= 10 ? "Enterprise Bulk" : "Team Rental");
+
         const vBadge = document.getElementById("verify-badge");
         const vAlert = document.getElementById("client-verify-alert");
         const reqBtn = document.getElementById("btn-request-service");
-        const nudgeText = `Hi Mohan, I am ${d.name} (${d.email}). I have requested Remote PC service activation for ${qty} PC(s). Please review and activate.`;
+        const nudgeText = `Hi Mohan, I am ${d.name} (${d.email}). I have requested Remote PC service activation for ${qty} PC(s) [${d.selectedPlan || "Team Rental"}]. Please review and activate.`;
         document.getElementById("btn-wa-verify-nudge").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(nudgeText)}`;
         document.getElementById("btn-sms-verify-nudge").href = `sms:${SMS_US}?body=${encodeURIComponent(nudgeText)}`;
 
@@ -1131,14 +1513,14 @@
           vBadge.className = "badge badge-warn"; vBadge.textContent = "🚀 Activation Requested";
           vAlert.classList.remove("hidden");
           document.getElementById("verify-alert-title").textContent = "🚀 Service Activation Requested — Awaiting Payment Confirmation";
-          document.getElementById("verify-alert-desc").textContent = "Once your payment is received and approved by Mohan, your 30-day expiry countdown will start automatically from the approval date.";
+          document.getElementById("verify-alert-desc").textContent = "Once your payment is received and approved by Mohan, your expiry countdown will start automatically from the approval date.";
           reqBtn.textContent = "✅ Request Sent";
           reqBtn.disabled = true;
         } else if (sStatus === "rejected") {
           vBadge.className = "badge badge-expired"; vBadge.textContent = "❌ Action Needed";
           vAlert.classList.remove("hidden");
           document.getElementById("verify-alert-title").textContent = "❌ Account Verification / Payment Issue";
-          document.getElementById("verify-alert-desc").textContent = "Please contact Mohan via WhatsApp/SMS/Call (+919790342116), US SMS/Call (+19547512404), or business@latticesteel.com.";
+          document.getElementById("verify-alert-desc").textContent = "Please contact Mohan via WhatsApp, SMS & Calls (+919790342116), SMS & Calls (+19547512404), or business@latticesteel.com.";
         } else {
           vBadge.className = "badge badge-warn"; vBadge.textContent = "⏳ Not Activated";
           vAlert.classList.remove("hidden");
@@ -1150,11 +1532,11 @@
         const trialSub = document.getElementById("client-trial-sub");
         if (d.trialStatus === "requested") {
           trialBtn.textContent = "⏳ 2-Hr Trial Requested";
-          trialSub.textContent = "Your 2-Hour Free Trial request has been sent to Mohan. Follow up via WhatsApp/SMS (+919790342116) or US SMS (+19547512404).";
+          trialSub.textContent = "Your 2-Hour Free Trial request has been sent to Mohan. Follow up via WhatsApp/SMS (+919790342116) or SMS (+19547512404).";
         } else if (d.trialStatus === "completed") {
           trialBtn.textContent = "✅ 2-Hr Trial Completed";
           trialBtn.disabled = true;
-          trialSub.textContent = "You have completed your 2-Hour Free Trial. Request service activation or pay below to start your 30-day plan!";
+          trialSub.textContent = "You have completed your 2-Hour Free Trial. Request service activation or pay below to start your plan!";
         } else {
           trialBtn.textContent = "🎁 Book Trial (WhatsApp)";
           trialBtn.disabled = false;
@@ -1180,7 +1562,7 @@
           badge.textContent = "Starts Upon Payment Approval";
           balText.textContent = "--";
           balText.style.color = "var(--muted)";
-          document.getElementById("disp-period-sub").textContent = "30 days from approval date";
+          document.getElementById("disp-period-sub").textContent = `${d.totalDays || 30} days from approval date`;
           document.getElementById("disp-start").textContent = "Not Started";
           document.getElementById("disp-expiry").textContent = "Starts After Payment";
           bar.style.width = "0%";
@@ -1203,7 +1585,7 @@
             bar.style.background = "var(--danger)"; balText.style.color = "var(--danger)";
             if (!renewalReminderShown) {
               renewalReminderShown = true;
-              showModal("🚨 Service Expired", `Hi ${d.name}, your remote PC rental (${qty} PC(s)) expired on ${d.expiryDate}. Please pay ${sym}${finalTotal} and intimate Mohan via WhatsApp/SMS (+919790342116), US SMS (+19547512404), or ${BIZ_EMAIL}.`);
+              showModal("🚨 Service Expired", `Hi ${d.name}, your remote PC rental (${qty} PC(s)) expired on ${d.expiryDate}. Please pay ${sym}${finalTotal} and intimate Mohan via WhatsApp, SMS & Calls (+919790342116), SMS & Calls (+19547512404), or ${BIZ_EMAIL}.`);
             }
           } else if (diffDays <= 5) {
             badge.className = "badge badge-warn"; badge.textContent = `Expiring in ${diffDays} Days`;
@@ -1261,7 +1643,7 @@
             <tr>
               <td>${escapeHtml(h.date)}</td>
               <td><strong>${escapeHtml(h.label || `${h.days}d Plan`)}</strong></td>
-              <td>${h.pcCount || 1} PC</td>
+              <td>${h.pcCount || MIN_PC_QTY} PC</td>
               <td><strong>${sym}${h.amount || 0}</strong></td>
               <td>${escapeHtml(h.newExpiry || "--")}</td>
             </tr>`).join("");
@@ -1286,13 +1668,20 @@
     window.requestServiceActivation = async () => {
       if (!currentUser || !currentClientData) return;
       await updateDoc(doc(db, "users", currentUser.uid), { serviceStatus: "requested" });
-      const msg = `🚀 SERVICE ACTIVATION REQUEST:\nName: ${currentClientData.name}\nEmail: ${currentClientData.email}\nPC Count: ${currentClientData.pcCount || 1}\nPlease confirm payment and activate my 30-day plan.`;
+      const qty = Math.max(MIN_PC_QTY, Number(currentClientData.pcCount || MIN_PC_QTY));
+      const msg = `🚀 SERVICE ACTIVATION REQUEST:\nName: ${currentClientData.name}\nEmail: ${currentClientData.email}\nPlan: ${currentClientData.selectedPlan || "Team Rental"}\nPC Count: ${qty}\nPlease confirm payment and activate my plan.`;
       window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(msg)}`, "_blank");
     };
 
     window.updateClientPcQty = async () => {
       if (!currentUser || !currentClientData) return;
-      const newQty = Math.max(1, Math.min(100, Number(document.getElementById("client-pc-qty").value || 1)));
+      const entered = Number(document.getElementById("client-pc-qty").value || MIN_PC_QTY);
+      if (entered < MIN_PC_QTY) {
+        alert(`Minimum PC user count is ${MIN_PC_QTY}.`);
+        document.getElementById("client-pc-qty").value = MIN_PC_QTY;
+        return;
+      }
+      const newQty = Math.min(100, entered);
       await updateDoc(doc(db, "users", currentUser.uid), { pcCount: newQty });
       alert(`PC quantity updated to ${newQty}. Your total payable amount and UPI QR code have been updated!`);
     };
@@ -1300,20 +1689,21 @@
     window.bookSignedUpFreeTrial = async (channel) => {
       if (!currentUser || !currentClientData) return;
       const todayStr = new Date().toISOString().split("T")[0];
+      const qty = Math.max(MIN_PC_QTY, Number(currentClientData.pcCount || MIN_PC_QTY));
       if (currentClientData.trialStatus !== "requested") {
         await updateDoc(doc(db, "users", currentUser.uid), {
           trialStatus: "requested",
           history: arrayUnion({
             date: todayStr,
             label: "🎁 2-Hour Free Trial Requested",
-            pcCount: currentClientData.pcCount || 1,
+            pcCount: qty,
             amount: 0,
             days: 0,
             newExpiry: currentClientData.expiryDate || "Trial Only"
           })
         });
       }
-      const msg = `🎁 2-HOUR FREE TRIAL REQUEST:\nName: ${currentClientData.name}\nEmail: ${currentClientData.email}\nPC Count: ${currentClientData.pcCount || 1}\nPlease share my 2-hour trial Headscale & RDP credentials.`;
+      const msg = `🎁 2-HOUR FREE TRIAL REQUEST:\nName: ${currentClientData.name}\nEmail: ${currentClientData.email}\nPC Count: ${qty}\nPlease share my 2-hour trial Headscale & RDP credentials.`;
       if (channel === "sms") {
         window.location.href = `sms:${SMS_US}?body=${encodeURIComponent(msg)}`;
       } else {
@@ -1347,22 +1737,126 @@
     };
 
     // =========================================================================
-    // ADMIN CONSOLE LOGIC
+    // ADMIN CONSOLE & 102-HOUR TIMER LOGIC
     // =========================================================================
+    window.toggleShowTimerToAll = async (checked) => {
+      await setDoc(doc(db, "settings", "global"), { showTimerToAll: checked }, { merge: true });
+    };
+
+    window.saveDefaultTimerHours = async () => {
+      const val = Math.max(1, Number(document.getElementById("admin-default-hours-inp").value || 102));
+      await setDoc(doc(db, "settings", "global"), { defaultTimerHours: val }, { merge: true });
+      alert(`Default timer constant saved as ${val} hours until you change it again!`);
+    };
+
+    window.loadUserTimerFieldsToForm = (uid) => {
+      const u = cachedClients[uid];
+      if (!u) return;
+      const t = u.hourlyTimer || {};
+      document.getElementById("timer-machine-name").value = t.machineName || u.rdp?.ip || u.name;
+      document.getElementById("timer-user-visibility").value = t.visibility || "auto";
+      document.getElementById("timer-custom-msg").value = t.customMessage || "";
+      document.getElementById("timer-show-msg-toggle").checked = Boolean(t.showMessage);
+    };
+
+    window.pickUserForTimer = (uid) => {
+      document.getElementById("timer-target-uid").value = uid;
+      loadUserTimerFieldsToForm(uid);
+      document.getElementById("timer-machine-name").focus();
+    };
+
+    window.startOrRenewUserTimer = async (overrideUid) => {
+      const uid = overrideUid || document.getElementById("timer-target-uid").value;
+      if (!uid || !cachedClients[uid]) {
+        alert("Please select a user/client first.");
+        return;
+      }
+      const u = cachedClients[uid];
+      const existing = u.hourlyTimer || {};
+      const mNameInput = document.getElementById("timer-machine-name").value.trim();
+      const machineName = overrideUid ? (existing.machineName || u.rdp?.ip || u.name) : (mNameInput || existing.machineName || u.rdp?.ip || u.name);
+      const visibility = overrideUid ? (existing.visibility || "auto") : document.getElementById("timer-user-visibility").value;
+      const customMessage = overrideUid ? (existing.customMessage || "") : document.getElementById("timer-custom-msg").value.trim();
+      const showMessage = overrideUid ? Boolean(existing.showMessage) : document.getElementById("timer-show-msg-toggle").checked;
+
+      const hrs = defaultTimerHours;
+      const now = Date.now();
+      const expiresAt = now + hrs * 3600 * 1000;
+
+      await updateDoc(doc(db, "users", uid), {
+        hourlyTimer: {
+          active: true,
+          machineName,
+          hours: hrs,
+          visibility,
+          customMessage,
+          showMessage,
+          startedAt: now,
+          expiresAt,
+          notifiedMilestones: {}
+        }
+      });
+    };
+
+    window.stopUserTimer = async (overrideUid) => {
+      const uid = overrideUid || document.getElementById("timer-target-uid").value;
+      if (!uid || !cachedClients[uid]) return;
+      await updateDoc(doc(db, "users", uid), {
+        "hourlyTimer.active": false
+      });
+    };
+
     function loadAdminPanel() {
       onSnapshot(collection(db, "users"), (snap) => {
         const tbody = document.getElementById("admin-users-tbody");
+        const timersTbody = document.getElementById("admin-timers-tbody");
+        const timerSelect = document.getElementById("timer-target-uid");
+        const prevSelectedUid = timerSelect.value;
+
         tbody.innerHTML = "";
+        timersTbody.innerHTML = "";
+        timerSelect.innerHTML = `<option value="">-- Select User / ID --</option>`;
         cachedClients = {};
+
         let reqCount = 0;
         let trialCount = 0;
         let sosCount = 0;
+        let timerRowCount = 0;
 
         snap.forEach((docSnap) => {
           const u = docSnap.data();
           const uid = docSnap.id;
           if ((u.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()) return;
           cachedClients[uid] = u;
+
+          const t = u.hourlyTimer || {};
+          const mLabel = t.machineName ? ` [${t.machineName}]` : "";
+          timerSelect.innerHTML += `<option value="${uid}">${escapeHtml(u.name)}${escapeHtml(mLabel)} (${escapeHtml(uid.slice(0, 7))})</option>`;
+
+          // Show row in Hourly Timer Table if timer is active OR has custom visibility/message configured
+          if (t.active || (t.expiresAt && (t.visibility === "show" || t.showMessage))) {
+            timerRowCount++;
+            const remMs = (t.expiresAt || 0) - Date.now();
+            const remHrs = (remMs / 3600000).toFixed(1);
+            const remDays = (remMs / 86400000).toFixed(2);
+            const visLabel = t.visibility === "show" ? "Force Show" : t.visibility === "hide" ? "Hidden from User" : "Auto (Active/All)";
+            const msgStatus = (t.showMessage && t.customMessage)
+              ? `<span class="badge badge-active">Shown</span> <small>${escapeHtml(t.customMessage)}</small>`
+              : `<span class="badge badge-warn">Message Hidden</span>`;
+
+            timersTbody.innerHTML += `
+              <tr>
+                <td><strong>${escapeHtml(t.machineName || "Workstation")}</strong><br><small style="color:var(--muted);">${escapeHtml(u.name)} • ID: ${escapeHtml(uid.slice(0, 8))}...</small></td>
+                <td><strong>${t.hours || defaultTimerHours}h</strong> (${t.active ? "Running" : "Stopped"})<br><small style="color:#93c5fd;">${visLabel}</small></td>
+                <td id="admin-timer-cell-${uid}">${!t.expiresAt ? "--" : remMs <= 0 ? `<strong style="color:var(--danger);">EXPIRED — Due for Renewal</strong>` : `<strong style="color:#22d3ee; font-family:monospace;">${formatCountdown(remMs)}</strong><br><small style="color:var(--muted);">Balance: ${remHrs} hrs (${remDays} days)</small>`}</td>
+                <td>${msgStatus}</td>
+                <td>
+                  <button class="btn-success btn-sm" onclick="startOrRenewUserTimer('${uid}')">🔄 Renew +${defaultTimerHours}h</button>
+                  <button class="btn-outline btn-sm" onclick="pickUserForTimer('${uid}')">Edit Rule</button>
+                  <button class="btn-danger btn-sm" onclick="stopUserTimer('${uid}')">Stop</button>
+                </td>
+              </tr>`;
+          }
 
           const sStatus = u.serviceStatus || (u.expiryDate ? "active" : "awaiting_payment");
           if (sStatus === "requested" || sStatus === "awaiting_payment") reqCount++;
@@ -1451,6 +1945,7 @@
               </td>
               <td>
                 <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                  <button class="btn-outline btn-sm" onclick="pickUserForTimer('${uid}')" title="Set 102h Timer">⏱️ Timer</button>
                   <button class="btn-outline btn-sm" onclick="openEditModal('${uid}')">Edit</button>
                   <button class="btn-outline btn-sm" onclick="openAdminHistoryModal('${uid}')">History</button>
                   ${contactBtn}
@@ -1460,6 +1955,10 @@
             </tr>`;
         });
 
+        if (prevSelectedUid) timerSelect.value = prevSelectedUid;
+        if (timerRowCount === 0) {
+          timersTbody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);">No hourly timers active. Select a user/machine above to start a ${defaultTimerHours}-hour timer.</td></tr>`;
+        }
         document.getElementById("admin-alert-counter").textContent = `${reqCount} Pending/Req | ${trialCount} Trials | ${sosCount} SOS`;
       });
 
@@ -1549,11 +2048,13 @@
         : `<div style="margin-top:8px; color:var(--muted);">No digital proof uploaded.</div>`;
 
       document.getElementById("view-client-body").innerHTML = `
+        <div class="spec-row"><span class="spec-key">User ID</span><strong style="font-family:monospace;">${escapeHtml(uid)}</strong></div>
         <div class="spec-row"><span class="spec-key">Full Name</span><strong>${escapeHtml(u.name)}</strong></div>
         <div class="spec-row"><span class="spec-key">Email</span><strong>${escapeHtml(u.email)}</strong></div>
         <div class="spec-row"><span class="spec-key">Phone</span><strong>${escapeHtml(u.phone || "--")}</strong></div>
         <div class="spec-row"><span class="spec-key">Current Address</span><strong>${escapeHtml(u.address || "--")}</strong></div>
-        <div class="spec-row"><span class="spec-key">PC Count & Discount</span><strong>${u.pcCount || 1} PC(s) | ${u.discountPercent || 0}% Off</strong></div>
+        <div class="spec-row"><span class="spec-key">Selected Plan</span><strong>${escapeHtml(u.selectedPlan || "Team Rental")}</strong></div>
+        <div class="spec-row"><span class="spec-key">PC Count & Discount</span><strong>${Math.max(MIN_PC_QTY, Number(u.pcCount || MIN_PC_QTY))} PC(s) | ${u.discountPercent || 0}% Off</strong></div>
         <div class="spec-row"><span class="spec-key">Referred By</span><strong>${escapeHtml(u.referredBy || "Direct")}</strong></div>
         <div class="spec-row"><span class="spec-key">ID Number</span><strong>${escapeHtml(u.aadhaar || "Not Provided")}</strong></div>
         <div class="spec-row"><span class="spec-key">Service Status</span><strong>${escapeHtml(u.serviceStatus || "awaiting_payment")}</strong></div>
@@ -1595,7 +2096,7 @@
       const todayStr = new Date().toISOString().split("T")[0];
       document.getElementById("new-hist-date").value = todayStr;
       document.getElementById("new-hist-exp").value = u.expiryDate || todayStr;
-      document.getElementById("new-hist-pcs").value = u.pcCount || 1;
+      document.getElementById("new-hist-pcs").value = Math.max(MIN_PC_QTY, Number(u.pcCount || MIN_PC_QTY));
       document.getElementById("new-hist-amt").value = calcTotals(u).finalTotal;
       renderAdminHistoryRows(uid);
       document.getElementById("admin-history-modal").classList.remove("hidden");
@@ -1614,7 +2115,7 @@
         <tr>
           <td>${escapeHtml(h.date)}</td>
           <td>${escapeHtml(h.label || `${h.days}d Plan`)}</td>
-          <td>${h.pcCount || 1}</td>
+          <td>${h.pcCount || MIN_PC_QTY}</td>
           <td>${sym}${h.amount || 0}</td>
           <td>${escapeHtml(h.newExpiry || "--")}</td>
           <td>
@@ -1631,7 +2132,7 @@
       const entry = {
         date: document.getElementById("new-hist-date").value,
         label: document.getElementById("new-hist-label").value.trim() || "30d Renewal",
-        pcCount: Number(document.getElementById("new-hist-pcs").value || 1),
+        pcCount: Math.max(MIN_PC_QTY, Number(document.getElementById("new-hist-pcs").value || MIN_PC_QTY)),
         amount: Number(document.getElementById("new-hist-amt").value || 0),
         days: Number(document.getElementById("new-hist-days").value || 30),
         newExpiry: document.getElementById("new-hist-exp").value
@@ -1687,7 +2188,7 @@
       document.getElementById("edit-service-status").value = "awaiting_payment";
       document.getElementById("edit-currency").value = "INR";
       document.getElementById("edit-rent").value = 3500;
-      document.getElementById("edit-pccount").value = 1;
+      document.getElementById("edit-pccount").value = MIN_PC_QTY;
       document.getElementById("edit-discount").value = 0;
       document.getElementById("edit-days").value = 30;
       document.getElementById("edit-start").value = "";
@@ -1716,7 +2217,7 @@
       document.getElementById("edit-service-status").value = u.serviceStatus || (u.expiryDate ? "active" : "awaiting_payment");
       document.getElementById("edit-currency").value = u.currency || "INR";
       document.getElementById("edit-rent").value = u.rentAmount || 0;
-      document.getElementById("edit-pccount").value = u.pcCount || 1;
+      document.getElementById("edit-pccount").value = Math.max(MIN_PC_QTY, Number(u.pcCount || MIN_PC_QTY));
       document.getElementById("edit-discount").value = u.discountPercent || 0;
       document.getElementById("edit-days").value = u.totalDays || 30;
       document.getElementById("edit-start").value = u.startDate || "";
@@ -1759,7 +2260,7 @@
         serviceStatus: statusVal,
         currency: document.getElementById("edit-currency").value,
         rentAmount: Number(document.getElementById("edit-rent").value),
-        pcCount: Math.max(1, Number(document.getElementById("edit-pccount").value || 1)),
+        pcCount: Math.max(MIN_PC_QTY, Number(document.getElementById("edit-pccount").value || MIN_PC_QTY)),
         discountPercent: Math.min(100, Math.max(0, Number(document.getElementById("edit-discount").value || 0))),
         totalDays: Number(document.getElementById("edit-days").value),
         startDate: startVal,
@@ -1797,7 +2298,7 @@
 
     window.sharePortal = () => {
       const url = window.location.origin + window.location.pathname;
-      const text = `Check out Lattice Remote PC — Custom workstations on rent via Headscale & RDP (2-Hour Free Trial for members)! WhatsApp/SMS/Calls: +919790342116 | US SMS/Calls: +19547512404 | Email: ${BIZ_EMAIL} | ${url}`;
+      const text = `Check out Lattice Remote PC — Custom workstations on rent via Headscale & RDP (Min. 5 PCs | 2-Hour Free Trial for members)! WhatsApp, SMS & Calls: +919790342116 | US SMS & Calls: +19547512404 | Email: ${BIZ_EMAIL} | ${url}`;
       if (navigator.share) {
         navigator.share({ title: "Lattice Remote PC Rental", text, url }).catch(() => {});
       } else {
@@ -1846,11 +2347,26 @@
     window.copyElem = (id) => copyText(document.getElementById(id).textContent, "Copied to clipboard!");
     window.copyText = (txt, msg) => { navigator.clipboard.writeText(txt); alert(msg); };
 
-    function showModal(title, body) {
+    function showModal(title, body, customWaUrl = null, renewUid = null) {
       document.getElementById("modal-title").textContent = title;
       document.getElementById("modal-body").textContent = body;
+      document.getElementById("modal-wa-btn").href = customWaUrl || `https://wa.me/${WA_IN}`;
+      modalRenewTargetUid = renewUid;
+      const renewBtn = document.getElementById("modal-renew-timer-btn");
+      if (renewUid) {
+        renewBtn.textContent = `🔄 Renew +${defaultTimerHours}h Now`;
+        renewBtn.classList.remove("hidden");
+      } else {
+        renewBtn.classList.add("hidden");
+      }
       document.getElementById("popout-modal").classList.remove("hidden");
     }
+    window.renewFromModal = async () => {
+      if (modalRenewTargetUid) {
+        await startOrRenewUserTimer(modalRenewTargetUid);
+        closeModal();
+      }
+    };
     window.openNoticePopout = () => {
       if (currentBroadcast) showModal("📢 Important Update from Mohan", currentBroadcast);
     };
