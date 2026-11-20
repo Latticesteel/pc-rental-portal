@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remote PC Rental Portal — Workstation & Renewal Hub</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --surface: #131b2e;
+      --surface-2: #1a243d;
+      --border: #283554;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --whatsapp: #25D366;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body {
+      background: radial-gradient(circle at top right, #172554 0%, var(--bg) 45%);
+      color: var(--text); line-height: 1.5; min-height: 100vh; padding-bottom: 70px;
+    }
+    .hidden { display: none !important; }
+
+    /* 3D Floating Workstation Animation */
+    @keyframes float3D {
+      0%, 100% { transform: translateY(0px) rotateX(2deg) rotateY(-2deg); }
+      50% { transform: translateY(-10px) rotateX(-2deg) rotateY(3deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    .hero-3d-wrap {
+      perspective: 900px; display: flex; justify-content: center; margin-bottom: 14px;
+    }
+    .hero-3d-svg {
+      width: 150px; height: 120px; animation: float3D 4.5s ease-in-out infinite;
+      filter: drop-shadow(0 14px 22px rgba(59, 130, 246, 0.35));
+    }
+
+    /* Navbar */
+    header {
+      background: rgba(19, 27, 46, 0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 12px 24px;
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 12px; position: sticky; top: 0; z-index: 50;
+    }
+    .brand { font-size: 1.15rem; font-weight: 800; display: flex; align-items: center; gap: 10px; letter-spacing: -0.3px; }
+    .brand span { background: linear-gradient(90deg, #60a5fa, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    /* System Status Pill */
+    .sys-pill {
+      display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px;
+      border-radius: 99px; font-size: 0.78rem; font-weight: 700;
+      background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); color: var(--success);
+    }
+    .sys-pill.maint {
+      background: rgba(245, 158, 11, 0.14); border-color: rgba(245, 158, 11, 0.4); color: var(--warning);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: pulseGlow 1.5s infinite; }
+
+    /* Buttons */
+    button, .btn {
+      cursor: pointer; border: none; border-radius: 9px; padding: 9px 15px;
+      font-size: 0.88rem; font-weight: 600; transition: 0.16s ease;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), #2563eb); color: #fff; }
+    .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-success { background: rgba(16, 185, 129, 0.16); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.35); }
+    .btn-success:hover { background: var(--success); color: #052e16; }
+    .btn-outline { background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: var(--surface-2); border-color: #475569; }
+    .btn-danger { background: rgba(239, 68, 68, 0.14); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.32); }
+    .btn-danger:hover { background: var(--danger); color: #fff; }
+    .btn-whatsapp { background: var(--whatsapp); color: #052e16; font-weight: 700; }
+    .btn-whatsapp:hover { filter: brightness(1.07); }
+    .btn-sm { padding: 5px 10px; font-size: 0.78rem; border-radius: 7px; }
+
+    /* Container & 3D Tilt Cards */
+    .container { max-width: 1180px; margin: 0 auto; padding: 22px 16px; }
+    .card {
+      background: linear-gradient(180deg, rgba(26, 36, 61, 0.75) 0%, rgba(19, 27, 46, 0.92) 100%);
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .card:hover { border-color: #3b4f7a; }
+    .card-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    /* Highlighted Admin Broadcast Banner */
+    .broadcast-banner {
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.22), rgba(59, 130, 246, 0.22));
+      border: 1px solid var(--warning); border-radius: var(--radius); padding: 14px 18px;
+      margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+    }
+
+    /* Forms & Password Eye Wrapper */
+    .auth-box { max-width: 480px; margin: 24px auto; }
+    .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+    .tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; color: var(--muted); font-weight: 600; border-bottom: 2px solid transparent; }
+    .tab.active { color: #60a5fa; border-bottom-color: var(--primary); }
+    .form-group { margin-bottom: 13px; }
+    label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 5px; font-weight: 500; }
+    input, textarea, select {
+      width: 100%; padding: 10px 12px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 0.92rem;
+    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); }
+    .pw-wrap { position: relative; }
+    .pw-toggle {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      background: none; color: var(--muted); padding: 4px; font-size: 0.8rem;
+    }
+
+    /* Grids & Stats */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+    .stat { background: var(--bg); border: 1px solid var(--border); border-radius: 11px; padding: 14px; }
+    .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-value { font-size: 1.5rem; font-weight: 800; margin-top: 4px; }
+
+    /* Progress Bar & Badges */
+    .progress-wrap { background: var(--bg); height: 10px; border-radius: 99px; overflow: hidden; margin: 14px 0 6px; border: 1px solid var(--border); }
+    .progress-bar { height: 100%; background: var(--success); transition: width 0.4s ease; }
+    .badge { padding: 3px 10px; border-radius: 99px; font-size: 0.74rem; font-weight: 700; display: inline-block; }
+    .badge-active { background: rgba(16, 185, 129, 0.16); color: var(--success); }
+    .badge-warn { background: rgba(245, 158, 11, 0.16); color: var(--warning); }
+    .badge-expired { background: rgba(239, 68, 68, 0.16); color: var(--danger); }
+
+    /* UPI & RDP Credential Boxes */
+    .upi-box {
+      background: var(--bg); border: 1px dashed var(--primary); border-radius: 11px;
+      padding: 15px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
+    }
+    .upi-id { font-family: monospace; font-size: 1.05rem; color: #93c5fd; font-weight: 700; }
+    .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(40, 53, 84, 0.6); font-size: 0.89rem; gap: 8px; }
+    .spec-row:last-child { border-bottom: none; }
+    .spec-key { color: var(--muted); }
+    .cred-box { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-top: 12px; }
+
+    /* Chat & History */
+    .msg-list { max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .msg-item { background: var(--bg); border: 1px solid var(--border); padding: 10px 14px; border-radius: 10px; font-size: 0.89rem; }
+    .msg-reply { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); color: #93c5fd; font-size: 0.85rem; }
+
+    /* Toggle Switch */
+    .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--bg); padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border); }
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; inset: 0; background: #475569; border-radius: 24px; transition: 0.2s; }
+    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s; }
+    input:checked + .slider { background: var(--success); }
+    input:checked + .slider:before { transform: translateX(20px); }
+
+    /* Modals */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.82); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 100; overflow-y: auto; }
+    .modal { background: var(--surface); border: 1px solid var(--primary); border-radius: 14px; max-width: 540px; width: 100%; padding: 22px; box-shadow: 0 24px 48px rgba(0,0,0,0.6); max-height: 90vh; overflow-y: auto; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; white-space: nowrap; }
+
+    /* Floating WhatsApp */
+    .wa-float {
+      position: fixed; bottom: 18px; right: 18px; background: var(--whatsapp); color: #052e16;
+      padding: 11px 17px; border-radius: 99px; font-weight: 700; font-size: 0.88rem;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.45); text-decoration: none; display: flex; align-items: center; gap: 7px; z-index: 90;
+    }
+    .wa-float:hover { transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <div class="brand">
+      🖥️ <span>Remote PC</span> Rental Hub
+      <span id="header-sys-status" class="sys-pill"><span class="dot"></span> All Workstations Online</span>
+    </div>
+    <div class="nav-right">
+      <span id="user-greeting" class="hidden" style="font-size:0.84rem; color:var(--muted);"></span>
+      <button id="btn-nav-signin" class="btn-outline btn-sm" onclick="showAuth('signin')">Sign In</button>
+      <button id="btn-nav-signup" class="btn-primary btn-sm" onclick="showAuth('signup')">Sign Up</button>
+      <button id="btn-nav-signout" class="btn-danger btn-sm hidden" onclick="handleSignOut()">Sign Out</button>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- HIGHLIGHTED ADMIN BROADCAST BANNER -->
+    <div id="broadcast-banner" class="broadcast-banner hidden">
+      <div>
+        <strong style="color:var(--warning);">📢 Important Notice:</strong>
+        <span id="broadcast-text" style="margin-left:6px;"></span>
+      </div>
+      <button class="btn-outline btn-sm" onclick="openNoticePopout()">View Popout</button>
+    </div>
+
+    <!-- AUTH SECTION (SIGN IN / SIGN UP WITH 3D WORKSTATION ILLUSTRATION) -->
+    <div id="auth-section" class="card auth-box">
+      <div class="hero-3d-wrap">
+        <!-- Animated 3D Isometric Workstation SVG -->
+        <svg class="hero-3d-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="142" rx="68" ry="12" fill="rgba(59,130,246,0.22)"/>
+          <!-- Isometric Base Platform -->
+          <polygon points="100,92 165,118 100,144 35,118" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+          <polygon points="35,118 100,144 100,152 35,126" fill="#0f172a"/>
+          <polygon points="165,118 100,144 100,152 165,126" fill="#172554"/>
+          <!-- Tower Case -->
+          <polygon points="122,42 152,54 152,108 122,96" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1.5"/>
+          <polygon points="152,54 166,48 166,102 152,108" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+          <polygon points="122,42 136,36 166,48 152,54" fill="#2563eb"/>
+          <line x1="128" y1="62" x2="146" y2="69" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="128" y1="70" x2="146" y2="77" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Isometric Monitor -->
+          <polygon points="44,34 112,60 112,106 44,80" fill="#090d16" stroke="#38bdf8" stroke-width="2.5"/>
+          <polygon points="50,42 106,63 106,98 50,77" fill="url(#screenGrad)"/>
+          <polygon points="72,91 84,96 84,112 72,107" fill="#475569"/>
+          <polygon points="58,108 98,123 88,128 48,113" fill="#64748b"/>
+          <defs>
+            <linearGradient id="screenGrad" x1="50" y1="42" x2="106" y2="98" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#2563eb"/>
+              <stop offset="1" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="tabs">
+        <div id="tab-signin" class="tab active" onclick="showAuth('signin')">Sign In</div>
+        <div id="tab-signup" class="tab" onclick="showAuth('signup')">Create Account (Sign Up)</div>
+      </div>
+
+      <!-- SIGN IN FORM -->
+      <form id="form-signin" onsubmit="handleSignIn(event)">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="signin-email" required placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="pw-wrap">
+            <input type="password" id="signin-password" required placeholder="Enter your password" />
+            <button type="button" class="pw-toggle" onclick="togglePw('signin-password')">👁️</button>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;">Sign In to Portal</button>
+      </form>
+
+      <!-- SIGN UP FORM -->
+      <form id="form-signup" class="hidden" onsubmit="handleSignUp(event)">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="signup-name" required placeholder="Enter your full name" />
+        </div>
+        <div class="form-group">
+          <label>Email ID *</label>
+          <input type="email" id="signup-email" required placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Create Password (min 6 characters) *</label>
+          <div class="pw-wrap">
+            <input type="password" id="signup-password" required minlength="6" placeholder="Create a strong password" />
+            <button type="button" class="pw-toggle" onclick="togglePw('signup-password')">👁️</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Phone Number (WhatsApp) *</label>
+          <input type="tel" id="signup-phone" required placeholder="+91 9876543210" />
+        </div>
+        <div class="form-group">
+          <label>Current Address *</label>
+          <textarea id="signup-address" rows="2" required placeholder="Door No, Street, City, State, PIN"></textarea>
+        </div>
+
+        <!-- CONDITIONAL KYC FIELDS (Controlled by Admin Toggle) -->
+        <div id="kyc-signup-fields" class="hidden">
+          <div class="form-group">
+            <label>Aadhaar Number (12 Digits) *</label>
+            <input type="text" id="signup-aadhaar" maxlength="14" placeholder="XXXX XXXX XXXX" />
+          </div>
+          <div class="form-group">
+            <label>Digital ID Proof (Image or PDF) *</label>
+            <input type="file" id="signup-proof" accept="image/*,.pdf" />
+            <small style="color:var(--muted); font-size:0.74rem;">Max 700 KB (Image/PDF) for admin verification.</small>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%;">Create Account & Enter Portal</button>
+      </form>
+      <p id="auth-msg" style="margin-top:12px; font-size:0.84rem; color:var(--warning); text-align:center;"></p>
+    </div>
+
+    <!-- CLIENT DASHBOARD -->
+    <div id="client-dashboard" class="hidden">
+      <!-- Verification Status Alert (if Pending or Rejected) -->
+      <div id="client-verify-alert" class="card hidden" style="border-color:var(--warning); background:rgba(245,158,11,0.08);">
+        <strong id="verify-alert-title" style="color:var(--warning);">⏳ Account Verification Pending</strong>
+        <p id="verify-alert-desc" style="font-size:0.88rem; color:var(--muted); margin-top:4px;">
+          Your registration details have been submitted to Mohan. Once verified and approved, your assigned PC credentials will appear below.
+        </p>
+      </div>
+
+      <!-- Subscription & Renewal Countdown -->
+      <div class="card">
+        <div class="card-title">
+          <span>⏳ Rental Period & Renewal Reminder</span>
+          <div>
+            <span id="verify-badge" class="badge badge-warn" style="margin-right:6px;">Pending Verification</span>
+            <span id="status-badge" class="badge badge-active">Active</span>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="stat">
+            <div class="stat-label">Monthly Rented Amount</div>
+            <div class="stat-value" id="disp-rent">₹0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Total Period Taken</div>
+            <div class="stat-value" id="disp-total-days">30 Days</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Balance Days Remaining</div>
+            <div class="stat-value" id="disp-balance-days" style="color:var(--success);">0 Days</div>
+          </div>
+        </div>
+
+        <div class="progress-wrap">
+          <div id="days-progress" class="progress-bar" style="width: 100%;"></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:var(--muted);">
+          <span>Start Date: <strong id="disp-start" style="color:var(--text);">--</strong></span>
+          <span>Expiry / Renewal Date: <strong id="disp-expiry" style="color:var(--warning);">--</strong></span>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- UPI Renewal & WhatsApp Intimation -->
+        <div class="card">
+          <div class="card-title">💳 Instant Renewal via UPI</div>
+          <p style="font-size:0.86rem; color:var(--muted); margin-bottom:12px;">
+            Renew anytime using the UPI ID or QR below, then click the WhatsApp button to intimate Mohan immediately.
+          </p>
+          <div class="upi-box">
+            <div>
+              <div style="font-size:0.74rem; color:var(--muted);">UPI ID</div>
+              <div class="upi-id" id="upi-text">9790342116@payment</div>
+              <button class="btn-outline btn-sm" style="margin-top:8px;" onclick="copyText('9790342116@payment', 'UPI ID copied!')">📋 Copy UPI ID</button>
+            </div>
+            <img id="upi-qr" alt="UPI QR" style="width:105px; height:105px; border-radius:8px; background:#fff; padding:4px;" />
+          </div>
+
+          <div style="margin-top:14px;">
+            <a id="btn-wa-renew" href="#" target="_blank" class="btn btn-whatsapp" style="width:100%;">
+              💬 Intimate Renewal on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Assigned PC Specs + RDP / Tailscale Credentials Box -->
+        <div class="card">
+          <div class="card-title">🖥️ Your Assigned PC & Remote Login</div>
+          <div class="spec-row"><span class="spec-key">Processor (CPU)</span><strong id="spec-cpu">Pending Assignment</strong></div>
+          <div class="spec-row"><span class="spec-key">Memory (RAM)</span><strong id="spec-ram">--</strong></div>
+          <div class="spec-row"><span class="spec-key">Graphics (GPU)</span><strong id="spec-gpu">--</strong></div>
+          <div class="spec-row"><span class="spec-key">Storage</span><strong id="spec-storage">--</strong></div>
+          <div class="spec-row"><span class="spec-key">Installed Software</span><strong id="spec-notes">--</strong></div>
+
+          <!-- Extra #1: RDP / Tailscale Credentials Box -->
+          <div class="cred-box">
+            <div style="font-size:0.76rem; color:#60a5fa; font-weight:700; margin-bottom:6px; text-transform:uppercase;">🔐 Remote Connection Credentials</div>
+            <div class="spec-row">
+              <span class="spec-key">Tailscale / RDP IP</span>
+              <span><strong id="rdp-ip" style="font-family:monospace;">--</strong> <button class="btn-outline btn-sm" onclick="copyElem('rdp-ip')">Copy</button></span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Username</span>
+              <span><strong id="rdp-user" style="font-family:monospace;">--</strong> <button class="btn-outline btn-sm" onclick="copyElem('rdp-user')">Copy</button></span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Password</span>
+              <span>
+                <strong id="rdp-pass" data-secret="" style="font-family:monospace;">••••••••</strong>
+                <button class="btn-outline btn-sm" onclick="toggleRdpPass()">Show</button>
+                <button class="btn-outline btn-sm" onclick="copyRdpPass()">Copy</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Option #1: Client Requirement & Support Box -->
+        <div class="card">
+          <div class="card-title">💬 Post Requirement / Request Support</div>
+          <div id="client-msg-list" class="msg-list"></div>
+          <form onsubmit="submitRequirement(event)" style="display:flex; gap:10px;">
+            <input type="text" id="req-input" required placeholder="Need software install, spec upgrade, or help? Type here..." />
+            <button type="submit" class="btn-primary">Send</button>
+          </form>
+        </div>
+
+        <!-- Extra #2: Payment & Renewal History Log -->
+        <div class="card">
+          <div class="card-title">🧾 Payment & Renewal History</div>
+          <div class="table-wrap" style="max-height:260px; overflow-y:auto;">
+            <table>
+              <thead>
+                <tr><th>Date</th><th>Amount</th><th>Period Added</th><th>New Expiry</th></tr>
+              </thead>
+              <tbody id="client-history-tbody">
+                <tr><td colspan="4" style="color:var(--muted);">No renewals recorded yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD (Visible ONLY to mohanrajramesh4030@gmail.com) -->
+    <div id="admin-dashboard" class="hidden">
+      <div class="card" style="border-color:var(--primary);">
+        <div class="card-title">
+          <span>🛡️ Admin Control Center (Mohan)</span>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn-primary btn-sm" onclick="openAddClientModal()">➕ Add New Client</button>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <!-- Option #2: Post Highlighted Announcement -->
+          <div>
+            <label><strong>📢 Highlighted Website Notice</strong></label>
+            <div style="display:flex; gap:6px; margin-top:6px;">
+              <input type="text" id="admin-broadcast-input" placeholder="Post message to all clients..." />
+              <button class="btn-primary btn-sm" onclick="saveBroadcast()">Post</button>
+              <button class="btn-outline btn-sm" onclick="clearBroadcast()">Clear</button>
+            </div>
+          </div>
+
+          <!-- KYC Verification Toggle -->
+          <div>
+            <label><strong>🪪 Sign-Up KYC Requirement</strong></label>
+            <div class="switch-row" style="margin-top:6px;">
+              <div>
+                <div style="font-size:0.85rem; font-weight:600;">Aadhaar & Digital Proof</div>
+                <div style="font-size:0.74rem; color:var(--muted);" id="kyc-status-label">Currently OFF</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-kyc" onchange="toggleKycSetting(this.checked)" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Extra #4: System Status Toggle -->
+          <div>
+            <label><strong>🟢 Workstation Server Status</strong></label>
+            <div class="switch-row" style="margin-top:6px;">
+              <div>
+                <div style="font-size:0.85rem; font-weight:600;" id="sys-toggle-title">All Workstations Online</div>
+                <div style="font-size:0.74rem; color:var(--muted);">Toggle OFF for Maintenance banner</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-sys" checked onchange="toggleSysSetting(this.checked)" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MANAGE CLIENTS TABLE -->
+      <div class="card">
+        <div class="card-title">
+          <span>👥 Client Management, Verification & Renewals</span>
+          <span style="font-size:0.8rem; color:var(--muted);">Each client sees only their own record</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Client & Address</th>
+                <th>Verification & KYC</th>
+                <th>Rent & Expiry</th>
+                <th>PC Specs & RDP</th>
+                <th>Quick Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CLIENT REQUIREMENTS & ADMIN REPLIES -->
+      <div class="card">
+        <div class="card-title">📩 Client Requirements & Replies</div>
+        <div id="admin-msg-list" class="msg-list" style="max-height:360px;"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- POPOUT MODAL (Renewal Reminder & Highlighted Announcements) -->
+  <div id="popout-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <h3 id="modal-title" style="margin-bottom:10px; color:var(--warning);">🔔 Renewal Reminder</h3>
+      <p id="modal-body" style="font-size:0.94rem; color:var(--text); margin-bottom:18px;"></p>
+      <div style="display:flex; gap:10px; justify-content:flex-end;">
+        <a id="modal-wa-btn" href="https://wa.me/919790342116" target="_blank" class="btn btn-whatsapp btn-sm">WhatsApp Mohan</a>
+        <button class="btn-primary btn-sm" onclick="closeModal()">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW FULL CLIENT DETAILS & PROOF MODAL (Admin) -->
+  <div id="view-client-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <h3 style="margin-bottom:12px;">👤 Full Client Details & Verification</h3>
+      <div id="view-client-body" style="font-size:0.9rem;"></div>
+      <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:16px;">
+        <button class="btn-outline btn-sm" onclick="document.getElementById('view-client-modal').classList.add('hidden')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT CLIENT MODAL (Admin) -->
+  <div id="edit-client-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <h3 id="edit-modal-heading" style="margin-bottom:12px;">✏️ Edit Client Plan, Specs & RDP</h3>
+      <input type="hidden" id="edit-uid" />
+      <input type="hidden" id="edit-is-new" value="0" />
+
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group">
+          <label>Client Name *</label>
+          <input type="text" id="edit-name" required />
+        </div>
+        <div class="form-group">
+          <label>Email ID *</label>
+          <input type="email" id="edit-email" required />
+        </div>
+      </div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="text" id="edit-phone" />
+        </div>
+        <div class="form-group">
+          <label>Verification Status</label>
+          <select id="edit-verified">
+            <option value="approved">✅ Approved</option>
+            <option value="pending">⏳ Pending Verification</option>
+            <option value="rejected">❌ Rejected / Re-upload Needed</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Current Address</label>
+        <input type="text" id="edit-address" />
+      </div>
+
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group">
+          <label>Rent Amount (₹)</label>
+          <input type="number" id="edit-rent" value="3500" />
+        </div>
+        <div class="form-group">
+          <label>Total Period (Days)</label>
+          <input type="number" id="edit-days" value="30" />
+        </div>
+      </div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="date" id="edit-start" />
+        </div>
+        <div class="form-group">
+          <label>Expiry Date</label>
+          <input type="date" id="edit-expiry" />
+        </div>
+      </div>
+
+      <hr style="border-color:var(--border); margin:10px 0;" />
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>CPU</label><input type="text" id="edit-cpu" placeholder="Ryzen 9 9950X" /></div>
+        <div class="form-group"><label>RAM</label><input type="text" id="edit-ram" placeholder="64GB DDR5" /></div>
+      </div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>GPU</label><input type="text" id="edit-gpu" placeholder="RTX 3060 12GB" /></div>
+        <div class="form-group"><label>Storage</label><input type="text" id="edit-storage" placeholder="1TB NVMe SSD" /></div>
+      </div>
+      <div class="form-group"><label>Installed Software</label><input type="text" id="edit-notes" placeholder="SDS/2, Tekla, AutoCAD" /></div>
+
+      <hr style="border-color:var(--border); margin:10px 0;" />
+      <div class="grid-3" style="gap:8px;">
+        <div class="form-group"><label>Tailscale / RDP IP</label><input type="text" id="edit-rdp-ip" placeholder="100.64.0.x" /></div>
+        <div class="form-group"><label>Windows User</label><input type="text" id="edit-rdp-user" placeholder="Administrator" /></div>
+        <div class="form-group"><label>Windows Pass</label><input type="text" id="edit-rdp-pass" placeholder="Pass@123" /></div>
+      </div>
+
+      <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:10px;">
+        <button class="btn-outline btn-sm" onclick="closeEditModal()">Cancel</button>
+        <button class="btn-primary btn-sm" onclick="saveClientEdits()">Save Client Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/919790342116?text=Hi%20Mohan%2C%20I%20need%20help%20with%20my%20Rented%20PC." target="_blank" class="wa-float">
+    💬 Chat on WhatsApp
+  </a>
+
+  <!-- FIREBASE SDK & APP LOGIC -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, deleteDoc, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // =========================================================================
+    // PASTE YOUR FREE FIREBASE SPARK CONFIG HERE
+    // =========================================================================
+    const firebaseConfig = {
+    apiKey: "AIzaSyDHQkwAASTmkXQ-dCxcRedfX1pQ6AEl4G8",
+    authDomain: "remote-pc-rental.firebaseapp.com",
+    projectId: "remote-pc-rental",
+    storageBucket: "remote-pc-rental.firebasestorage.app",
+    messagingSenderId: "219094452898",
+    appId: "1:219094452898:web:2fc45b710ff9e2771025fb"
+  };
+
+    const ADMIN_EMAIL = "mohanrajramesh4030@gmail.com";
+    const UPI_ID = "9790342116@icici";
+    const WHATSAPP_NUMBER = "919790342116";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+    let kycRequired = false;
+    let currentBroadcast = "";
+    let cachedClients = {};
+
+    // Listen to Global Settings (KYC Toggle, Highlighted Broadcast, System Status)
+    onSnapshot(doc(db, "settings", "global"), (snap) => {
+      const data = snap.exists() ? snap.data() : { kycRequired: false, broadcast: "", sysOnline: true };
+      kycRequired = !!data.kycRequired;
+      currentBroadcast = data.broadcast || "";
+      const sysOnline = data.sysOnline !== false;
+
+      // Update Header System Status Pill
+      const sysPill = document.getElementById("header-sys-status");
+      if (sysOnline) {
+        sysPill.className = "sys-pill";
+        sysPill.innerHTML = `<span class="dot"></span> All Workstations Online`;
+      } else {
+        sysPill.className = "sys-pill maint";
+        sysPill.innerHTML = `<span class="dot"></span> Scheduled Maintenance`;
+      }
+      const sysToggle = document.getElementById("toggle-sys");
+      if (sysToggle) {
+        sysToggle.checked = sysOnline;
+        document.getElementById("sys-toggle-title").textContent = sysOnline ? "All Workstations Online" : "Maintenance Mode Active";
+      }
+
+      // Update Sign-Up KYC fields visibility
+      const kycBox = document.getElementById("kyc-signup-fields");
+      const aadhaarInp = document.getElementById("signup-aadhaar");
+      const proofInp = document.getElementById("signup-proof");
+      if (kycRequired) {
+        kycBox.classList.remove("hidden");
+        aadhaarInp.required = true;
+        proofInp.required = true;
+      } else {
+        kycBox.classList.add("hidden");
+        aadhaarInp.required = false;
+        proofInp.required = false;
+      }
+
+      const toggleEl = document.getElementById("toggle-kyc");
+      if (toggleEl) {
+        toggleEl.checked = kycRequired;
+        document.getElementById("kyc-status-label").textContent = kycRequired ? "Currently ON (Shown on Sign-Up)" : "Currently OFF (Hidden on Sign-Up)";
+      }
+
+      // Update Highlighted Broadcast Banner
+      const banner = document.getElementById("broadcast-banner");
+      if (currentBroadcast && currentUser) {
+        document.getElementById("broadcast-text").textContent = currentBroadcast;
+        banner.classList.remove("hidden");
+      } else {
+        banner.classList.add("hidden");
+      }
+    });
+
+    // Auth State Handler
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (!user) {
+        document.getElementById("auth-section").classList.remove("hidden");
+        document.getElementById("client-dashboard").classList.add("hidden");
+        document.getElementById("admin-dashboard").classList.add("hidden");
+        document.getElementById("broadcast-banner").classList.add("hidden");
+        document.getElementById("btn-nav-signin").classList.remove("hidden");
+        document.getElementById("btn-nav-signup").classList.remove("hidden");
+        document.getElementById("btn-nav-signout").classList.add("hidden");
+        document.getElementById("user-greeting").classList.add("hidden");
+        return;
+      }
+
+      document.getElementById("auth-section").classList.add("hidden");
+      document.getElementById("btn-nav-signin").classList.add("hidden");
+      document.getElementById("btn-nav-signup").classList.add("hidden");
+      document.getElementById("btn-nav-signout").classList.remove("hidden");
+      document.getElementById("user-greeting").classList.remove("hidden");
+      document.getElementById("user-greeting").textContent = user.email;
+
+      if (currentBroadcast) {
+        document.getElementById("broadcast-text").textContent = currentBroadcast;
+        document.getElementById("broadcast-banner").classList.remove("hidden");
+      }
+
+      if (user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        document.getElementById("admin-dashboard").classList.remove("hidden");
+        loadAdminPanel();
+      } else {
+        document.getElementById("client-dashboard").classList.remove("hidden");
+        loadClientDashboard(user.uid, user.email);
+      }
+    });
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) return resolve("");
+        if (file.size > 750000) return reject(new Error("File too large. Please upload under 700 KB."));
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Sign Up Handler
+    window.handleSignUp = async (e) => {
+      e.preventDefault();
+      const msgEl = document.getElementById("auth-msg");
+      msgEl.textContent = "Creating account...";
+      try {
+        const name = document.getElementById("signup-name").value.trim();
+        const email = document.getElementById("signup-email").value.trim().toLowerCase();
+        const password = document.getElementById("signup-password").value;
+        const phone = document.getElementById("signup-phone").value.trim();
+        const address = document.getElementById("signup-address").value.trim();
+        const aadhaar = kycRequired ? document.getElementById("signup-aadhaar").value.trim() : "";
+        const proofFile = kycRequired ? document.getElementById("signup-proof").files[0] : null;
+        const proofBase64 = proofFile ? await fileToBase64(proofFile) : "";
+
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        const today = new Date();
+        const expiry = new Date();
+        expiry.setDate(today.getDate() + 30);
+
+        await setDoc(doc(db, "users", cred.user.uid), {
+          name, email, phone, address, aadhaar, proofBase64,
+          verifiedStatus: "pending",
+          rentAmount: 0,
+          totalDays: 30,
+          startDate: today.toISOString().split("T")[0],
+          expiryDate: expiry.toISOString().split("T")[0],
+          specs: { cpu: "Pending Assignment", ram: "--", gpu: "--", storage: "--", notes: "--" },
+          rdp: { ip: "--", user: "--", pass: "" },
+          history: []
+        });
+        msgEl.textContent = "";
+      } catch (err) {
+        msgEl.textContent = err.message;
+      }
+    };
+
+    window.handleSignIn = async (e) => {
+      e.preventDefault();
+      const msgEl = document.getElementById("auth-msg");
+      msgEl.textContent = "Signing in...";
+      try {
+        await signInWithEmailAndPassword(auth, document.getElementById("signin-email").value.trim(), document.getElementById("signin-password").value);
+        msgEl.textContent = "";
+      } catch (err) {
+        msgEl.textContent = err.message;
+      }
+    };
+
+    window.handleSignOut = () => signOut(auth);
+
+    // Load Client Dashboard (Reads ONLY this client's document)
+    function loadClientDashboard(uid, email) {
+      onSnapshot(doc(db, "users", uid), (snap) => {
+        if (!snap.exists()) return;
+        const d = snap.data();
+
+        // Verification Status UI
+        const vBadge = document.getElementById("verify-badge");
+        const vAlert = document.getElementById("client-verify-alert");
+        if (d.verifiedStatus === "approved") {
+          vBadge.className = "badge badge-active"; vBadge.textContent = "✅ Verified";
+          vAlert.classList.add("hidden");
+        } else if (d.verifiedStatus === "rejected") {
+          vBadge.className = "badge badge-expired"; vBadge.textContent = "❌ Re-verification Needed";
+          vAlert.classList.remove("hidden");
+          document.getElementById("verify-alert-title").textContent = "❌ Verification Rejected / Action Needed";
+          document.getElementById("verify-alert-desc").textContent = "Please message Mohan via WhatsApp or the requirement box below with updated ID details.";
+        } else {
+          vBadge.className = "badge badge-warn"; vBadge.textContent = "⏳ Pending Approval";
+          vAlert.classList.remove("hidden");
+        }
+
+        // Countdown Math
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const exp = new Date(d.expiryDate); exp.setHours(0, 0, 0, 0);
+        const diffDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
+        const balanceDays = Math.max(0, diffDays);
+        const totalDays = d.totalDays || 30;
+        const pct = Math.min(100, Math.max(0, (balanceDays / totalDays) * 100));
+
+        document.getElementById("disp-rent").textContent = `₹${d.rentAmount || 0}`;
+        document.getElementById("disp-total-days").textContent = `${totalDays} Days`;
+        document.getElementById("disp-balance-days").textContent = `${balanceDays} Days`;
+        document.getElementById("disp-start").textContent = d.startDate || "--";
+        document.getElementById("disp-expiry").textContent = d.expiryDate || "--";
+
+        const bar = document.getElementById("days-progress");
+        const badge = document.getElementById("status-badge");
+        const balText = document.getElementById("disp-balance-days");
+        bar.style.width = `${pct}%`;
+
+        if (diffDays <= 0) {
+          badge.className = "badge badge-expired"; badge.textContent = "Expired — Renew Now";
+          bar.style.background = "var(--danger)"; balText.style.color = "var(--danger)";
+          triggerPopout("🚨 Service Expired", `Hi ${d.name}, your remote PC rental expired on ${d.expiryDate}. Please pay ₹${d.rentAmount} via UPI (${UPI_ID}) and intimate Mohan on WhatsApp to continue uninterrupted access.`);
+        } else if (diffDays <= 5) {
+          badge.className = "badge badge-warn"; badge.textContent = `Expiring in ${diffDays} Days`;
+          bar.style.background = "var(--warning)"; balText.style.color = "var(--warning)";
+          triggerPopout("⏳ Renewal Reminder", `Hi ${d.name}, only ${diffDays} day(s) left on your remote PC plan (Expires: ${d.expiryDate}). Renew early via UPI (${UPI_ID}) for ₹${d.rentAmount}.`);
+        } else {
+          badge.className = "badge badge-active"; badge.textContent = "Active";
+          bar.style.background = "var(--success)"; balText.style.color = "var(--success)";
+        }
+
+        // UPI QR & WhatsApp Renewal Link
+        const upiUri = `upi://pay?pa=${UPI_ID}&pn=Mohan%20PC%20Rental&am=${d.rentAmount || ""}&cu=INR`;
+        document.getElementById("upi-qr").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiUri)}`;
+        const waText = `Hi Mohan, I am ${d.name}. I have paid ₹${d.rentAmount} via UPI (${UPI_ID}) to renew my Remote PC (Current Expiry: ${d.expiryDate}). Please extend my service.`;
+        document.getElementById("btn-wa-renew").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+
+        // PC Specs & RDP Credentials
+        const s = d.specs || {};
+        document.getElementById("spec-cpu").textContent = s.cpu || "Pending Assignment";
+        document.getElementById("spec-ram").textContent = s.ram || "--";
+        document.getElementById("spec-gpu").textContent = s.gpu || "--";
+        document.getElementById("spec-storage").textContent = s.storage || "--";
+        document.getElementById("spec-notes").textContent = s.notes || "--";
+
+        const rdp = d.rdp || {};
+        document.getElementById("rdp-ip").textContent = rdp.ip || "--";
+        document.getElementById("rdp-user").textContent = rdp.user || "--";
+        const passEl = document.getElementById("rdp-pass");
+        passEl.dataset.secret = rdp.pass || "";
+        passEl.textContent = rdp.pass ? "••••••••" : "--";
+
+        // Payment History Table
+        const histBody = document.getElementById("client-history-tbody");
+        const hist = d.history || [];
+        if (hist.length === 0) {
+          histBody.innerHTML = `<tr><td colspan="4" style="color:var(--muted);">No renewals recorded yet.</td></tr>`;
+        } else {
+          histBody.innerHTML = hist.slice().reverse().map(h => `
+            <tr>
+              <td>${escapeHtml(h.date)}</td>
+              <td><strong>₹${h.amount}</strong></td>
+              <td>+${h.days} Days</td>
+              <td>${escapeHtml(h.newExpiry)}</td>
+            </tr>`).join("");
+        }
+      });
+
+      // Load ONLY this client's messages
+      const q = query(collection(db, "messages"), where("uid", "==", uid));
+      onSnapshot(q, (snap) => {
+        const list = document.getElementById("client-msg-list");
+        list.innerHTML = "";
+        snap.forEach((docSnap) => {
+          const m = docSnap.data();
+          list.innerHTML += `
+            <div class="msg-item">
+              <div><strong>You:</strong> ${escapeHtml(m.text)}</div>
+              ${m.reply ? `<div class="msg-reply"><strong>Mohan's Reply:</strong> ${escapeHtml(m.reply)}</div>` : `<div style="font-size:0.76rem; color:var(--muted); margin-top:4px;">Awaiting reply...</div>`}
+            </div>`;
+        });
+      });
+    }
+
+    window.submitRequirement = async (e) => {
+      e.preventDefault();
+      const input = document.getElementById("req-input");
+      const text = input.value.trim();
+      if (!text || !currentUser) return;
+      const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+      const userName = userDoc.exists() ? userDoc.data().name : currentUser.email;
+      await addDoc(collection(db, "messages"), {
+        uid: currentUser.uid, userName, text, reply: "", createdAt: serverTimestamp()
+      });
+      input.value = "";
+    };
+
+    // =========================================================================
+    // ADMIN CONSOLE LOGIC
+    // =========================================================================
+    function loadAdminPanel() {
+      onSnapshot(collection(db, "users"), (snap) => {
+        const tbody = document.getElementById("admin-users-tbody");
+        tbody.innerHTML = "";
+        cachedClients = {};
+
+        snap.forEach((docSnap) => {
+          const u = docSnap.data();
+          const uid = docSnap.id;
+          if ((u.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()) return;
+          cachedClients[uid] = u;
+
+          const exp = new Date(u.expiryDate);
+          const today = new Date(); today.setHours(0,0,0,0);
+          const bal = Math.max(0, Math.ceil((exp - today) / (1000 * 60 * 60 * 24)));
+          const s = u.specs || {};
+          const rdp = u.rdp || {};
+
+          const vBadge = u.verifiedStatus === "approved"
+            ? `<span class="badge badge-active">✅ Approved</span>`
+            : u.verifiedStatus === "rejected"
+            ? `<span class="badge badge-expired">❌ Rejected</span>`
+            : `<span class="badge badge-warn">⏳ Pending</span>`;
+
+          // Extra #3: Admin WhatsApp Reminder Button
+          const cleanPhone = String(u.phone || "").replace(/\D/g, "");
+          const waPhone = cleanPhone.length === 10 ? "91" + cleanPhone : cleanPhone;
+          const reminderText = `Hi ${u.name}, reminder from Mohan: your Remote PC plan (₹${u.rentAmount}) has ${bal} day(s) left and expires on ${u.expiryDate}. Renew anytime via UPI (${UPI_ID}).`;
+          const waBtn = waPhone ? `<a href="https://wa.me/${waPhone}?text=${encodeURIComponent(reminderText)}" target="_blank" class="btn btn-whatsapp btn-sm">📲 Remind</a>` : "";
+
+          tbody.innerHTML += `
+            <tr>
+              <td>
+                <strong>${escapeHtml(u.name)}</strong><br>
+                <small style="color:var(--muted);">${escapeHtml(u.email)}<br>${escapeHtml(u.phone || "")}</small>
+              </td>
+              <td>
+                ${vBadge}<br>
+                <div style="margin-top:5px; display:flex; gap:4px; flex-wrap:wrap;">
+                  ${u.verifiedStatus !== "approved" ? `<button class="btn-success btn-sm" onclick="setVerifyStatus('${uid}', 'approved')">Approve</button>` : ""}
+                  <button class="btn-outline btn-sm" onclick="viewClientDetails('${uid}')">View Info/Proof</button>
+                </div>
+              </td>
+              <td>
+                <strong>₹${u.rentAmount || 0}</strong> (${u.totalDays || 30}d)<br>
+                <small>Exp: ${u.expiryDate}</small><br>
+                <span class="badge ${bal <= 5 ? 'badge-warn' : 'badge-active'}">${bal} days left</span>
+              </td>
+              <td>
+                <small><strong>${escapeHtml(s.cpu || "-")}</strong> | ${escapeHtml(s.ram || "-")}<br>
+                ${escapeHtml(s.gpu || "-")} | IP: ${escapeHtml(rdp.ip || "-")}</small>
+              </td>
+              <td>
+                <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                  <button class="btn-primary btn-sm" onclick="extend30Days('${uid}')">+30d</button>
+                  <button class="btn-outline btn-sm" onclick="openEditModal('${uid}')">Edit</button>
+                  ${waBtn}
+                  <button class="btn-danger btn-sm" onclick="deleteClientRecord('${uid}')">Delete</button>
+                </div>
+              </td>
+            </tr>`;
+        });
+      });
+
+      // Load All Client Messages
+      const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+      onSnapshot(q, (snap) => {
+        const list = document.getElementById("admin-msg-list");
+        list.innerHTML = "";
+        snap.forEach((docSnap) => {
+          const m = docSnap.data();
+          const id = docSnap.id;
+          list.innerHTML += `
+            <div class="msg-item">
+              <div><strong>${escapeHtml(m.userName)}:</strong> ${escapeHtml(m.text)}</div>
+              ${m.reply ? `<div class="msg-reply"><strong>Your Reply:</strong> ${escapeHtml(m.reply)}</div>` : ""}
+              <div style="display:flex; gap:8px; margin-top:8px;">
+                <input type="text" id="reply-inp-${id}" placeholder="Write reply to ${escapeHtml(m.userName)}..." value="${escapeHtml(m.reply || '')}" />
+                <button class="btn-primary btn-sm" onclick="sendAdminReply('${id}')">Reply</button>
+              </div>
+            </div>`;
+        });
+      });
+    }
+
+    window.saveBroadcast = async () => {
+      const text = document.getElementById("admin-broadcast-input").value.trim();
+      await setDoc(doc(db, "settings", "global"), { broadcast: text }, { merge: true });
+      alert("Highlighted announcement posted!");
+    };
+
+    window.clearBroadcast = async () => {
+      document.getElementById("admin-broadcast-input").value = "";
+      await setDoc(doc(db, "settings", "global"), { broadcast: "" }, { merge: true });
+    };
+
+    window.toggleKycSetting = async (checked) => {
+      await setDoc(doc(db, "settings", "global"), { kycRequired: checked }, { merge: true });
+    };
+
+    window.toggleSysSetting = async (checked) => {
+      await setDoc(doc(db, "settings", "global"), { sysOnline: checked }, { merge: true });
+    };
+
+    window.setVerifyStatus = async (uid, status) => {
+      await updateDoc(doc(db, "users", uid), { verifiedStatus: status });
+    };
+
+    window.viewClientDetails = (uid) => {
+      const u = cachedClients[uid];
+      if (!u) return;
+      const proofHtml = u.proofBase64
+        ? `<div style="margin-top:10px;"><strong>Digital ID Proof:</strong><br><a href="${u.proofBase64}" download="KYC_${escapeHtml(u.name)}" class="btn btn-primary btn-sm" style="margin-top:6px;">⬇️ Download Submitted Proof</a></div>`
+        : `<div style="margin-top:8px; color:var(--muted);">No digital proof uploaded.</div>`;
+
+      document.getElementById("view-client-body").innerHTML = `
+        <div class="spec-row"><span class="spec-key">Full Name</span><strong>${escapeHtml(u.name)}</strong></div>
+        <div class="spec-row"><span class="spec-key">Email</span><strong>${escapeHtml(u.email)}</strong></div>
+        <div class="spec-row"><span class="spec-key">Phone</span><strong>${escapeHtml(u.phone || "--")}</strong></div>
+        <div class="spec-row"><span class="spec-key">Current Address</span><strong>${escapeHtml(u.address || "--")}</strong></div>
+        <div class="spec-row"><span class="spec-key">Aadhaar Number</span><strong>${escapeHtml(u.aadhaar || "Not Provided")}</strong></div>
+        <div class="spec-row"><span class="spec-key">Verification Status</span><strong>${escapeHtml(u.verifiedStatus || "pending")}</strong></div>
+        ${proofHtml}
+      `;
+      document.getElementById("view-client-modal").classList.remove("hidden");
+    };
+
+    window.extend30Days = async (uid) => {
+      const u = cachedClients[uid];
+      if (!u) return;
+      const base = new Date(u.expiryDate) > new Date() ? new Date(u.expiryDate) : new Date();
+      base.setDate(base.getDate() + 30);
+      const newExpiry = base.toISOString().split("T")[0];
+      const todayStr = new Date().toISOString().split("T")[0];
+
+      await updateDoc(doc(db, "users", uid), {
+        expiryDate: newExpiry,
+        totalDays: 30,
+        history: arrayUnion({
+          date: todayStr,
+          amount: u.rentAmount || 0,
+          days: 30,
+          newExpiry
+        })
+      });
+    };
+
+    window.deleteClientRecord = async (uid) => {
+      const u = cachedClients[uid];
+      if (!confirm(`Permanently delete ALL data for ${u ? u.name : "this client"}? This cannot be undone.`)) return;
+      await deleteDoc(doc(db, "users", uid));
+    };
+
+    window.sendAdminReply = async (msgId) => {
+      const reply = document.getElementById(`reply-inp-${msgId}`).value.trim();
+      await updateDoc(doc(db, "messages", msgId), { reply });
+    };
+
+    window.openAddClientModal = () => {
+      const today = new Date();
+      const exp = new Date(); exp.setDate(today.getDate() + 30);
+      document.getElementById("edit-modal-heading").textContent = "➕ Add New Rented PC Client";
+      document.getElementById("edit-uid").value = "manual_" + Date.now();
+      document.getElementById("edit-is-new").value = "1";
+      document.getElementById("edit-name").value = "";
+      document.getElementById("edit-email").value = "";
+      document.getElementById("edit-phone").value = "";
+      document.getElementById("edit-address").value = "";
+      document.getElementById("edit-verified").value = "approved";
+      document.getElementById("edit-rent").value = 3500;
+      document.getElementById("edit-days").value = 30;
+      document.getElementById("edit-start").value = today.toISOString().split("T")[0];
+      document.getElementById("edit-expiry").value = exp.toISOString().split("T")[0];
+      document.getElementById("edit-cpu").value = "";
+      document.getElementById("edit-ram").value = "";
+      document.getElementById("edit-gpu").value = "";
+      document.getElementById("edit-storage").value = "";
+      document.getElementById("edit-notes").value = "";
+      document.getElementById("edit-rdp-ip").value = "";
+      document.getElementById("edit-rdp-user").value = "";
+      document.getElementById("edit-rdp-pass").value = "";
+      document.getElementById("edit-client-modal").classList.remove("hidden");
+    };
+
+    window.openEditModal = (uid) => {
+      const u = cachedClients[uid];
+      if (!u) return;
+      document.getElementById("edit-modal-heading").textContent = "✏️ Edit Client Details, Specs & RDP";
+      document.getElementById("edit-uid").value = uid;
+      document.getElementById("edit-is-new").value = "0";
+      document.getElementById("edit-name").value = u.name || "";
+      document.getElementById("edit-email").value = u.email || "";
+      document.getElementById("edit-phone").value = u.phone || "";
+      document.getElementById("edit-address").value = u.address || "";
+      document.getElementById("edit-verified").value = u.verifiedStatus || "pending";
+      document.getElementById("edit-rent").value = u.rentAmount || 0;
+      document.getElementById("edit-days").value = u.totalDays || 30;
+      document.getElementById("edit-start").value = u.startDate || "";
+      document.getElementById("edit-expiry").value = u.expiryDate || "";
+      const s = u.specs || {};
+      document.getElementById("edit-cpu").value = s.cpu || "";
+      document.getElementById("edit-ram").value = s.ram || "";
+      document.getElementById("edit-gpu").value = s.gpu || "";
+      document.getElementById("edit-storage").value = s.storage || "";
+      document.getElementById("edit-notes").value = s.notes || "";
+      const rdp = u.rdp || {};
+      document.getElementById("edit-rdp-ip").value = rdp.ip || "";
+      document.getElementById("edit-rdp-user").value = rdp.user || "";
+      document.getElementById("edit-rdp-pass").value = rdp.pass || "";
+      document.getElementById("edit-client-modal").classList.remove("hidden");
+    };
+
+    window.closeEditModal = () => document.getElementById("edit-client-modal").classList.add("hidden");
+
+    window.saveClientEdits = async () => {
+      const uid = document.getElementById("edit-uid").value;
+      const isNew = document.getElementById("edit-is-new").value === "1";
+      const payload = {
+        name: document.getElementById("edit-name").value.trim(),
+        email: document.getElementById("edit-email").value.trim().toLowerCase(),
+        phone: document.getElementById("edit-phone").value.trim(),
+        address: document.getElementById("edit-address").value.trim(),
+        verifiedStatus: document.getElementById("edit-verified").value,
+        rentAmount: Number(document.getElementById("edit-rent").value),
+        totalDays: Number(document.getElementById("edit-days").value),
+        startDate: document.getElementById("edit-start").value,
+        expiryDate: document.getElementById("edit-expiry").value,
+        specs: {
+          cpu: document.getElementById("edit-cpu").value,
+          ram: document.getElementById("edit-ram").value,
+          gpu: document.getElementById("edit-gpu").value,
+          storage: document.getElementById("edit-storage").value,
+          notes: document.getElementById("edit-notes").value
+        },
+        rdp: {
+          ip: document.getElementById("edit-rdp-ip").value,
+          user: document.getElementById("edit-rdp-user").value,
+          pass: document.getElementById("edit-rdp-pass").value
+        }
+      };
+
+      if (isNew) {
+        payload.history = [];
+        await setDoc(doc(db, "users", uid), payload);
+      } else {
+        await updateDoc(doc(db, "users", uid), payload);
+      }
+      closeEditModal();
+    };
+
+    // UI Helpers
+    window.showAuth = (mode) => {
+      document.getElementById("tab-signin").classList.toggle("active", mode === "signin");
+      document.getElementById("tab-signup").classList.toggle("active", mode === "signup");
+      document.getElementById("form-signin").classList.toggle("hidden", mode !== "signin");
+      document.getElementById("form-signup").classList.toggle("hidden", mode !== "signup");
+    };
+
+    window.togglePw = (id) => {
+      const el = document.getElementById(id);
+      el.type = el.type === "password" ? "text" : "password";
+    };
+
+    window.toggleRdpPass = () => {
+      const el = document.getElementById("rdp-pass");
+      if (!el.dataset.secret) return;
+      el.textContent = el.textContent === "••••••••" ? el.dataset.secret : "••••••••";
+    };
+
+    window.copyRdpPass = () => {
+      const sec = document.getElementById("rdp-pass").dataset.secret;
+      if (sec) copyText(sec, "Windows Password copied!");
+    };
+
+    window.copyElem = (id) => copyText(document.getElementById(id).textContent, "Copied to clipboard!");
+    window.copyText = (txt, msg) => { navigator.clipboard.writeText(txt); alert(msg); };
+
+    let popoutShown = false;
+    function triggerPopout(title, body) {
+      if (popoutShown) return;
+      popoutShown = true;
+      document.getElementById("modal-title").textContent = title;
+      document.getElementById("modal-body").textContent = body;
+      document.getElementById("popout-modal").classList.remove("hidden");
+    }
+
+    window.openNoticePopout = () => {
+      document.getElementById("modal-title").textContent = "📢 Important Update from Mohan";
+      document.getElementById("modal-body").textContent = currentBroadcast;
+      document.getElementById("popout-modal").classList.remove("hidden");
+    };
+
+    window.closeModal = () => document.getElementById("popout-modal").classList.add("hidden");
+
+    function escapeHtml(str) {
+      return String(str || "").replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+    }
+  </script>
+</body>
+</html>
