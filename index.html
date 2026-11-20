@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Remote PC Rental Portal — Workstation & Renewal Hub</title>
+  <title>Lattice Cloud PC — Custom Remote Workstations & Multi-PC Portal</title>
   <style>
     :root {
       --bg: #090d16;
@@ -24,60 +24,61 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body {
-      background: radial-gradient(circle at top right, #172554 0%, var(--bg) 45%);
-      color: var(--text); line-height: 1.5; min-height: 100vh; padding-bottom: 70px;
+      background: radial-gradient(circle at top right, #172554 0%, var(--bg) 48%);
+      color: var(--text); line-height: 1.5; min-height: 100vh; padding-bottom: 75px;
     }
     .hidden { display: none !important; }
 
-    /* 3D Floating Workstation Animation */
+    /* 3D Floating Animations */
     @keyframes float3D {
       0%, 100% { transform: translateY(0px) rotateX(2deg) rotateY(-2deg); }
-      50% { transform: translateY(-10px) rotateX(-2deg) rotateY(3deg); }
+      50% { transform: translateY(-9px) rotateX(-2deg) rotateY(3deg); }
     }
     @keyframes pulseGlow {
-      0%, 100% { opacity: 0.6; }
+      0%, 100% { opacity: 0.65; }
       50% { opacity: 1; }
     }
-    .hero-3d-wrap {
-      perspective: 900px; display: flex; justify-content: center; margin-bottom: 14px;
-    }
     .hero-3d-svg {
-      width: 150px; height: 120px; animation: float3D 4.5s ease-in-out infinite;
-      filter: drop-shadow(0 14px 22px rgba(59, 130, 246, 0.35));
+      width: 155px; height: 125px; animation: float3D 4.5s ease-in-out infinite;
+      filter: drop-shadow(0 14px 24px rgba(59, 130, 246, 0.38)); flex-shrink: 0;
+    }
+    .gpu-3d-svg {
+      width: 105px; height: 78px; animation: float3D 5s ease-in-out infinite reverse;
+      filter: drop-shadow(0 10px 18px rgba(6, 182, 212, 0.3)); flex-shrink: 0;
     }
 
     /* Navbar */
     header {
-      background: rgba(19, 27, 46, 0.88); backdrop-filter: blur(12px);
+      background: rgba(19, 27, 46, 0.92); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border); padding: 12px 24px;
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
-      gap: 12px; position: sticky; top: 0; z-index: 50;
+      gap: 10px; position: sticky; top: 0; z-index: 50;
     }
-    .brand { font-size: 1.15rem; font-weight: 800; display: flex; align-items: center; gap: 10px; letter-spacing: -0.3px; }
+    .brand { font-size: 1.12rem; font-weight: 800; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .brand span { background: linear-gradient(90deg, #60a5fa, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .nav-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
     /* System Status Pill */
     .sys-pill {
-      display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px;
-      border-radius: 99px; font-size: 0.78rem; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px;
+      border-radius: 99px; font-size: 0.75rem; font-weight: 700;
       background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); color: var(--success);
     }
-    .sys-pill.maint {
-      background: rgba(245, 158, 11, 0.14); border-color: rgba(245, 158, 11, 0.4); color: var(--warning);
-    }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: pulseGlow 1.5s infinite; }
+    .sys-pill.maint { background: rgba(245, 158, 11, 0.14); border-color: rgba(245, 158, 11, 0.4); color: var(--warning); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulseGlow 1.5s infinite; }
 
     /* Buttons */
     button, .btn {
       cursor: pointer; border: none; border-radius: 9px; padding: 9px 15px;
-      font-size: 0.88rem; font-weight: 600; transition: 0.16s ease;
+      font-size: 0.87rem; font-weight: 600; transition: 0.16s ease;
       display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
     }
     .btn-primary { background: linear-gradient(135deg, var(--primary), #2563eb); color: #fff; }
     .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
     .btn-success { background: rgba(16, 185, 129, 0.16); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.35); }
     .btn-success:hover { background: var(--success); color: #052e16; }
+    .btn-warn { background: rgba(245, 158, 11, 0.16); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.38); }
+    .btn-warn:hover { background: var(--warning); color: #090d16; }
     .btn-outline { background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text); }
     .btn-outline:hover { background: var(--surface-2); border-color: #475569; }
     .btn-danger { background: rgba(239, 68, 68, 0.14); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.32); }
@@ -86,74 +87,99 @@
     .btn-whatsapp:hover { filter: brightness(1.07); }
     .btn-sm { padding: 5px 10px; font-size: 0.78rem; border-radius: 7px; }
 
-    /* Container & 3D Tilt Cards */
-    .container { max-width: 1180px; margin: 0 auto; padding: 22px 16px; }
+    /* Container & Cards */
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
     .card {
-      background: linear-gradient(180deg, rgba(26, 36, 61, 0.75) 0%, rgba(19, 27, 46, 0.92) 100%);
+      background: linear-gradient(180deg, rgba(26, 36, 61, 0.78) 0%, rgba(19, 27, 46, 0.94) 100%);
       border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); transition: transform 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
-    .card:hover { border-color: #3b4f7a; }
-    .card-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .card-title { font-size: 1.04rem; font-weight: 700; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    /* Promo Ad & Contact Banner */
+    .promo-card {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.6) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(96, 165, 250, 0.45); border-radius: var(--radius); padding: 20px 22px;
+      margin-bottom: 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px;
+    }
+    .offer-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+    .offer-pill {
+      background: rgba(16, 185, 129, 0.18); border: 1px solid rgba(16, 185, 129, 0.45);
+      color: #6ee7b7; padding: 4px 11px; border-radius: 99px; font-size: 0.76rem; font-weight: 700;
+    }
+    .offer-pill.gold {
+      background: rgba(245, 158, 11, 0.18); border-color: rgba(245, 158, 11, 0.45); color: #fcd34d;
+    }
+    .contact-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .chip {
+      background: rgba(9, 13, 22, 0.75); border: 1px solid var(--border); padding: 6px 12px;
+      border-radius: 99px; font-size: 0.8rem; color: #e2e8f0; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+    }
+    .chip:hover { border-color: var(--primary); color: #fff; }
 
     /* Highlighted Admin Broadcast Banner */
     .broadcast-banner {
-      background: linear-gradient(90deg, rgba(245, 158, 11, 0.22), rgba(59, 130, 246, 0.22));
-      border: 1px solid var(--warning); border-radius: var(--radius); padding: 14px 18px;
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.24), rgba(59, 130, 246, 0.24));
+      border: 1px solid var(--warning); border-radius: var(--radius); padding: 13px 18px;
       margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+      box-shadow: 0 0 22px rgba(245, 158, 11, 0.18);
     }
 
-    /* Forms & Password Eye Wrapper */
-    .auth-box { max-width: 480px; margin: 24px auto; }
-    .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+    /* Forms & Inputs */
+    .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
     .tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; color: var(--muted); font-weight: 600; border-bottom: 2px solid transparent; }
     .tab.active { color: #60a5fa; border-bottom-color: var(--primary); }
-    .form-group { margin-bottom: 13px; }
-    label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 5px; font-weight: 500; }
+    .form-group { margin-bottom: 12px; }
+    label { display: block; font-size: 0.81rem; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
     input, textarea, select {
-      width: 100%; padding: 10px 12px; border-radius: 8px;
-      border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 0.92rem;
+      width: 100%; padding: 9px 12px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 0.9rem;
     }
     input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); }
     .pw-wrap { position: relative; }
-    .pw-toggle {
-      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-      background: none; color: var(--muted); padding: 4px; font-size: 0.8rem;
-    }
+    .pw-toggle { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; color: var(--muted); padding: 4px; font-size: 0.8rem; }
 
     /* Grids & Stats */
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
-    .stat { background: var(--bg); border: 1px solid var(--border); border-radius: 11px; padding: 14px; }
-    .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-    .stat-value { font-size: 1.5rem; font-weight: 800; margin-top: 4px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+    .stat { background: var(--bg); border: 1px solid var(--border); border-radius: 11px; padding: 13px; }
+    .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-value { font-size: 1.38rem; font-weight: 800; margin-top: 4px; }
 
-    /* Progress Bar & Badges */
+    /* Progress & Badges */
     .progress-wrap { background: var(--bg); height: 10px; border-radius: 99px; overflow: hidden; margin: 14px 0 6px; border: 1px solid var(--border); }
     .progress-bar { height: 100%; background: var(--success); transition: width 0.4s ease; }
-    .badge { padding: 3px 10px; border-radius: 99px; font-size: 0.74rem; font-weight: 700; display: inline-block; }
+    .badge { padding: 3px 9px; border-radius: 99px; font-size: 0.73rem; font-weight: 700; display: inline-block; }
     .badge-active { background: rgba(16, 185, 129, 0.16); color: var(--success); }
     .badge-warn { background: rgba(245, 158, 11, 0.16); color: var(--warning); }
-    .badge-expired { background: rgba(239, 68, 68, 0.16); color: var(--danger); }
+    .badge-expired { background: rgba(239, 68, 68, 0.18); color: var(--danger); }
 
-    /* UPI & RDP Credential Boxes */
+    /* UPI & Credentials */
     .upi-box {
       background: var(--bg); border: 1px dashed var(--primary); border-radius: 11px;
       padding: 15px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
     }
     .upi-id { font-family: monospace; font-size: 1.05rem; color: #93c5fd; font-weight: 700; }
-    .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(40, 53, 84, 0.6); font-size: 0.89rem; gap: 8px; }
+    .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid rgba(40, 53, 84, 0.6); font-size: 0.88rem; gap: 8px; }
     .spec-row:last-child { border-bottom: none; }
     .spec-key { color: var(--muted); }
     .cred-box { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-top: 12px; }
 
-    /* Chat & History */
-    .msg-list { max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
-    .msg-item { background: var(--bg); border: 1px solid var(--border); padding: 10px 14px; border-radius: 10px; font-size: 0.89rem; }
-    .msg-reply { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); color: #93c5fd; font-size: 0.85rem; }
+    /* Collapsible History Dropdown */
+    details.history-dropdown {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; margin-bottom: 12px;
+    }
+    details.history-dropdown summary {
+      cursor: pointer; font-weight: 700; font-size: 0.9rem; color: #93c5fd; list-style: none; display: flex; justify-content: space-between; align-items: center;
+    }
+    details.history-dropdown summary::-webkit-details-marker { display: none; }
 
-    /* Toggle Switch */
+    /* Chat & Tables */
+    .msg-list { max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .msg-item { background: var(--bg); border: 1px solid var(--border); padding: 10px 14px; border-radius: 10px; font-size: 0.88rem; }
+    .msg-reply { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); color: #93c5fd; font-size: 0.84rem; }
+
     .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--bg); padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border); }
     .switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
     .switch input { opacity: 0; width: 0; height: 0; }
@@ -162,20 +188,18 @@
     input:checked + .slider { background: var(--success); }
     input:checked + .slider:before { transform: translateX(20px); }
 
-    /* Modals */
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.82); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 100; overflow-y: auto; }
-    .modal { background: var(--surface); border: 1px solid var(--primary); border-radius: 14px; max-width: 540px; width: 100%; padding: 22px; box-shadow: 0 24px 48px rgba(0,0,0,0.6); max-height: 90vh; overflow-y: auto; }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.85); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 100; overflow-y: auto; }
+    .modal { background: var(--surface); border: 1px solid var(--primary); border-radius: 14px; max-width: 580px; width: 100%; padding: 22px; box-shadow: 0 24px 48px rgba(0,0,0,0.65); max-height: 90vh; overflow-y: auto; }
 
-    /* Tables */
     .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    th, td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
     th { color: var(--muted); font-weight: 600; white-space: nowrap; }
+    tr.sos-row { background: rgba(239, 68, 68, 0.12); }
 
-    /* Floating WhatsApp */
     .wa-float {
       position: fixed; bottom: 18px; right: 18px; background: var(--whatsapp); color: #052e16;
-      padding: 11px 17px; border-radius: 99px; font-weight: 700; font-size: 0.88rem;
+      padding: 11px 17px; border-radius: 99px; font-weight: 700; font-size: 0.87rem;
       box-shadow: 0 8px 22px rgba(0,0,0,0.45); text-decoration: none; display: flex; align-items: center; gap: 7px; z-index: 90;
     }
     .wa-float:hover { transform: translateY(-2px); }
@@ -186,11 +210,12 @@
   <!-- NAVBAR -->
   <header>
     <div class="brand">
-      🖥️ <span>Remote PC</span> Rental Hub
+      🖥️ <span>Lattice Remote PC</span>
       <span id="header-sys-status" class="sys-pill"><span class="dot"></span> All Workstations Online</span>
     </div>
     <div class="nav-right">
-      <span id="user-greeting" class="hidden" style="font-size:0.84rem; color:var(--muted);"></span>
+      <button class="btn-outline btn-sm" onclick="sharePortal()">🔗 Share Site</button>
+      <span id="user-greeting" class="hidden" style="font-size:0.83rem; color:var(--muted);"></span>
       <button id="btn-nav-signin" class="btn-outline btn-sm" onclick="showAuth('signin')">Sign In</button>
       <button id="btn-nav-signup" class="btn-primary btn-sm" onclick="showAuth('signup')">Sign Up</button>
       <button id="btn-nav-signout" class="btn-danger btn-sm hidden" onclick="handleSignOut()">Sign Out</button>
@@ -199,142 +224,265 @@
 
   <div class="container">
 
+    <!-- PROMO AD & CONTACT DIRECTORY -->
+    <div class="promo-card">
+      <div style="flex:1; min-width:270px;">
+        <div class="offer-pills">
+          <span class="offer-pill">🎁 2-Hour Free Trial (Signed-Up Users Only)</span>
+          <span class="offer-pill gold">🤝 +2 Free Days Per Referral</span>
+        </div>
+        <h2 style="font-size:1.25rem; margin:4px 0 6px;">Remote Workstations Rented Strictly as Per Your Custom Requirements</h2>
+        <p style="font-size:0.87rem; color:#cbd5e1;">
+          Dedicated Ryzen/Intel CPU, high-speed DDR5 RAM, and NVIDIA RTX GPU workstations built to your exact specs for CAD, 3D Steel Detailing (SDS/2, Tekla, AutoCAD), and Rendering. <strong>Sign up free to unlock your 2-Hour Free Trial booking!</strong>
+        </p>
+        <div class="contact-chips">
+          <button type="button" class="chip" style="border-color:var(--whatsapp); color:#86efac; cursor:pointer;" onclick="handleLandingTrialClick()">🎁 Claim 2-Hr Free Trial (Sign Up First)</button>
+          <a href="https://wa.me/919790342116?text=Hi%20Mohan%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." target="_blank" class="chip">🇮🇳 +919790342116</a>
+          <a href="https://wa.me/19547512404?text=Hi%20Mohan%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." target="_blank" class="chip">🇺🇸 +19547512404</a>
+          <a href="mailto:latticesteel@gmail.com?subject=Remote%20PC%20Rental%20Inquiry" class="chip">✉️ latticesteel@gmail.com</a>
+        </div>
+      </div>
+
+      <!-- 3D Isometric Workstation Visual -->
+      <svg class="hero-3d-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="142" rx="68" ry="12" fill="rgba(59,130,246,0.25)"/>
+        <polygon points="100,92 165,118 100,144 35,118" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+        <polygon points="35,118 100,144 100,152 35,126" fill="#0f172a"/>
+        <polygon points="165,118 100,144 100,152 165,126" fill="#172554"/>
+        <polygon points="122,42 152,54 152,108 122,96" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1.5"/>
+        <polygon points="152,54 166,48 166,102 152,108" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+        <polygon points="122,42 136,36 166,48 152,54" fill="#2563eb"/>
+        <line x1="128" y1="62" x2="146" y2="69" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="128" y1="70" x2="146" y2="77" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+        <polygon points="44,34 112,60 112,106 44,80" fill="#090d16" stroke="#38bdf8" stroke-width="2.5"/>
+        <polygon points="50,42 106,63 106,98 50,77" fill="url(#screenGrad)"/>
+        <polygon points="72,91 84,96 84,112 72,107" fill="#475569"/>
+        <polygon points="58,108 98,123 88,128 48,113" fill="#64748b"/>
+        <defs>
+          <linearGradient id="screenGrad" x1="50" y1="42" x2="106" y2="98" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2563eb"/>
+            <stop offset="1" stop-color="#06b6d4"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
     <!-- HIGHLIGHTED ADMIN BROADCAST BANNER -->
     <div id="broadcast-banner" class="broadcast-banner hidden">
       <div>
-        <strong style="color:var(--warning);">📢 Important Notice:</strong>
+        <strong style="color:var(--warning);">📢 Notice from Admin:</strong>
         <span id="broadcast-text" style="margin-left:6px;"></span>
       </div>
       <button class="btn-outline btn-sm" onclick="openNoticePopout()">View Popout</button>
     </div>
 
-    <!-- AUTH SECTION (SIGN IN / SIGN UP WITH 3D WORKSTATION ILLUSTRATION) -->
-    <div id="auth-section" class="card auth-box">
-      <div class="hero-3d-wrap">
-        <!-- Animated 3D Isometric Workstation SVG -->
-        <svg class="hero-3d-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="100" cy="142" rx="68" ry="12" fill="rgba(59,130,246,0.22)"/>
-          <!-- Isometric Base Platform -->
-          <polygon points="100,92 165,118 100,144 35,118" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
-          <polygon points="35,118 100,144 100,152 35,126" fill="#0f172a"/>
-          <polygon points="165,118 100,144 100,152 165,126" fill="#172554"/>
-          <!-- Tower Case -->
-          <polygon points="122,42 152,54 152,108 122,96" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1.5"/>
-          <polygon points="152,54 166,48 166,102 152,108" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
-          <polygon points="122,42 136,36 166,48 152,54" fill="#2563eb"/>
-          <line x1="128" y1="62" x2="146" y2="69" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="128" y1="70" x2="146" y2="77" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
-          <!-- Isometric Monitor -->
-          <polygon points="44,34 112,60 112,106 44,80" fill="#090d16" stroke="#38bdf8" stroke-width="2.5"/>
-          <polygon points="50,42 106,63 106,98 50,77" fill="url(#screenGrad)"/>
-          <polygon points="72,91 84,96 84,112 72,107" fill="#475569"/>
-          <polygon points="58,108 98,123 88,128 48,113" fill="#64748b"/>
-          <defs>
-            <linearGradient id="screenGrad" x1="50" y1="42" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#2563eb"/>
-              <stop offset="1" stop-color="#06b6d4"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-
-      <div class="tabs">
-        <div id="tab-signin" class="tab active" onclick="showAuth('signin')">Sign In</div>
-        <div id="tab-signup" class="tab" onclick="showAuth('signup')">Create Account (Sign Up)</div>
-      </div>
-
-      <!-- SIGN IN FORM -->
-      <form id="form-signin" onsubmit="handleSignIn(event)">
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" id="signin-email" required placeholder="you@example.com" />
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <div class="pw-wrap">
-            <input type="password" id="signin-password" required placeholder="Enter your password" />
-            <button type="button" class="pw-toggle" onclick="togglePw('signin-password')">👁️</button>
-          </div>
-        </div>
-        <button type="submit" class="btn-primary" style="width:100%;">Sign In to Portal</button>
-      </form>
-
-      <!-- SIGN UP FORM -->
-      <form id="form-signup" class="hidden" onsubmit="handleSignUp(event)">
-        <div class="form-group">
-          <label>Full Name *</label>
-          <input type="text" id="signup-name" required placeholder="Enter your full name" />
-        </div>
-        <div class="form-group">
-          <label>Email ID *</label>
-          <input type="email" id="signup-email" required placeholder="you@example.com" />
-        </div>
-        <div class="form-group">
-          <label>Create Password (min 6 characters) *</label>
-          <div class="pw-wrap">
-            <input type="password" id="signup-password" required minlength="6" placeholder="Create a strong password" />
-            <button type="button" class="pw-toggle" onclick="togglePw('signup-password')">👁️</button>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Phone Number (WhatsApp) *</label>
-          <input type="tel" id="signup-phone" required placeholder="+91 9876543210" />
-        </div>
-        <div class="form-group">
-          <label>Current Address *</label>
-          <textarea id="signup-address" rows="2" required placeholder="Door No, Street, City, State, PIN"></textarea>
+    <!-- LANDING / AUTH SECTION -->
+    <div id="auth-section" class="grid-2">
+      <!-- Left: Sign In / Sign Up -->
+      <div class="card">
+        <div class="tabs">
+          <div id="tab-signin" class="tab active" onclick="showAuth('signin')">Client Sign In</div>
+          <div id="tab-signup" class="tab" onclick="showAuth('signup')">New Client Sign Up</div>
         </div>
 
-        <!-- CONDITIONAL KYC FIELDS (Controlled by Admin Toggle) -->
-        <div id="kyc-signup-fields" class="hidden">
+        <form id="form-signin" onsubmit="handleSignIn(event)">
           <div class="form-group">
-            <label>Aadhaar Number (12 Digits) *</label>
-            <input type="text" id="signup-aadhaar" maxlength="14" placeholder="XXXX XXXX XXXX" />
+            <label>Email Address</label>
+            <input type="email" id="signin-email" required placeholder="you@example.com" />
           </div>
           <div class="form-group">
-            <label>Digital ID Proof (Image or PDF) *</label>
-            <input type="file" id="signup-proof" accept="image/*,.pdf" />
-            <small style="color:var(--muted); font-size:0.74rem;">Max 700 KB (Image/PDF) for admin verification.</small>
+            <label>Password</label>
+            <div class="pw-wrap">
+              <input type="password" id="signin-password" required placeholder="Enter your password" />
+              <button type="button" class="pw-toggle" onclick="togglePw('signin-password')">👁️</button>
+            </div>
           </div>
+          <button type="submit" class="btn-primary" style="width:100%;">Sign In to Dashboard</button>
+        </form>
+
+        <form id="form-signup" class="hidden" onsubmit="handleSignUp(event)">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="signup-name" required placeholder="Enter your full name" />
+          </div>
+          <div class="form-group">
+            <label>Email ID *</label>
+            <input type="email" id="signup-email" required placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label>Create Password (min 6 characters) *</label>
+            <div class="pw-wrap">
+              <input type="password" id="signup-password" required minlength="6" placeholder="Create a strong password" />
+              <button type="button" class="pw-toggle" onclick="togglePw('signup-password')">👁️</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Phone Number (WhatsApp) *</label>
+            <input type="tel" id="signup-phone" required placeholder="+91 9876543210 or +1..." />
+          </div>
+          <div class="form-group">
+            <label>Current Address *</label>
+            <textarea id="signup-address" rows="2" required placeholder="Door No, Street, City, State, PIN / Zip"></textarea>
+          </div>
+          <div class="grid-2" style="gap:10px;">
+            <div class="form-group">
+              <label>Initial PC Count Needed *</label>
+              <input type="number" id="signup-pccount" min="1" max="100" value="1" required />
+            </div>
+            <div class="form-group">
+              <label>Referred By (+2 Free Days!)</label>
+              <input type="text" id="signup-ref" placeholder="Friend's name" />
+            </div>
+          </div>
+
+          <!-- CONDITIONAL KYC FIELDS (Controlled by Admin Toggle) -->
+          <div id="kyc-signup-fields" class="hidden">
+            <div class="form-group">
+              <label>Aadhaar / Govt ID Number *</label>
+              <input type="text" id="signup-aadhaar" maxlength="16" placeholder="XXXX XXXX XXXX" />
+            </div>
+            <div class="form-group">
+              <label>Digital ID Proof (Image or PDF) *</label>
+              <input type="file" id="signup-proof" accept="image/*,.pdf" />
+              <small style="color:var(--muted); font-size:0.74rem;">Max 700 KB (Image/PDF) for admin verification.</small>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%;">Create Account & Unlock 2-Hr Trial</button>
+        </form>
+        <p id="auth-msg" style="margin-top:12px; font-size:0.84rem; color:var(--warning); text-align:center;"></p>
+      </div>
+
+      <!-- Right: Custom PC Quote Request (Paid Plans Only for Visitors; Free Trial Unlocked After Sign Up) -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px;">
+          <div>
+            <div style="font-size:1.05rem; font-weight:700;">🛠️ Custom PC Rental Quote Builder</div>
+            <p style="font-size:0.83rem; color:var(--muted); margin-top:3px;">
+              Configure your required workstation specs & PC count to get an instant quote. <em>(2-Hour Free Trial unlocks inside your dashboard right after Sign Up!)</em>
+            </p>
+          </div>
+          <svg class="gpu-3d-svg" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="80,18 145,48 80,78 15,48" fill="#1e293b" stroke="#22d3ee" stroke-width="2"/>
+            <polygon points="15,48 80,78 80,98 15,68" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+            <polygon points="145,48 80,78 80,98 145,68" fill="#172554" stroke="#3b82f6" stroke-width="1.5"/>
+            <ellipse cx="58" cy="48" rx="16" ry="9" fill="#090d16" stroke="#38bdf8" stroke-width="2"/>
+            <ellipse cx="102" cy="48" rx="16" ry="9" fill="#090d16" stroke="#38bdf8" stroke-width="2"/>
+            <circle cx="58" cy="48" r="4" fill="#22d3ee"/>
+            <circle cx="102" cy="48" r="4" fill="#22d3ee"/>
+            <line x1="30" y1="68" x2="65" y2="84" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
         </div>
 
-        <button type="submit" class="btn-primary" style="width:100%;">Create Account & Enter Portal</button>
-      </form>
-      <p id="auth-msg" style="margin-top:12px; font-size:0.84rem; color:var(--warning); text-align:center;"></p>
+        <div class="grid-2" style="gap:10px;">
+          <div class="form-group">
+            <label>Processor (CPU)</label>
+            <select id="q-cpu">
+              <option>AMD Ryzen 9 9950X / 7950X</option>
+              <option>Intel Core i9 / i7 High-Clock</option>
+              <option>AMD Ryzen 7 / 5 Workstation</option>
+              <option>Custom / Not Sure</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>RAM Memory</label>
+            <select id="q-ram">
+              <option>32 GB DDR5</option>
+              <option selected>64 GB DDR5</option>
+              <option>128 GB DDR5</option>
+              <option>16 GB RAM</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2" style="gap:10px;">
+          <div class="form-group">
+            <label>Graphics Card (GPU)</label>
+            <select id="q-gpu">
+              <option>NVIDIA RTX 3060 12GB</option>
+              <option>NVIDIA RTX 3090 24GB / 4090</option>
+              <option>NVIDIA RTX 4060 / 4070</option>
+              <option>Standard Workstation GPU</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Number of PCs & Duration</label>
+            <select id="q-dur">
+              <option>1 PC — 30-Day Monthly Rental</option>
+              <option>2 to 5 PCs — Team Rental</option>
+              <option>5 to 10+ PCs — Enterprise Bulk</option>
+              <option>Long-Term (3+ Months)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Required Software / Special Notes</label>
+          <input type="text" id="q-soft" placeholder="e.g., SDS/2, Tekla Structures, AutoCAD, AVEVA E3D..." />
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button type="button" class="btn-whatsapp" style="flex:1;" onclick="sendCustomQuote('919790342116')">🇮🇳 Quote via India WhatsApp</button>
+          <button type="button" class="btn-outline" style="flex:1;" onclick="sendCustomQuote('19547512404')">🇺🇸 Quote via US WhatsApp</button>
+        </div>
+      </div>
     </div>
 
     <!-- CLIENT DASHBOARD -->
     <div id="client-dashboard" class="hidden">
-      <!-- Verification Status Alert (if Pending or Rejected) -->
+      <!-- Verification Alert -->
       <div id="client-verify-alert" class="card hidden" style="border-color:var(--warning); background:rgba(245,158,11,0.08);">
         <strong id="verify-alert-title" style="color:var(--warning);">⏳ Account Verification Pending</strong>
-        <p id="verify-alert-desc" style="font-size:0.88rem; color:var(--muted); margin-top:4px;">
-          Your registration details have been submitted to Mohan. Once verified and approved, your assigned PC credentials will appear below.
+        <p id="verify-alert-desc" style="font-size:0.87rem; color:var(--muted); margin-top:4px;">
+          Your registration details have been submitted to Mohan. Click below to notify us on WhatsApp for faster activation.
         </p>
+        <a id="btn-wa-verify-nudge" href="#" target="_blank" class="btn btn-whatsapp btn-sm" style="margin-top:8px;">📲 Intimate Mohan on WhatsApp for Approval</a>
       </div>
 
-      <!-- Subscription & Renewal Countdown -->
+      <!-- Signed-Up User Exclusive: 2-Hour Free Trial Booking Card -->
+      <div id="client-trial-card" class="card" style="border-color:rgba(16,185,129,0.45); background:linear-gradient(90deg, rgba(16,185,129,0.12), rgba(19,27,46,0.94));">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+          <div>
+            <strong style="color:#6ee7b7; font-size:0.98rem;">🎁 Exclusive Member Perk: 2-Hour Free Workstation Trial</strong>
+            <p id="client-trial-sub" style="font-size:0.84rem; color:var(--muted); margin-top:2px;">
+              Test our low-latency remote workstation with your CAD/3D files free for 2 hours before paying for your monthly plan.
+            </p>
+          </div>
+          <button id="btn-book-trial" class="btn-whatsapp btn-sm" onclick="bookSignedUpFreeTrial()">🎁 Book My 2-Hr Free Trial Now</button>
+        </div>
+      </div>
+
+      <!-- Subscription, Multi-PC Pricing & Renewal Countdown -->
       <div class="card">
         <div class="card-title">
-          <span>⏳ Rental Period & Renewal Reminder</span>
-          <div>
-            <span id="verify-badge" class="badge badge-warn" style="margin-right:6px;">Pending Verification</span>
+          <span>⏳ Rental Period, PC Quantity & Renewal Reminder</span>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <span id="verify-badge" class="badge badge-warn">Pending</span>
             <span id="status-badge" class="badge badge-active">Active</span>
+            <button id="btn-sos-reboot" class="btn-danger btn-sm" onclick="triggerRebootSOS()">🚨 PC Frozen / Need Reboot</button>
           </div>
         </div>
 
-        <div class="grid-3">
+        <div class="grid-4">
           <div class="stat">
-            <div class="stat-label">Monthly Rented Amount</div>
-            <div class="stat-value" id="disp-rent">₹0</div>
+            <div class="stat-label">Per-PC Rate & Discount</div>
+            <div class="stat-value" id="disp-unit-rate">₹0</div>
+            <div id="disp-discount-note" style="font-size:0.75rem; color:var(--success); margin-top:2px;">No discount applied</div>
           </div>
           <div class="stat">
-            <div class="stat-label">Total Period Taken</div>
-            <div class="stat-value" id="disp-total-days">30 Days</div>
+            <div class="stat-label">Required PC Count</div>
+            <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+              <input type="number" id="client-pc-qty" min="1" max="100" value="1" style="width:78px; padding:6px 8px; font-weight:800; font-size:1.1rem;" />
+              <button class="btn-primary btn-sm" onclick="updateClientPcQty()">Update</button>
+            </div>
+            <div style="font-size:0.73rem; color:var(--muted); margin-top:3px;">Enter 1, 5, 10+ PCs</div>
+          </div>
+          <div class="stat" style="border-color:var(--primary);">
+            <div class="stat-label">Final Total Payable</div>
+            <div class="stat-value" id="disp-total-payable" style="color:#60a5fa;">₹0</div>
+            <div id="disp-calc-breakdown" style="font-size:0.74rem; color:var(--muted); margin-top:2px;">1 PC × ₹0</div>
           </div>
           <div class="stat">
             <div class="stat-label">Balance Days Remaining</div>
             <div class="stat-value" id="disp-balance-days" style="color:var(--success);">0 Days</div>
+            <div style="font-size:0.74rem; color:var(--muted); margin-top:2px;">Out of <span id="disp-total-days">30 Days</span></div>
           </div>
         </div>
 
@@ -348,29 +496,45 @@
       </div>
 
       <div class="grid-2">
-        <!-- UPI Renewal & WhatsApp Intimation -->
+        <!-- Payment & WhatsApp Intimation (QR auto-updates with PC Count & Discount!) -->
         <div class="card">
-          <div class="card-title">💳 Instant Renewal via UPI</div>
-          <p style="font-size:0.86rem; color:var(--muted); margin-bottom:12px;">
-            Renew anytime using the UPI ID or QR below, then click the WhatsApp button to intimate Mohan immediately.
-          </p>
-          <div class="upi-box">
-            <div>
-              <div style="font-size:0.74rem; color:var(--muted);">UPI ID</div>
-              <div class="upi-id" id="upi-text">9790342116@payment</div>
-              <button class="btn-outline btn-sm" style="margin-top:8px;" onclick="copyText('9790342116@payment', 'UPI ID copied!')">📋 Copy UPI ID</button>
+          <div class="card-title">💳 Instant Renewal & Auto-Amount Scanner</div>
+          <div id="inr-upi-section">
+            <p style="font-size:0.85rem; color:var(--muted); margin-bottom:12px;">
+              Scan the QR below—it automatically loads your exact total (<strong id="qr-amount-label" style="color:var(--text);">₹0</strong>) for <strong id="qr-qty-label" style="color:var(--text);">1 PC</strong>. Then click WhatsApp to intimate Mohan!
+            </p>
+            <div class="upi-box">
+              <div>
+                <div style="font-size:0.74rem; color:var(--muted);">UPI ID</div>
+                <div class="upi-id">9790342116@icici</div>
+                <button class="btn-outline btn-sm" style="margin-top:8px;" onclick="copyText('9790342116@icici', 'UPI ID copied!')">📋 Copy UPI ID</button>
+              </div>
+              <img id="upi-qr" alt="UPI QR" style="width:110px; height:110px; border-radius:8px; background:#fff; padding:4px;" />
             </div>
-            <img id="upi-qr" alt="UPI QR" style="width:105px; height:105px; border-radius:8px; background:#fff; padding:4px;" />
           </div>
 
-          <div style="margin-top:14px;">
-            <a id="btn-wa-renew" href="#" target="_blank" class="btn btn-whatsapp" style="width:100%;">
-              💬 Intimate Renewal on WhatsApp
+          <div id="usd-pay-section" class="hidden">
+            <div class="upi-box">
+              <div>
+                <div style="font-size:0.85rem; color:#93c5fd; font-weight:700;">International / USD Billing (<span id="usd-total-label">$0</span>)</div>
+                <div style="font-size:0.84rem; color:var(--muted); margin-top:4px;">
+                  Contact us via US WhatsApp (<strong>+19547512404</strong>) or Email (<strong>latticesteel@gmail.com</strong>) for wire/card renewal link.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
+            <a id="btn-wa-renew" href="#" target="_blank" class="btn btn-whatsapp" style="flex:1;">
+              🇮🇳 Intimate Renewal (+91)
+            </a>
+            <a id="btn-wa-renew-us" href="#" target="_blank" class="btn btn-outline" style="flex:1;">
+              🇺🇸 Intimate Renewal (+1 US)
             </a>
           </div>
         </div>
 
-        <!-- Assigned PC Specs + RDP / Tailscale Credentials Box -->
+        <!-- Assigned PC Specs + RDP / Tailscale Credentials -->
         <div class="card">
           <div class="card-title">🖥️ Your Assigned PC & Remote Login</div>
           <div class="spec-row"><span class="spec-key">Processor (CPU)</span><strong id="spec-cpu">Pending Assignment</strong></div>
@@ -379,9 +543,8 @@
           <div class="spec-row"><span class="spec-key">Storage</span><strong id="spec-storage">--</strong></div>
           <div class="spec-row"><span class="spec-key">Installed Software</span><strong id="spec-notes">--</strong></div>
 
-          <!-- Extra #1: RDP / Tailscale Credentials Box -->
           <div class="cred-box">
-            <div style="font-size:0.76rem; color:#60a5fa; font-weight:700; margin-bottom:6px; text-transform:uppercase;">🔐 Remote Connection Credentials</div>
+            <div style="font-size:0.75rem; color:#60a5fa; font-weight:700; margin-bottom:6px; text-transform:uppercase;">🔐 Remote Connection Credentials</div>
             <div class="spec-row">
               <span class="spec-key">Tailscale / RDP IP</span>
               <span><strong id="rdp-ip" style="font-family:monospace;">--</strong> <button class="btn-outline btn-sm" onclick="copyElem('rdp-ip')">Copy</button></span>
@@ -403,28 +566,48 @@
       </div>
 
       <div class="grid-2">
-        <!-- Option #1: Client Requirement & Support Box -->
+        <!-- Client Requirement & Support Box -->
         <div class="card">
           <div class="card-title">💬 Post Requirement / Request Support</div>
           <div id="client-msg-list" class="msg-list"></div>
-          <form onsubmit="submitRequirement(event)" style="display:flex; gap:10px;">
+          <form onsubmit="submitRequirement(event)" style="display:flex; gap:8px;">
             <input type="text" id="req-input" required placeholder="Need software install, spec upgrade, or help? Type here..." />
             <button type="submit" class="btn-primary">Send</button>
           </form>
+          <div id="post-msg-wa-prompt" class="hidden" style="margin-top:10px; background:rgba(37,211,102,0.12); border:1px solid var(--whatsapp); padding:9px 12px; border-radius:9px; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <span style="font-size:0.82rem;">✅ Posted! Want instant attention?</span>
+            <a id="post-msg-wa-link" href="#" target="_blank" class="btn btn-whatsapp btn-sm">📲 Ping Mohan on WhatsApp</a>
+          </div>
         </div>
 
-        <!-- Extra #2: Payment & Renewal History Log -->
+        <!-- Collapsible Dropdown History + +2 Free Days Referral Reward Card -->
         <div class="card">
-          <div class="card-title">🧾 Payment & Renewal History</div>
-          <div class="table-wrap" style="max-height:260px; overflow-y:auto;">
-            <table>
-              <thead>
-                <tr><th>Date</th><th>Amount</th><th>Period Added</th><th>New Expiry</th></tr>
-              </thead>
-              <tbody id="client-history-tbody">
-                <tr><td colspan="4" style="color:var(--muted);">No renewals recorded yet.</td></tr>
-              </tbody>
-            </table>
+          <div class="card-title">🧾 Past Renewals, Trials & Referral Rewards</div>
+
+          <!-- COLLAPSIBLE DROPDOWN BOX FOR CLIENT HISTORY -->
+          <details class="history-dropdown">
+            <summary>
+              <span>📂 Click to View Past Renewals, Trials & Paid History (<span id="hist-count">0</span>)</span>
+              <span>▼</span>
+            </summary>
+            <div class="table-wrap" style="margin-top:10px; max-height:200px; overflow-y:auto;">
+              <table>
+                <thead>
+                  <tr><th>Date</th><th>Plan / Type</th><th>PCs</th><th>Paid</th><th>Expiry</th></tr>
+                </thead>
+                <tbody id="client-history-tbody">
+                  <tr><td colspan="5" style="color:var(--muted);">No past renewals or trials recorded yet.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+
+          <div class="cred-box" style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; border-color:rgba(245,158,11,0.45);">
+            <div>
+              <strong style="font-size:0.87rem; color:#fcd34d;">🤝 Refer a Friend = +2 Free Days!</strong>
+              <div style="font-size:0.78rem; color:var(--muted);">Share your link—every friend who joins adds +2 free days to your plan</div>
+            </div>
+            <button class="btn-whatsapp btn-sm" onclick="shareClientReferral()">📲 Share Referral Link</button>
           </div>
         </div>
       </div>
@@ -435,23 +618,22 @@
       <div class="card" style="border-color:var(--primary);">
         <div class="card-title">
           <span>🛡️ Admin Control Center (Mohan)</span>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+            <span id="admin-alert-counter" class="badge badge-warn">0 Pending | 0 Trials | 0 SOS</span>
             <button class="btn-primary btn-sm" onclick="openAddClientModal()">➕ Add New Client</button>
           </div>
         </div>
 
         <div class="grid-3">
-          <!-- Option #2: Post Highlighted Announcement -->
           <div>
-            <label><strong>📢 Highlighted Website Notice</strong></label>
+            <label><strong>📢 Post Highlighted Notice & Live Popout</strong></label>
             <div style="display:flex; gap:6px; margin-top:6px;">
-              <input type="text" id="admin-broadcast-input" placeholder="Post message to all clients..." />
-              <button class="btn-primary btn-sm" onclick="saveBroadcast()">Post</button>
+              <input type="text" id="admin-broadcast-input" placeholder="Pops up live on all client screens..." />
+              <button class="btn-primary btn-sm" onclick="saveBroadcast()">Post & Pop</button>
               <button class="btn-outline btn-sm" onclick="clearBroadcast()">Clear</button>
             </div>
           </div>
 
-          <!-- KYC Verification Toggle -->
           <div>
             <label><strong>🪪 Sign-Up KYC Requirement</strong></label>
             <div class="switch-row" style="margin-top:6px;">
@@ -466,13 +648,12 @@
             </div>
           </div>
 
-          <!-- Extra #4: System Status Toggle -->
           <div>
             <label><strong>🟢 Workstation Server Status</strong></label>
             <div class="switch-row" style="margin-top:6px;">
               <div>
                 <div style="font-size:0.85rem; font-weight:600;" id="sys-toggle-title">All Workstations Online</div>
-                <div style="font-size:0.74rem; color:var(--muted);">Toggle OFF for Maintenance banner</div>
+                <div style="font-size:0.74rem; color:var(--muted);">Toggle OFF for Maintenance</div>
               </div>
               <label class="switch">
                 <input type="checkbox" id="toggle-sys" checked onchange="toggleSysSetting(this.checked)" />
@@ -486,16 +667,15 @@
       <!-- MANAGE CLIENTS TABLE -->
       <div class="card">
         <div class="card-title">
-          <span>👥 Client Management, Verification & Renewals</span>
-          <span style="font-size:0.8rem; color:var(--muted);">Each client sees only their own record</span>
+          <span>👥 Client Management, PC Count, % Discounts, Trials & History</span>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>Client & Address</th>
-                <th>Verification & KYC</th>
-                <th>Rent & Expiry</th>
+                <th>Client & Referral</th>
+                <th>Status, Trial & SOS</th>
+                <th>PC Qty, Rate & Discount</th>
                 <th>PC Specs & RDP</th>
                 <th>Quick Actions</th>
               </tr>
@@ -507,20 +687,21 @@
 
       <!-- CLIENT REQUIREMENTS & ADMIN REPLIES -->
       <div class="card">
-        <div class="card-title">📩 Client Requirements & Replies</div>
+        <div class="card-title">📩 Client Requirements & WhatsApp Follow-Up</div>
         <div id="admin-msg-list" class="msg-list" style="max-height:360px;"></div>
       </div>
     </div>
 
   </div>
 
-  <!-- POPOUT MODAL (Renewal Reminder & Highlighted Announcements) -->
+  <!-- POPOUT MODAL (Fires automatically on new Admin Broadcast or Renewal Reminder) -->
   <div id="popout-modal" class="modal-backdrop hidden">
     <div class="modal">
-      <h3 id="modal-title" style="margin-bottom:10px; color:var(--warning);">🔔 Renewal Reminder</h3>
-      <p id="modal-body" style="font-size:0.94rem; color:var(--text); margin-bottom:18px;"></p>
-      <div style="display:flex; gap:10px; justify-content:flex-end;">
-        <a id="modal-wa-btn" href="https://wa.me/919790342116" target="_blank" class="btn btn-whatsapp btn-sm">WhatsApp Mohan</a>
+      <h3 id="modal-title" style="margin-bottom:10px; color:var(--warning);">🔔 Notice</h3>
+      <p id="modal-body" style="font-size:0.94rem; color:var(--text); margin-bottom:18px; white-space:pre-line;"></p>
+      <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+        <a id="modal-wa-btn" href="https://wa.me/919790342116" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp (+91)</a>
+        <a href="https://wa.me/19547512404" target="_blank" class="btn btn-outline btn-sm">🇺🇸 WhatsApp (+1)</a>
         <button class="btn-primary btn-sm" onclick="closeModal()">Got It</button>
       </div>
     </div>
@@ -537,28 +718,55 @@
     </div>
   </div>
 
+  <!-- ADMIN HISTORY MANAGER MODAL (View, Add, Edit, Delete User History Entries) -->
+  <div id="admin-history-modal" class="modal-backdrop hidden">
+    <div class="modal" style="max-width:640px;">
+      <h3 id="hist-modal-title" style="margin-bottom:10px;">🧾 Manage Client Renewal & Trial History</h3>
+      <input type="hidden" id="hist-modal-uid" />
+
+      <div class="table-wrap" style="max-height:220px; overflow-y:auto; margin-bottom:14px;">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Description / Type</th><th>PCs</th><th>Amount</th><th>New Expiry</th><th>Action</th></tr>
+          </thead>
+          <tbody id="admin-hist-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="cred-box">
+        <strong style="font-size:0.85rem; color:#60a5fa;">➕ Add / Record Manual History Entry (Renewal or Trial)</strong>
+        <div class="grid-3" style="gap:8px; margin-top:8px;">
+          <div class="form-group"><label>Date</label><input type="date" id="new-hist-date" /></div>
+          <div class="form-group"><label>Type / Label</label><input type="text" id="new-hist-label" placeholder="e.g., 30d Renewal or 2-Hr Trial" /></div>
+          <div class="form-group"><label>PC Count</label><input type="number" id="new-hist-pcs" value="1" min="1" /></div>
+        </div>
+        <div class="grid-3" style="gap:8px;">
+          <div class="form-group"><label>Amount Paid</label><input type="number" id="new-hist-amt" value="3500" /></div>
+          <div class="form-group"><label>Days Added</label><input type="number" id="new-hist-days" value="30" /></div>
+          <div class="form-group"><label>Expiry Date</label><input type="date" id="new-hist-exp" /></div>
+        </div>
+        <button class="btn-primary btn-sm" onclick="addAdminHistoryEntry()">Save History Record</button>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; margin-top:14px;">
+        <button class="btn-outline btn-sm" onclick="document.getElementById('admin-history-modal').classList.add('hidden')">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ADD / EDIT CLIENT MODAL (Admin) -->
   <div id="edit-client-modal" class="modal-backdrop hidden">
     <div class="modal">
-      <h3 id="edit-modal-heading" style="margin-bottom:12px;">✏️ Edit Client Plan, Specs & RDP</h3>
+      <h3 id="edit-modal-heading" style="margin-bottom:12px;">✏️ Edit Client Plan, PC Count, Discount & Specs</h3>
       <input type="hidden" id="edit-uid" />
       <input type="hidden" id="edit-is-new" value="0" />
 
       <div class="grid-2" style="gap:10px;">
-        <div class="form-group">
-          <label>Client Name *</label>
-          <input type="text" id="edit-name" required />
-        </div>
-        <div class="form-group">
-          <label>Email ID *</label>
-          <input type="email" id="edit-email" required />
-        </div>
+        <div class="form-group"><label>Client Name *</label><input type="text" id="edit-name" required /></div>
+        <div class="form-group"><label>Email ID *</label><input type="email" id="edit-email" required /></div>
       </div>
       <div class="grid-2" style="gap:10px;">
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input type="text" id="edit-phone" />
-        </div>
+        <div class="form-group"><label>Phone Number</label><input type="text" id="edit-phone" /></div>
         <div class="form-group">
           <label>Verification Status</label>
           <select id="edit-verified">
@@ -568,30 +776,25 @@
           </select>
         </div>
       </div>
-      <div class="form-group">
-        <label>Current Address</label>
-        <input type="text" id="edit-address" />
+      <div class="form-group"><label>Current Address</label><input type="text" id="edit-address" /></div>
+
+      <div class="grid-4" style="gap:8px;">
+        <div class="form-group">
+          <label>Currency</label>
+          <select id="edit-currency">
+            <option value="INR">₹ INR</option>
+            <option value="USD">$ USD</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Per-PC Rate</label><input type="number" id="edit-rent" value="3500" /></div>
+        <div class="form-group"><label>PC Qty (Users)</label><input type="number" id="edit-pccount" value="1" min="1" /></div>
+        <div class="form-group"><label>Discount (%)</label><input type="number" id="edit-discount" value="0" min="0" max="100" /></div>
       </div>
 
-      <div class="grid-2" style="gap:10px;">
-        <div class="form-group">
-          <label>Rent Amount (₹)</label>
-          <input type="number" id="edit-rent" value="3500" />
-        </div>
-        <div class="form-group">
-          <label>Total Period (Days)</label>
-          <input type="number" id="edit-days" value="30" />
-        </div>
-      </div>
-      <div class="grid-2" style="gap:10px;">
-        <div class="form-group">
-          <label>Start Date</label>
-          <input type="date" id="edit-start" />
-        </div>
-        <div class="form-group">
-          <label>Expiry Date</label>
-          <input type="date" id="edit-expiry" />
-        </div>
+      <div class="grid-3" style="gap:10px;">
+        <div class="form-group"><label>Total Period (Days)</label><input type="number" id="edit-days" value="30" /></div>
+        <div class="form-group"><label>Start Date</label><input type="date" id="edit-start" /></div>
+        <div class="form-group"><label>Expiry Date</label><input type="date" id="edit-expiry" /></div>
       </div>
 
       <hr style="border-color:var(--border); margin:10px 0;" />
@@ -633,7 +836,7 @@
     // =========================================================================
     // PASTE YOUR FREE FIREBASE SPARK CONFIG HERE
     // =========================================================================
-    const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyDHQkwAASTmkXQ-dCxcRedfX1pQ6AEl4G8",
     authDomain: "remote-pc-rental.firebaseapp.com",
     projectId: "remote-pc-rental",
@@ -644,25 +847,45 @@
 
     const ADMIN_EMAIL = "mohanrajramesh4030@gmail.com";
     const UPI_ID = "9790342116@icici";
-    const WHATSAPP_NUMBER = "919790342116";
+    const WA_IN = "919790342116";
+    const WA_US = "19547512404";
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
     let currentUser = null;
+    let currentClientData = null;
     let kycRequired = false;
     let currentBroadcast = "";
+    let lastSeenBroadcastId = null;
     let cachedClients = {};
 
-    // Listen to Global Settings (KYC Toggle, Highlighted Broadcast, System Status)
+    // Helper: Calculate Final Total = (Per-PC Rate * PC Qty) - Discount %
+    function calcTotals(u) {
+      const rate = Number(u.rentAmount || 0);
+      const qty = Math.max(1, Number(u.pcCount || 1));
+      const disc = Math.min(100, Math.max(0, Number(u.discountPercent || 0)));
+      const subtotal = rate * qty;
+      const discountAmt = Math.round((subtotal * disc) / 100);
+      const finalTotal = Math.max(0, subtotal - discountAmt);
+      return { rate, qty, disc, subtotal, discountAmt, finalTotal };
+    }
+
+    // Auto-fill referral parameter from URL (?ref=Name)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("ref")) {
+      document.getElementById("signup-ref").value = urlParams.get("ref");
+    }
+
+    // Listen to Global Settings (Broadcast Popout, KYC Toggle, System Status)
     onSnapshot(doc(db, "settings", "global"), (snap) => {
-      const data = snap.exists() ? snap.data() : { kycRequired: false, broadcast: "", sysOnline: true };
+      const data = snap.exists() ? snap.data() : { kycRequired: false, broadcast: "", broadcastId: 0, sysOnline: true };
       kycRequired = !!data.kycRequired;
       currentBroadcast = data.broadcast || "";
+      const broadcastId = data.broadcastId || 0;
       const sysOnline = data.sysOnline !== false;
 
-      // Update Header System Status Pill
       const sysPill = document.getElementById("header-sys-status");
       if (sysOnline) {
         sysPill.className = "sys-pill";
@@ -677,7 +900,6 @@
         document.getElementById("sys-toggle-title").textContent = sysOnline ? "All Workstations Online" : "Maintenance Mode Active";
       }
 
-      // Update Sign-Up KYC fields visibility
       const kycBox = document.getElementById("kyc-signup-fields");
       const aadhaarInp = document.getElementById("signup-aadhaar");
       const proofInp = document.getElementById("signup-proof");
@@ -697,17 +919,24 @@
         document.getElementById("kyc-status-label").textContent = kycRequired ? "Currently ON (Shown on Sign-Up)" : "Currently OFF (Hidden on Sign-Up)";
       }
 
-      // Update Highlighted Broadcast Banner
+      // Highlighted Banner + Automatic Live Popout Whenever Admin Posts a New Broadcast
       const banner = document.getElementById("broadcast-banner");
       if (currentBroadcast && currentUser) {
         document.getElementById("broadcast-text").textContent = currentBroadcast;
         banner.classList.remove("hidden");
+
+        if (broadcastId && broadcastId !== lastSeenBroadcastId) {
+          lastSeenBroadcastId = broadcastId;
+          if (currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+            showModal("📢 Important Announcement from Mohan", currentBroadcast);
+          }
+        }
       } else {
         banner.classList.add("hidden");
       }
     });
 
-    // Auth State Handler
+    // Auth State Listener
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (!user) {
@@ -739,7 +968,7 @@
         loadAdminPanel();
       } else {
         document.getElementById("client-dashboard").classList.remove("hidden");
-        loadClientDashboard(user.uid, user.email);
+        loadClientDashboard(user.uid);
       }
     });
 
@@ -765,6 +994,8 @@
         const password = document.getElementById("signup-password").value;
         const phone = document.getElementById("signup-phone").value.trim();
         const address = document.getElementById("signup-address").value.trim();
+        const pcCount = Math.max(1, Number(document.getElementById("signup-pccount").value || 1));
+        const referredBy = document.getElementById("signup-ref").value.trim();
         const aadhaar = kycRequired ? document.getElementById("signup-aadhaar").value.trim() : "";
         const proofFile = kycRequired ? document.getElementById("signup-proof").files[0] : null;
         const proofBase64 = proofFile ? await fileToBase64(proofFile) : "";
@@ -775,9 +1006,14 @@
         expiry.setDate(today.getDate() + 30);
 
         await setDoc(doc(db, "users", cred.user.uid), {
-          name, email, phone, address, aadhaar, proofBase64,
+          name, email, phone, address, referredBy, aadhaar, proofBase64,
           verifiedStatus: "pending",
+          trialStatus: "eligible",
+          sosReboot: false,
+          currency: "INR",
           rentAmount: 0,
+          pcCount,
+          discountPercent: 0,
           totalDays: 30,
           startDate: today.toISOString().split("T")[0],
           expiryDate: expiry.toISOString().split("T")[0],
@@ -805,15 +1041,22 @@
 
     window.handleSignOut = () => signOut(auth);
 
-    // Load Client Dashboard (Reads ONLY this client's document)
-    function loadClientDashboard(uid, email) {
+    // Load Client Dashboard
+    let renewalReminderShown = false;
+    function loadClientDashboard(uid) {
       onSnapshot(doc(db, "users", uid), (snap) => {
         if (!snap.exists()) return;
         const d = snap.data();
+        currentClientData = d;
+        const sym = d.currency === "USD" ? "$" : "₹";
+        const { rate, qty, disc, finalTotal } = calcTotals(d);
 
         // Verification Status UI
         const vBadge = document.getElementById("verify-badge");
         const vAlert = document.getElementById("client-verify-alert");
+        const nudgeText = `Hi Mohan, I just registered on Lattice Remote PC (Name: ${d.name}, Email: ${d.email}, PCs Needed: ${qty}). Please verify and approve my account.`;
+        document.getElementById("btn-wa-verify-nudge").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(nudgeText)}`;
+
         if (d.verifiedStatus === "approved") {
           vBadge.className = "badge badge-active"; vBadge.textContent = "✅ Verified";
           vAlert.classList.add("hidden");
@@ -821,11 +1064,39 @@
           vBadge.className = "badge badge-expired"; vBadge.textContent = "❌ Re-verification Needed";
           vAlert.classList.remove("hidden");
           document.getElementById("verify-alert-title").textContent = "❌ Verification Rejected / Action Needed";
-          document.getElementById("verify-alert-desc").textContent = "Please message Mohan via WhatsApp or the requirement box below with updated ID details.";
+          document.getElementById("verify-alert-desc").textContent = "Please message Mohan via WhatsApp or the support box below with updated ID details.";
         } else {
           vBadge.className = "badge badge-warn"; vBadge.textContent = "⏳ Pending Approval";
           vAlert.classList.remove("hidden");
         }
+
+        // 2-Hour Free Trial Status (Available ONLY for Signed-Up Users)
+        const trialBtn = document.getElementById("btn-book-trial");
+        const trialSub = document.getElementById("client-trial-sub");
+        if (d.trialStatus === "requested") {
+          trialBtn.textContent = "⏳ 2-Hr Trial Requested (Ping WhatsApp)";
+          trialSub.textContent = "Your 2-Hour Free Trial request has been sent to Mohan. Click the button to follow up on WhatsApp.";
+        } else if (d.trialStatus === "completed") {
+          trialBtn.textContent = "✅ 2-Hr Trial Completed";
+          trialBtn.disabled = true;
+          trialSub.textContent = "You have completed your 2-Hour Free Trial. Renew your monthly plan below anytime!";
+        } else {
+          trialBtn.textContent = "🎁 Book My 2-Hr Free Trial Now";
+          trialBtn.disabled = false;
+        }
+
+        // SOS Reboot Button State
+        const sosBtn = document.getElementById("btn-sos-reboot");
+        sosBtn.textContent = d.sosReboot ? "🚨 Reboot Alert Sent (Active)" : "🚨 PC Frozen / Need Reboot";
+
+        // Pricing, PC Qty & Discount Calculation
+        document.getElementById("disp-unit-rate").textContent = `${sym}${rate}/PC`;
+        document.getElementById("disp-discount-note").textContent = disc > 0 ? `🎉 ${disc}% Admin Discount Applied` : "Standard per-PC rate";
+        document.getElementById("client-pc-qty").value = qty;
+        document.getElementById("disp-total-payable").textContent = `${sym}${finalTotal}`;
+        document.getElementById("disp-calc-breakdown").textContent = disc > 0
+          ? `${qty} PC(s) × ${sym}${rate} − ${disc}% off`
+          : `${qty} PC(s) × ${sym}${rate}`;
 
         // Countdown Math
         const today = new Date(); today.setHours(0, 0, 0, 0);
@@ -835,7 +1106,6 @@
         const totalDays = d.totalDays || 30;
         const pct = Math.min(100, Math.max(0, (balanceDays / totalDays) * 100));
 
-        document.getElementById("disp-rent").textContent = `₹${d.rentAmount || 0}`;
         document.getElementById("disp-total-days").textContent = `${totalDays} Days`;
         document.getElementById("disp-balance-days").textContent = `${balanceDays} Days`;
         document.getElementById("disp-start").textContent = d.startDate || "--";
@@ -849,21 +1119,40 @@
         if (diffDays <= 0) {
           badge.className = "badge badge-expired"; badge.textContent = "Expired — Renew Now";
           bar.style.background = "var(--danger)"; balText.style.color = "var(--danger)";
-          triggerPopout("🚨 Service Expired", `Hi ${d.name}, your remote PC rental expired on ${d.expiryDate}. Please pay ₹${d.rentAmount} via UPI (${UPI_ID}) and intimate Mohan on WhatsApp to continue uninterrupted access.`);
+          if (!renewalReminderShown) {
+            renewalReminderShown = true;
+            showModal("🚨 Service Expired", `Hi ${d.name}, your remote PC rental (${qty} PC(s)) expired on ${d.expiryDate}. Please pay ${sym}${finalTotal} via UPI (${UPI_ID}) and intimate Mohan on WhatsApp.`);
+          }
         } else if (diffDays <= 5) {
           badge.className = "badge badge-warn"; badge.textContent = `Expiring in ${diffDays} Days`;
           bar.style.background = "var(--warning)"; balText.style.color = "var(--warning)";
-          triggerPopout("⏳ Renewal Reminder", `Hi ${d.name}, only ${diffDays} day(s) left on your remote PC plan (Expires: ${d.expiryDate}). Renew early via UPI (${UPI_ID}) for ₹${d.rentAmount}.`);
+          if (!renewalReminderShown) {
+            renewalReminderShown = true;
+            showModal("⏳ Renewal Reminder", `Hi ${d.name}, only ${diffDays} day(s) left on your plan for ${qty} PC(s) (Expires: ${d.expiryDate}). Total renewal: ${sym}${finalTotal}.`);
+          }
         } else {
           badge.className = "badge badge-active"; badge.textContent = "Active";
           bar.style.background = "var(--success)"; balText.style.color = "var(--success)";
         }
 
-        // UPI QR & WhatsApp Renewal Link
-        const upiUri = `upi://pay?pa=${UPI_ID}&pn=Mohan%20PC%20Rental&am=${d.rentAmount || ""}&cu=INR`;
-        document.getElementById("upi-qr").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiUri)}`;
-        const waText = `Hi Mohan, I am ${d.name}. I have paid ₹${d.rentAmount} via UPI (${UPI_ID}) to renew my Remote PC (Current Expiry: ${d.expiryDate}). Please extend my service.`;
-        document.getElementById("btn-wa-renew").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+        // Dynamic UPI QR Code with Exact Final Payable Amount
+        document.getElementById("qr-amount-label").textContent = `₹${finalTotal}`;
+        document.getElementById("qr-qty-label").textContent = `${qty} PC(s)`;
+        document.getElementById("usd-total-label").textContent = `$${finalTotal} for ${qty} PC(s)`;
+
+        if (d.currency === "USD") {
+          document.getElementById("inr-upi-section").classList.add("hidden");
+          document.getElementById("usd-pay-section").classList.remove("hidden");
+        } else {
+          document.getElementById("inr-upi-section").classList.remove("hidden");
+          document.getElementById("usd-pay-section").classList.add("hidden");
+          const upiUri = `upi://pay?pa=${UPI_ID}&pn=Mohan%20PC%20Rental&am=${finalTotal || ""}&cu=INR`;
+          document.getElementById("upi-qr").src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiUri)}`;
+        }
+
+        const waText = `Hi Mohan, I am ${d.name}. I have paid ${sym}${finalTotal} (${qty} PC(s)${disc > 0 ? `, ${disc}% discount` : ""}) to renew my Remote PC plan (Current Expiry: ${d.expiryDate}). Please extend my service.`;
+        document.getElementById("btn-wa-renew").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(waText)}`;
+        document.getElementById("btn-wa-renew-us").href = `https://wa.me/${WA_US}?text=${encodeURIComponent(waText)}`;
 
         // PC Specs & RDP Credentials
         const s = d.specs || {};
@@ -880,23 +1169,24 @@
         passEl.dataset.secret = rdp.pass || "";
         passEl.textContent = rdp.pass ? "••••••••" : "--";
 
-        // Payment History Table
+        // Collapsible History Table
         const histBody = document.getElementById("client-history-tbody");
         const hist = d.history || [];
+        document.getElementById("hist-count").textContent = hist.length;
         if (hist.length === 0) {
-          histBody.innerHTML = `<tr><td colspan="4" style="color:var(--muted);">No renewals recorded yet.</td></tr>`;
+          histBody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);">No past renewals or trials recorded yet.</td></tr>`;
         } else {
           histBody.innerHTML = hist.slice().reverse().map(h => `
             <tr>
               <td>${escapeHtml(h.date)}</td>
-              <td><strong>₹${h.amount}</strong></td>
-              <td>+${h.days} Days</td>
-              <td>${escapeHtml(h.newExpiry)}</td>
+              <td><strong>${escapeHtml(h.label || `${h.days}d Plan`)}</strong></td>
+              <td>${h.pcCount || 1} PC</td>
+              <td><strong>${sym}${h.amount || 0}</strong></td>
+              <td>${escapeHtml(h.newExpiry || "--")}</td>
             </tr>`).join("");
         }
       });
 
-      // Load ONLY this client's messages
       const q = query(collection(db, "messages"), where("uid", "==", uid));
       onSnapshot(q, (snap) => {
         const list = document.getElementById("client-msg-list");
@@ -912,16 +1202,56 @@
       });
     }
 
+    // Client Updates Their Required PC Quantity (Recalculates Total & QR Instantly)
+    window.updateClientPcQty = async () => {
+      if (!currentUser || !currentClientData) return;
+      const newQty = Math.max(1, Math.min(100, Number(document.getElementById("client-pc-qty").value || 1)));
+      await updateDoc(doc(db, "users", currentUser.uid), { pcCount: newQty });
+      alert(`PC quantity updated to ${newQty}. Your total payable amount and UPI QR code have been updated!`);
+    };
+
+    // Signed-Up Client Books 2-Hour Free Trial
+    window.bookSignedUpFreeTrial = async () => {
+      if (!currentUser || !currentClientData) return;
+      const todayStr = new Date().toISOString().split("T")[0];
+      if (currentClientData.trialStatus !== "requested") {
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          trialStatus: "requested",
+          history: arrayUnion({
+            date: todayStr,
+            label: "🎁 2-Hour Free Trial Requested",
+            pcCount: currentClientData.pcCount || 1,
+            amount: 0,
+            days: 0,
+            newExpiry: currentClientData.expiryDate
+          })
+        });
+      }
+      const msg = `🎁 2-HOUR FREE TRIAL REQUEST:\nName: ${currentClientData.name}\nEmail: ${currentClientData.email}\nPC Count: ${currentClientData.pcCount || 1}\nPlease share my 2-hour trial workstation login.`;
+      window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(msg)}`, "_blank");
+    };
+
+    window.triggerRebootSOS = async () => {
+      if (!currentUser || !currentClientData) return;
+      await updateDoc(doc(db, "users", currentUser.uid), { sosReboot: true });
+      const sosMsg = `🚨 URGENT REBOOT REQUEST: Hi Mohan, I am ${currentClientData.name} (${currentClientData.email}). My remote PC (IP: ${currentClientData.rdp?.ip || "N/A"}) is frozen/unresponsive. Please reboot it.`;
+      window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(sosMsg)}`, "_blank");
+    };
+
     window.submitRequirement = async (e) => {
       e.preventDefault();
       const input = document.getElementById("req-input");
       const text = input.value.trim();
       if (!text || !currentUser) return;
-      const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-      const userName = userDoc.exists() ? userDoc.data().name : currentUser.email;
+      const userName = currentClientData ? currentClientData.name : currentUser.email;
+
       await addDoc(collection(db, "messages"), {
         uid: currentUser.uid, userName, text, reply: "", createdAt: serverTimestamp()
       });
+
+      const waMsg = `Hi Mohan, I posted a requirement on Lattice Remote PC:\nName: ${userName}\nRequest: ${text}`;
+      document.getElementById("post-msg-wa-link").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(waMsg)}`;
+      document.getElementById("post-msg-wa-prompt").classList.remove("hidden");
       input.value = "";
     };
 
@@ -933,13 +1263,21 @@
         const tbody = document.getElementById("admin-users-tbody");
         tbody.innerHTML = "";
         cachedClients = {};
+        let pendingCount = 0;
+        let trialCount = 0;
+        let sosCount = 0;
 
         snap.forEach((docSnap) => {
           const u = docSnap.data();
           const uid = docSnap.id;
           if ((u.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()) return;
           cachedClients[uid] = u;
+          if (u.verifiedStatus === "pending") pendingCount++;
+          if (u.trialStatus === "requested") trialCount++;
+          if (u.sosReboot) sosCount++;
 
+          const sym = u.currency === "USD" ? "$" : "₹";
+          const { rate, qty, disc, finalTotal } = calcTotals(u);
           const exp = new Date(u.expiryDate);
           const today = new Date(); today.setHours(0,0,0,0);
           const bal = Math.max(0, Math.ceil((exp - today) / (1000 * 60 * 60 * 24)));
@@ -952,29 +1290,39 @@
             ? `<span class="badge badge-expired">❌ Rejected</span>`
             : `<span class="badge badge-warn">⏳ Pending</span>`;
 
-          // Extra #3: Admin WhatsApp Reminder Button
+          const trialBadge = u.trialStatus === "requested"
+            ? `<div style="margin-top:4px;"><span class="badge badge-warn">🎁 2-HR TRIAL REQ</span> <button class="btn-success btn-sm" onclick="markTrialDone('${uid}')">Done</button></div>`
+            : u.trialStatus === "completed"
+            ? `<div style="margin-top:4px;"><span class="badge badge-active">Trial Done</span></div>`
+            : "";
+
+          const sosBadge = u.sosReboot
+            ? `<div style="margin-top:4px;"><span class="badge badge-expired">🚨 REBOOT NEEDED</span> <button class="btn-outline btn-sm" onclick="clearSos('${uid}')">Clear</button></div>`
+            : "";
+
           const cleanPhone = String(u.phone || "").replace(/\D/g, "");
           const waPhone = cleanPhone.length === 10 ? "91" + cleanPhone : cleanPhone;
-          const reminderText = `Hi ${u.name}, reminder from Mohan: your Remote PC plan (₹${u.rentAmount}) has ${bal} day(s) left and expires on ${u.expiryDate}. Renew anytime via UPI (${UPI_ID}).`;
-          const waBtn = waPhone ? `<a href="https://wa.me/${waPhone}?text=${encodeURIComponent(reminderText)}" target="_blank" class="btn btn-whatsapp btn-sm">📲 Remind</a>` : "";
+          const reminderText = `Hi ${u.name}, reminder from Lattice Remote PC: your plan for ${qty} PC(s) (${sym}${finalTotal}) has ${bal} day(s) left and expires on ${u.expiryDate}.`;
+          const waBtn = waPhone ? `<a href="https://wa.me/${waPhone}?text=${encodeURIComponent(reminderText)}" target="_blank" class="btn btn-whatsapp btn-sm">📲 WA</a>` : "";
 
           tbody.innerHTML += `
-            <tr>
+            <tr class="${u.sosReboot ? 'sos-row' : ''}">
               <td>
                 <strong>${escapeHtml(u.name)}</strong><br>
                 <small style="color:var(--muted);">${escapeHtml(u.email)}<br>${escapeHtml(u.phone || "")}</small>
+                ${u.referredBy ? `<br><span class="badge badge-warn">Ref by: ${escapeHtml(u.referredBy)}</span>` : ""}
               </td>
               <td>
-                ${vBadge}<br>
+                ${vBadge}${trialBadge}${sosBadge}
                 <div style="margin-top:5px; display:flex; gap:4px; flex-wrap:wrap;">
                   ${u.verifiedStatus !== "approved" ? `<button class="btn-success btn-sm" onclick="setVerifyStatus('${uid}', 'approved')">Approve</button>` : ""}
-                  <button class="btn-outline btn-sm" onclick="viewClientDetails('${uid}')">View Info/Proof</button>
+                  <button class="btn-outline btn-sm" onclick="viewClientDetails('${uid}')">Info/Proof</button>
                 </div>
               </td>
               <td>
-                <strong>₹${u.rentAmount || 0}</strong> (${u.totalDays || 30}d)<br>
-                <small>Exp: ${u.expiryDate}</small><br>
-                <span class="badge ${bal <= 5 ? 'badge-warn' : 'badge-active'}">${bal} days left</span>
+                <strong>${qty} PC(s)</strong> × ${sym}${rate}<br>
+                ${disc > 0 ? `<span class="badge badge-active">${disc}% Off</span> ` : ""}<strong>Total: ${sym}${finalTotal}</strong><br>
+                <small>Exp: ${u.expiryDate}</small> <span class="badge ${bal <= 5 ? 'badge-warn' : 'badge-active'}">${bal}d left</span>
               </td>
               <td>
                 <small><strong>${escapeHtml(s.cpu || "-")}</strong> | ${escapeHtml(s.ram || "-")}<br>
@@ -982,17 +1330,20 @@
               </td>
               <td>
                 <div style="display:flex; gap:4px; flex-wrap:wrap;">
-                  <button class="btn-primary btn-sm" onclick="extend30Days('${uid}')">+30d</button>
+                  <button class="btn-primary btn-sm" onclick="extendDays('${uid}', 30, '')">+30d</button>
+                  <button class="btn-warn btn-sm" onclick="extendDays('${uid}', 2, '🎁 +2d Referral Bonus')" title="Add +2 Free Days Referral Reward">+2d Ref</button>
                   <button class="btn-outline btn-sm" onclick="openEditModal('${uid}')">Edit</button>
+                  <button class="btn-outline btn-sm" onclick="openAdminHistoryModal('${uid}')">History</button>
                   ${waBtn}
-                  <button class="btn-danger btn-sm" onclick="deleteClientRecord('${uid}')">Delete</button>
+                  <button class="btn-danger btn-sm" onclick="deleteClientRecord('${uid}')">Del</button>
                 </div>
               </td>
             </tr>`;
         });
+
+        document.getElementById("admin-alert-counter").textContent = `${pendingCount} Pending | ${trialCount} Trials | ${sosCount} SOS`;
       });
 
-      // Load All Client Messages
       const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
       onSnapshot(q, (snap) => {
         const list = document.getElementById("admin-msg-list");
@@ -1013,28 +1364,27 @@
       });
     }
 
+    window.markTrialDone = async (uid) => { await updateDoc(doc(db, "users", uid), { trialStatus: "completed" }); };
+    window.clearSos = async (uid) => { await updateDoc(doc(db, "users", uid), { sosReboot: false }); };
+
+    // Post Highlighted Notice + Trigger Live Popout on All Client Screens
     window.saveBroadcast = async () => {
       const text = document.getElementById("admin-broadcast-input").value.trim();
-      await setDoc(doc(db, "settings", "global"), { broadcast: text }, { merge: true });
-      alert("Highlighted announcement posted!");
+      await setDoc(doc(db, "settings", "global"), {
+        broadcast: text,
+        broadcastId: Date.now()
+      }, { merge: true });
+      alert("Highlighted notice posted and popped up live to all clients!");
     };
 
     window.clearBroadcast = async () => {
       document.getElementById("admin-broadcast-input").value = "";
-      await setDoc(doc(db, "settings", "global"), { broadcast: "" }, { merge: true });
+      await setDoc(doc(db, "settings", "global"), { broadcast: "", broadcastId: 0 }, { merge: true });
     };
 
-    window.toggleKycSetting = async (checked) => {
-      await setDoc(doc(db, "settings", "global"), { kycRequired: checked }, { merge: true });
-    };
-
-    window.toggleSysSetting = async (checked) => {
-      await setDoc(doc(db, "settings", "global"), { sysOnline: checked }, { merge: true });
-    };
-
-    window.setVerifyStatus = async (uid, status) => {
-      await updateDoc(doc(db, "users", uid), { verifiedStatus: status });
-    };
+    window.toggleKycSetting = async (checked) => { await setDoc(doc(db, "settings", "global"), { kycRequired: checked }, { merge: true }); };
+    window.toggleSysSetting = async (checked) => { await setDoc(doc(db, "settings", "global"), { sysOnline: checked }, { merge: true }); };
+    window.setVerifyStatus = async (uid, status) => { await updateDoc(doc(db, "users", uid), { verifiedStatus: status }); };
 
     window.viewClientDetails = (uid) => {
       const u = cachedClients[uid];
@@ -1048,31 +1398,115 @@
         <div class="spec-row"><span class="spec-key">Email</span><strong>${escapeHtml(u.email)}</strong></div>
         <div class="spec-row"><span class="spec-key">Phone</span><strong>${escapeHtml(u.phone || "--")}</strong></div>
         <div class="spec-row"><span class="spec-key">Current Address</span><strong>${escapeHtml(u.address || "--")}</strong></div>
-        <div class="spec-row"><span class="spec-key">Aadhaar Number</span><strong>${escapeHtml(u.aadhaar || "Not Provided")}</strong></div>
-        <div class="spec-row"><span class="spec-key">Verification Status</span><strong>${escapeHtml(u.verifiedStatus || "pending")}</strong></div>
+        <div class="spec-row"><span class="spec-key">PC Count & Discount</span><strong>${u.pcCount || 1} PC(s) | ${u.discountPercent || 0}% Off</strong></div>
+        <div class="spec-row"><span class="spec-key">Referred By</span><strong>${escapeHtml(u.referredBy || "Direct")}</strong></div>
+        <div class="spec-row"><span class="spec-key">ID Number</span><strong>${escapeHtml(u.aadhaar || "Not Provided")}</strong></div>
+        <div class="spec-row"><span class="spec-key">Trial Status</span><strong>${escapeHtml(u.trialStatus || "eligible")}</strong></div>
         ${proofHtml}
       `;
       document.getElementById("view-client-modal").classList.remove("hidden");
     };
 
-    window.extend30Days = async (uid) => {
+    window.extendDays = async (uid, daysToAdd, customLabel) => {
       const u = cachedClients[uid];
       if (!u) return;
+      const { qty, finalTotal } = calcTotals(u);
       const base = new Date(u.expiryDate) > new Date() ? new Date(u.expiryDate) : new Date();
-      base.setDate(base.getDate() + 30);
+      base.setDate(base.getDate() + daysToAdd);
       const newExpiry = base.toISOString().split("T")[0];
       const todayStr = new Date().toISOString().split("T")[0];
 
       await updateDoc(doc(db, "users", uid), {
         expiryDate: newExpiry,
-        totalDays: 30,
+        totalDays: daysToAdd === 30 ? 30 : (u.totalDays || 30) + daysToAdd,
         history: arrayUnion({
           date: todayStr,
-          amount: u.rentAmount || 0,
-          days: 30,
+          label: customLabel || `${daysToAdd}d Renewal`,
+          pcCount: qty,
+          amount: customLabel ? 0 : finalTotal,
+          days: daysToAdd,
           newExpiry
         })
       });
+    };
+
+    // Admin History Review, Edit & Delete Modal
+    window.openAdminHistoryModal = (uid) => {
+      const u = cachedClients[uid];
+      if (!u) return;
+      document.getElementById("hist-modal-uid").value = uid;
+      document.getElementById("hist-modal-title").textContent = `🧾 History for ${u.name}`;
+      const todayStr = new Date().toISOString().split("T")[0];
+      document.getElementById("new-hist-date").value = todayStr;
+      document.getElementById("new-hist-exp").value = u.expiryDate || todayStr;
+      document.getElementById("new-hist-pcs").value = u.pcCount || 1;
+      document.getElementById("new-hist-amt").value = calcTotals(u).finalTotal;
+      renderAdminHistoryRows(uid);
+      document.getElementById("admin-history-modal").classList.remove("hidden");
+    };
+
+    function renderAdminHistoryRows(uid) {
+      const u = cachedClients[uid];
+      const sym = u.currency === "USD" ? "$" : "₹";
+      const hist = u.history || [];
+      const tbody = document.getElementById("admin-hist-tbody");
+      if (hist.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="color:var(--muted);">No history entries yet.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = hist.map((h, idx) => `
+        <tr>
+          <td>${escapeHtml(h.date)}</td>
+          <td>${escapeHtml(h.label || `${h.days}d Plan`)}</td>
+          <td>${h.pcCount || 1}</td>
+          <td>${sym}${h.amount || 0}</td>
+          <td>${escapeHtml(h.newExpiry || "--")}</td>
+          <td>
+            <button class="btn-outline btn-sm" onclick="editHistoryAmount('${uid}', ${idx})">Edit Amt</button>
+            <button class="btn-danger btn-sm" onclick="deleteHistoryEntry('${uid}', ${idx})">Del</button>
+          </td>
+        </tr>`).join("");
+    }
+
+    window.addAdminHistoryEntry = async () => {
+      const uid = document.getElementById("hist-modal-uid").value;
+      const u = cachedClients[uid];
+      if (!u) return;
+      const entry = {
+        date: document.getElementById("new-hist-date").value,
+        label: document.getElementById("new-hist-label").value.trim() || "30d Renewal",
+        pcCount: Number(document.getElementById("new-hist-pcs").value || 1),
+        amount: Number(document.getElementById("new-hist-amt").value || 0),
+        days: Number(document.getElementById("new-hist-days").value || 30),
+        newExpiry: document.getElementById("new-hist-exp").value
+      };
+      const updatedHist = [...(u.history || []), entry];
+      await updateDoc(doc(db, "users", uid), { history: updatedHist });
+      cachedClients[uid].history = updatedHist;
+      renderAdminHistoryRows(uid);
+    };
+
+    window.editHistoryAmount = async (uid, idx) => {
+      const u = cachedClients[uid];
+      if (!u || !u.history[idx]) return;
+      const current = u.history[idx];
+      const newAmt = prompt("Enter updated amount paid:", current.amount || 0);
+      if (newAmt === null) return;
+      const newLabel = prompt("Enter updated label/description:", current.label || "30d Renewal");
+      const updatedHist = [...u.history];
+      updatedHist[idx] = { ...current, amount: Number(newAmt), label: newLabel || current.label };
+      await updateDoc(doc(db, "users", uid), { history: updatedHist });
+      cachedClients[uid].history = updatedHist;
+      renderAdminHistoryRows(uid);
+    };
+
+    window.deleteHistoryEntry = async (uid, idx) => {
+      const u = cachedClients[uid];
+      if (!u || !confirm("Delete this history entry?")) return;
+      const updatedHist = u.history.filter((_, i) => i !== idx);
+      await updateDoc(doc(db, "users", uid), { history: updatedHist });
+      cachedClients[uid].history = updatedHist;
+      renderAdminHistoryRows(uid);
     };
 
     window.deleteClientRecord = async (uid) => {
@@ -1097,7 +1531,10 @@
       document.getElementById("edit-phone").value = "";
       document.getElementById("edit-address").value = "";
       document.getElementById("edit-verified").value = "approved";
+      document.getElementById("edit-currency").value = "INR";
       document.getElementById("edit-rent").value = 3500;
+      document.getElementById("edit-pccount").value = 1;
+      document.getElementById("edit-discount").value = 0;
       document.getElementById("edit-days").value = 30;
       document.getElementById("edit-start").value = today.toISOString().split("T")[0];
       document.getElementById("edit-expiry").value = exp.toISOString().split("T")[0];
@@ -1115,7 +1552,7 @@
     window.openEditModal = (uid) => {
       const u = cachedClients[uid];
       if (!u) return;
-      document.getElementById("edit-modal-heading").textContent = "✏️ Edit Client Details, Specs & RDP";
+      document.getElementById("edit-modal-heading").textContent = "✏️ Edit Client Plan, PC Count, Discount & Specs";
       document.getElementById("edit-uid").value = uid;
       document.getElementById("edit-is-new").value = "0";
       document.getElementById("edit-name").value = u.name || "";
@@ -1123,7 +1560,10 @@
       document.getElementById("edit-phone").value = u.phone || "";
       document.getElementById("edit-address").value = u.address || "";
       document.getElementById("edit-verified").value = u.verifiedStatus || "pending";
+      document.getElementById("edit-currency").value = u.currency || "INR";
       document.getElementById("edit-rent").value = u.rentAmount || 0;
+      document.getElementById("edit-pccount").value = u.pcCount || 1;
+      document.getElementById("edit-discount").value = u.discountPercent || 0;
       document.getElementById("edit-days").value = u.totalDays || 30;
       document.getElementById("edit-start").value = u.startDate || "";
       document.getElementById("edit-expiry").value = u.expiryDate || "";
@@ -1151,7 +1591,10 @@
         phone: document.getElementById("edit-phone").value.trim(),
         address: document.getElementById("edit-address").value.trim(),
         verifiedStatus: document.getElementById("edit-verified").value,
+        currency: document.getElementById("edit-currency").value,
         rentAmount: Number(document.getElementById("edit-rent").value),
+        pcCount: Math.max(1, Number(document.getElementById("edit-pccount").value || 1)),
+        discountPercent: Math.min(100, Math.max(0, Number(document.getElementById("edit-discount").value || 0))),
         totalDays: Number(document.getElementById("edit-days").value),
         startDate: document.getElementById("edit-start").value,
         expiryDate: document.getElementById("edit-expiry").value,
@@ -1171,6 +1614,8 @@
 
       if (isNew) {
         payload.history = [];
+        payload.sosReboot = false;
+        payload.trialStatus = "eligible";
         await setDoc(doc(db, "users", uid), payload);
       } else {
         await updateDoc(doc(db, "users", uid), payload);
@@ -1178,48 +1623,67 @@
       closeEditModal();
     };
 
-    // UI Helpers
+    // Landing Free Trial Prompt (Directs Visitors to Sign Up First)
+    window.handleLandingTrialClick = () => {
+      showAuth("signup");
+      document.getElementById("auth-section").scrollIntoView({ behavior: "smooth" });
+      document.getElementById("auth-msg").textContent = "🎁 Create your free account above to unlock your 2-Hour Free Trial booking button!";
+    };
+
+    // Share Portal & Custom Quote Helpers
+    window.sharePortal = () => {
+      const url = window.location.origin + window.location.pathname;
+      const text = `Check out Lattice Remote PC — High-performance workstations on rent configured to your exact requirements (2-Hour Free Trial for members)! Contact: +919790342116 / +19547512404 | ${url}`;
+      if (navigator.share) {
+        navigator.share({ title: "Lattice Remote PC Rental", text, url }).catch(() => {});
+      } else {
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+      }
+    };
+
+    window.shareClientReferral = () => {
+      const refName = currentClientData ? currentClientData.name : "Client";
+      const baseUrl = window.location.origin + window.location.pathname;
+      const refUrl = `${baseUrl}?ref=${encodeURIComponent(refName)}`;
+      const msg = `Hey! I use Lattice Remote PC for high-speed remote workstations built to custom specs (Sign up to get a 2-Hour Free Trial!). Join with my referral link: ${refUrl}`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
+    };
+
+    window.sendCustomQuote = (targetPhone) => {
+      const cpu = document.getElementById("q-cpu").value;
+      const ram = document.getElementById("q-ram").value;
+      const gpu = document.getElementById("q-gpu").value;
+      const dur = document.getElementById("q-dur").value;
+      const soft = document.getElementById("q-soft").value.trim() || "Standard";
+      const msg = `Hi Mohan, I want a quote for a Custom Remote PC Rental:\n• CPU: ${cpu}\n• RAM: ${ram}\n• GPU: ${gpu}\n• Plan: ${dur}\n• Software: ${soft}`;
+      window.open(`https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`, "_blank");
+    };
+
+    // UI & Modal Helpers
     window.showAuth = (mode) => {
       document.getElementById("tab-signin").classList.toggle("active", mode === "signin");
       document.getElementById("tab-signup").classList.toggle("active", mode === "signup");
       document.getElementById("form-signin").classList.toggle("hidden", mode !== "signin");
       document.getElementById("form-signup").classList.toggle("hidden", mode !== "signup");
     };
-
-    window.togglePw = (id) => {
-      const el = document.getElementById(id);
-      el.type = el.type === "password" ? "text" : "password";
-    };
-
+    window.togglePw = (id) => { const el = document.getElementById(id); el.type = el.type === "password" ? "text" : "password"; };
     window.toggleRdpPass = () => {
       const el = document.getElementById("rdp-pass");
       if (!el.dataset.secret) return;
       el.textContent = el.textContent === "••••••••" ? el.dataset.secret : "••••••••";
     };
-
-    window.copyRdpPass = () => {
-      const sec = document.getElementById("rdp-pass").dataset.secret;
-      if (sec) copyText(sec, "Windows Password copied!");
-    };
-
+    window.copyRdpPass = () => { const sec = document.getElementById("rdp-pass").dataset.secret; if (sec) copyText(sec, "Windows Password copied!"); };
     window.copyElem = (id) => copyText(document.getElementById(id).textContent, "Copied to clipboard!");
     window.copyText = (txt, msg) => { navigator.clipboard.writeText(txt); alert(msg); };
 
-    let popoutShown = false;
-    function triggerPopout(title, body) {
-      if (popoutShown) return;
-      popoutShown = true;
+    function showModal(title, body) {
       document.getElementById("modal-title").textContent = title;
       document.getElementById("modal-body").textContent = body;
       document.getElementById("popout-modal").classList.remove("hidden");
     }
-
     window.openNoticePopout = () => {
-      document.getElementById("modal-title").textContent = "📢 Important Update from Mohan";
-      document.getElementById("modal-body").textContent = currentBroadcast;
-      document.getElementById("popout-modal").classList.remove("hidden");
+      if (currentBroadcast) showModal("📢 Important Update from Mohan", currentBroadcast);
     };
-
     window.closeModal = () => document.getElementById("popout-modal").classList.add("hidden");
 
     function escapeHtml(str) {
