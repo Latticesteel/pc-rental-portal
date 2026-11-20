@@ -360,7 +360,7 @@
           <ul class="tier-list">
             <li>✅ Minimum 5 Dedicated Remote PCs</li>
             <li>✅ Isolated Headscale & RDP Access</li>
-            <li>✅ Pre-installed SDS/2, Tekla & AutoCAD</li>
+            <li>✅ Pre-installed softwares such as E3D, SP3D, Tekla, SDS/2, AutoCAD & Bluebeam (BYOL)</li>
             <li>✅ 2-Hour Free Trial for New Sign-Ups</li>
           </ul>
         </div>
@@ -391,7 +391,7 @@
             <li>✅ Minimum 5 PCs Locked for 90+ Days</li>
             <li>✅ Dedicated Reserved Server Hardware</li>
             <li>✅ Priority Hardware & Software Upgrades</li>
-            <li>✅ +2 Free Bonus Days Per Friend Referral</li>
+            <li>✅ Earn +2 Bonus Days for every friend who activates a plan</li>
           </ul>
         </div>
         <button type="button" class="btn-warn btn-sm" style="width:100%;" onclick="selectRentalTier('Long-Term (3+ Months / 5+ PCs)', 5, 90)">Select Long-Term Plan</button>
@@ -665,8 +665,8 @@
             <div class="upi-box">
               <div>
                 <div style="font-size:0.74rem; color:var(--muted);">UPI ID</div>
-                <div class="upi-id">9790342116@payment</div>
-                <button class="btn-outline btn-sm" style="margin-top:8px;" onclick="copyText('9790342116@payment', 'UPI ID copied!')">📋 Copy UPI ID</button>
+                <div class="upi-id">9790342116@icici</div>
+                <button class="btn-outline btn-sm" style="margin-top:8px;" onclick="copyText('9790342116@icici', 'UPI ID copied!')">📋 Copy UPI ID</button>
               </div>
               <img id="upi-qr" alt="UPI QR" style="width:110px; height:110px; border-radius:8px; background:#fff; padding:4px;" />
             </div>
@@ -817,7 +817,7 @@
             <div class="switch-row" style="margin-top:6px;">
               <div>
                 <div style="font-size:0.84rem; font-weight:600;" id="sys-toggle-title">All PCs Online</div>
-                <div style="font-size:0.72rem; color:var(--muted);">Popout every 5 min</div>
+                <div style="font-size:0.72rem; color:var(--muted);">Popout every 30 min</div>
               </div>
               <label class="switch">
                 <input type="checkbox" id="toggle-sys" checked onchange="toggleSysSetting(this.checked)" />
@@ -1096,7 +1096,7 @@
 
     const ADMIN_EMAIL = "mohanrajramesh4030@gmail.com";
     const BIZ_EMAIL = "business@latticesteel.com";
-    const UPI_ID = "9790342116@payment";
+    const UPI_ID = "9790342116@icici";
     const WA_IN = "919790342116";
     const SMS_US = "+19547512404";
     const MIN_PC_QTY = 5;
@@ -1156,7 +1156,7 @@
       if (isOnline) {
         showModal(
           "🟢 All Workstations Live & Online",
-          "All Lattice Remote PC workstations and Headscale / RDP connections are live and running normally.\n\nWhatsApp, SMS & Calls: +919790342116 | SMS & Calls: +19547512404"
+          "All Lattice Remote PC workstations (Headscale / RDP connections) are live and running normally.\n\nWhatsApp, SMS & Calls: +919790342116 | SMS & Calls: +19547512404"
         );
       } else {
         showModal(
