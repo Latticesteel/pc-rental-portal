@@ -64,8 +64,19 @@
       border-radius: 99px; font-size: 0.75rem; font-weight: 700;
       background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); color: var(--success);
     }
-    .sys-pill.maint { background: rgba(245, 158, 11, 0.14); border-color: rgba(245, 158, 11, 0.4); color: var(--warning); }
+    .sys-pill.maint { background: rgba(245, 158, 11, 0.16); border-color: rgba(245, 158, 11, 0.45); color: var(--warning); }
     .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulseGlow 1.5s infinite; }
+
+    /* Full-Width Maintenance Notice Banner */
+    .maint-banner {
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.25), rgba(239, 68, 68, 0.22));
+      border-bottom: 1px solid var(--warning);
+      color: #fef3c7;
+      text-align: center;
+      padding: 11px 16px;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
 
     /* Buttons */
     button, .btn {
@@ -207,6 +218,11 @@
 </head>
 <body>
 
+  <!-- FULL-WIDTH MAINTENANCE BANNER (Shows automatically when Admin turns Maintenance Mode ON) -->
+  <div id="global-maint-banner" class="maint-banner hidden">
+    🛠️ Scheduled Maintenance: We are currently under maintenance and will be back shortly. Thank you for your patience!
+  </div>
+
   <!-- NAVBAR -->
   <header>
     <div class="brand">
@@ -233,13 +249,16 @@
         </div>
         <h2 style="font-size:1.25rem; margin:4px 0 6px;">Remote Workstations Rented Strictly as Per Your Custom Requirements</h2>
         <p style="font-size:0.87rem; color:#cbd5e1;">
-          Dedicated Ryzen/Intel CPU, high-speed DDR5 RAM, and NVIDIA RTX GPU workstations built to your exact specs for CAD, 3D Steel Detailing (SDS/2, Tekla, AutoCAD), and Rendering. <strong>Sign up free to unlock your 2-Hour Free Trial booking!</strong>
+          Dedicated Ryzen/Intel CPU, high-speed DDR5 RAM, and NVIDIA RTX GPU workstations connected via <strong>Headscale & RDP</strong> for CAD, 3D Steel Detailing (SDS/2, Tekla, AutoCAD), and Rendering. <strong>Sign up free to unlock your 2-Hour Free Trial booking!</strong>
         </p>
         <div class="contact-chips">
           <button type="button" class="chip" style="border-color:var(--whatsapp); color:#86efac; cursor:pointer;" onclick="handleLandingTrialClick()">🎁 Claim 2-Hr Free Trial (Sign Up First)</button>
-          <a href="https://wa.me/919790342116?text=Hi%20Mohan%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." target="_blank" class="chip">🇮🇳 +919790342116</a>
-          <a href="https://wa.me/19547512404?text=Hi%20Mohan%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." target="_blank" class="chip">🇺🇸 +19547512404</a>
-          <a href="mailto:latticesteel@gmail.com?subject=Remote%20PC%20Rental%20Inquiry" class="chip">✉️ latticesteel@gmail.com</a>
+          <a href="https://wa.me/919790342116?text=Hi%20Mohan%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." target="_blank" class="chip">🇮🇳 WhatsApp, SMS & Calls: +919790342116</a>
+          <a href="sms:+19547512404?body=Hi%20Mohan%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." class="chip">🇺🇸 US SMS & Calls: +19547512404</a>
+          <a href="mailto:business@latticesteel.com?subject=Remote%20PC%20Rental%20Inquiry" class="chip">✉️ business@latticesteel.com</a>
+        </div>
+        <div style="font-size:0.75rem; color:var(--muted); margin-top:6px;">
+          * WhatsApp, SMS & Calls are available on +919790342116. SMS & Calls are available on +19547512404.
         </div>
       </div>
 
@@ -317,7 +336,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label>Phone Number (WhatsApp) *</label>
+            <label>Phone Number (WhatsApp / SMS) *</label>
             <input type="tel" id="signup-phone" required placeholder="+91 9876543210 or +1..." />
           </div>
           <div class="form-group">
@@ -353,13 +372,13 @@
         <p id="auth-msg" style="margin-top:12px; font-size:0.84rem; color:var(--warning); text-align:center;"></p>
       </div>
 
-      <!-- Right: Custom PC Quote Request (Paid Plans Only for Visitors; Free Trial Unlocked After Sign Up) -->
+      <!-- Right: Custom PC Quote Request -->
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px;">
           <div>
             <div style="font-size:1.05rem; font-weight:700;">🛠️ Custom PC Rental Quote Builder</div>
             <p style="font-size:0.83rem; color:var(--muted); margin-top:3px;">
-              Configure your required workstation specs & PC count to get an instant quote. <em>(2-Hour Free Trial unlocks inside your dashboard right after Sign Up!)</em>
+              Configure your required workstation specs & PC count to get an instant quote via WhatsApp, SMS, or Email.
             </p>
           </div>
           <svg class="gpu-3d-svg" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -419,21 +438,26 @@
           <input type="text" id="q-soft" placeholder="e.g., SDS/2, Tekla Structures, AutoCAD, AVEVA E3D..." />
         </div>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <button type="button" class="btn-whatsapp" style="flex:1;" onclick="sendCustomQuote('919790342116')">🇮🇳 Quote via India WhatsApp</button>
-          <button type="button" class="btn-outline" style="flex:1;" onclick="sendCustomQuote('19547512404')">🇺🇸 Quote via US WhatsApp</button>
+          <button type="button" class="btn-whatsapp" style="flex:1;" onclick="sendCustomQuote('wa')">🇮🇳 WhatsApp (+91)</button>
+          <button type="button" class="btn-primary" style="flex:1;" onclick="sendCustomQuote('sms_us')">🇺🇸 US SMS (+1)</button>
+          <button type="button" class="btn-outline" style="flex:1;" onclick="sendCustomQuote('email')">✉️ Email Quote</button>
         </div>
       </div>
     </div>
 
     <!-- CLIENT DASHBOARD -->
     <div id="client-dashboard" class="hidden">
-      <!-- Verification Alert -->
+      <!-- Verification / Service Activation Banner -->
       <div id="client-verify-alert" class="card hidden" style="border-color:var(--warning); background:rgba(245,158,11,0.08);">
-        <strong id="verify-alert-title" style="color:var(--warning);">⏳ Account Verification Pending</strong>
+        <strong id="verify-alert-title" style="color:var(--warning);">⏳ Awaiting Payment & Service Activation</strong>
         <p id="verify-alert-desc" style="font-size:0.87rem; color:var(--muted); margin-top:4px;">
-          Your registration details have been submitted to Mohan. Click below to notify us on WhatsApp for faster activation.
+          Your expiry countdown will start for 30 days once your payment is received and your service is activated by Mohan.
         </p>
-        <a id="btn-wa-verify-nudge" href="#" target="_blank" class="btn btn-whatsapp btn-sm" style="margin-top:8px;">📲 Intimate Mohan on WhatsApp for Approval</a>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
+          <button id="btn-request-service" class="btn-primary btn-sm" onclick="requestServiceActivation()">🚀 Request Service Activation</button>
+          <a id="btn-wa-verify-nudge" href="#" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp (+91)</a>
+          <a id="btn-sms-verify-nudge" href="#" class="btn btn-outline btn-sm">🇺🇸 US SMS (+1)</a>
+        </div>
       </div>
 
       <!-- Signed-Up User Exclusive: 2-Hour Free Trial Booking Card -->
@@ -442,20 +466,23 @@
           <div>
             <strong style="color:#6ee7b7; font-size:0.98rem;">🎁 Exclusive Member Perk: 2-Hour Free Workstation Trial</strong>
             <p id="client-trial-sub" style="font-size:0.84rem; color:var(--muted); margin-top:2px;">
-              Test our low-latency remote workstation with your CAD/3D files free for 2 hours before paying for your monthly plan.
+              Test our low-latency Headscale + RDP workstation with your CAD/3D files free for 2 hours before paying for your monthly plan.
             </p>
           </div>
-          <button id="btn-book-trial" class="btn-whatsapp btn-sm" onclick="bookSignedUpFreeTrial()">🎁 Book My 2-Hr Free Trial Now</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button id="btn-book-trial" class="btn-whatsapp btn-sm" onclick="bookSignedUpFreeTrial('wa')">🎁 Book Trial (WhatsApp)</button>
+            <button class="btn-outline btn-sm" onclick="bookSignedUpFreeTrial('sms')">🇺🇸 Book Trial (US SMS)</button>
+          </div>
         </div>
       </div>
 
       <!-- Subscription, Multi-PC Pricing & Renewal Countdown -->
       <div class="card">
         <div class="card-title">
-          <span>⏳ Rental Period, PC Quantity & Renewal Reminder</span>
+          <span>⏳ Rental Period, PC Quantity & Renewal Status</span>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <span id="verify-badge" class="badge badge-warn">Pending</span>
-            <span id="status-badge" class="badge badge-active">Active</span>
+            <span id="verify-badge" class="badge badge-warn">Not Activated</span>
+            <span id="status-badge" class="badge badge-warn">Awaiting Payment</span>
             <button id="btn-sos-reboot" class="btn-danger btn-sm" onclick="triggerRebootSOS()">🚨 PC Frozen / Need Reboot</button>
           </div>
         </div>
@@ -464,7 +491,7 @@
           <div class="stat">
             <div class="stat-label">Per-PC Rate & Discount</div>
             <div class="stat-value" id="disp-unit-rate">₹0</div>
-            <div id="disp-discount-note" style="font-size:0.75rem; color:var(--success); margin-top:2px;">No discount applied</div>
+            <div id="disp-discount-note" style="font-size:0.75rem; color:var(--success); margin-top:2px;">Standard per-PC rate</div>
           </div>
           <div class="stat">
             <div class="stat-label">Required PC Count</div>
@@ -481,33 +508,33 @@
           </div>
           <div class="stat">
             <div class="stat-label">Balance Days Remaining</div>
-            <div class="stat-value" id="disp-balance-days" style="color:var(--success);">0 Days</div>
-            <div style="font-size:0.74rem; color:var(--muted); margin-top:2px;">Out of <span id="disp-total-days">30 Days</span></div>
+            <div class="stat-value" id="disp-balance-days" style="color:var(--muted);">--</div>
+            <div id="disp-period-sub" style="font-size:0.74rem; color:var(--muted); margin-top:2px;">Starts upon payment approval</div>
           </div>
         </div>
 
         <div class="progress-wrap">
-          <div id="days-progress" class="progress-bar" style="width: 100%;"></div>
+          <div id="days-progress" class="progress-bar" style="width: 0%;"></div>
         </div>
         <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:var(--muted);">
-          <span>Start Date: <strong id="disp-start" style="color:var(--text);">--</strong></span>
-          <span>Expiry / Renewal Date: <strong id="disp-expiry" style="color:var(--warning);">--</strong></span>
+          <span>Start Date: <strong id="disp-start" style="color:var(--text);">Not Started</strong></span>
+          <span>Expiry / Renewal Date: <strong id="disp-expiry" style="color:var(--warning);">Starts After Payment</strong></span>
         </div>
       </div>
 
       <div class="grid-2">
-        <!-- Payment & WhatsApp Intimation (QR auto-updates with PC Count & Discount!) -->
+        <!-- Payment & Intimation (India UPI/WhatsApp + US SMS/Email) -->
         <div class="card">
-          <div class="card-title">💳 Instant Renewal & Auto-Amount Scanner</div>
+          <div class="card-title">💳 Payment, Scanner & Intimation</div>
           <div id="inr-upi-section">
             <p style="font-size:0.85rem; color:var(--muted); margin-bottom:12px;">
-              Scan the QR below—it automatically loads your exact total (<strong id="qr-amount-label" style="color:var(--text);">₹0</strong>) for <strong id="qr-qty-label" style="color:var(--text);">1 PC</strong>. Then click WhatsApp to intimate Mohan!
+              Scan the QR below—it loads your exact total (<strong id="qr-amount-label" style="color:var(--text);">₹0</strong>) for <strong id="qr-qty-label" style="color:var(--text);">1 PC</strong>. Then intimate Mohan via WhatsApp, SMS, or Email!
             </p>
             <div class="upi-box">
               <div>
                 <div style="font-size:0.74rem; color:var(--muted);">UPI ID</div>
-                <div class="upi-id">9790342116@icici</div>
-                <button class="btn-outline btn-sm" style="margin-top:8px;" onclick="copyText('9790342116@icici', 'UPI ID copied!')">📋 Copy UPI ID</button>
+                <div class="upi-id">9790342116@payment</div>
+                <button class="btn-outline btn-sm" style="margin-top:8px;" onclick="copyText('9790342116@payment', 'UPI ID copied!')">📋 Copy UPI ID</button>
               </div>
               <img id="upi-qr" alt="UPI QR" style="width:110px; height:110px; border-radius:8px; background:#fff; padding:4px;" />
             </div>
@@ -518,7 +545,7 @@
               <div>
                 <div style="font-size:0.85rem; color:#93c5fd; font-weight:700;">International / USD Billing (<span id="usd-total-label">$0</span>)</div>
                 <div style="font-size:0.84rem; color:var(--muted); margin-top:4px;">
-                  Contact us via US WhatsApp (<strong>+19547512404</strong>) or Email (<strong>latticesteel@gmail.com</strong>) for wire/card renewal link.
+                  Contact us via Email (<strong>business@latticesteel.com</strong>) or US SMS (<strong>+19547512404</strong>) for international payment instructions.
                 </div>
               </div>
             </div>
@@ -526,17 +553,20 @@
 
           <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
             <a id="btn-wa-renew" href="#" target="_blank" class="btn btn-whatsapp" style="flex:1;">
-              🇮🇳 Intimate Renewal (+91)
+              🇮🇳 WhatsApp (+91)
             </a>
-            <a id="btn-wa-renew-us" href="#" target="_blank" class="btn btn-outline" style="flex:1;">
-              🇺🇸 Intimate Renewal (+1 US)
+            <a id="btn-sms-renew-us" href="#" class="btn btn-primary" style="flex:1;">
+              🇺🇸 SMS (+1 US)
+            </a>
+            <a id="btn-email-renew" href="#" class="btn btn-outline" style="flex:1;">
+              ✉️ Email
             </a>
           </div>
         </div>
 
-        <!-- Assigned PC Specs + RDP / Tailscale Credentials -->
+        <!-- Assigned PC Specs + Headscale & RDP Credentials -->
         <div class="card">
-          <div class="card-title">🖥️ Your Assigned PC & Remote Login</div>
+          <div class="card-title">🖥️ Your Assigned PC & Headscale / RDP Login</div>
           <div class="spec-row"><span class="spec-key">Processor (CPU)</span><strong id="spec-cpu">Pending Assignment</strong></div>
           <div class="spec-row"><span class="spec-key">Memory (RAM)</span><strong id="spec-ram">--</strong></div>
           <div class="spec-row"><span class="spec-key">Graphics (GPU)</span><strong id="spec-gpu">--</strong></div>
@@ -544,17 +574,17 @@
           <div class="spec-row"><span class="spec-key">Installed Software</span><strong id="spec-notes">--</strong></div>
 
           <div class="cred-box">
-            <div style="font-size:0.75rem; color:#60a5fa; font-weight:700; margin-bottom:6px; text-transform:uppercase;">🔐 Remote Connection Credentials</div>
+            <div style="font-size:0.75rem; color:#60a5fa; font-weight:700; margin-bottom:6px; text-transform:uppercase;">🔐 Headscale & RDP Connection Credentials</div>
             <div class="spec-row">
-              <span class="spec-key">Tailscale / RDP IP</span>
+              <span class="spec-key">Headscale / RDP IP</span>
               <span><strong id="rdp-ip" style="font-family:monospace;">--</strong> <button class="btn-outline btn-sm" onclick="copyElem('rdp-ip')">Copy</button></span>
             </div>
             <div class="spec-row">
-              <span class="spec-key">Username</span>
+              <span class="spec-key">RDP Username</span>
               <span><strong id="rdp-user" style="font-family:monospace;">--</strong> <button class="btn-outline btn-sm" onclick="copyElem('rdp-user')">Copy</button></span>
             </div>
             <div class="spec-row">
-              <span class="spec-key">Password</span>
+              <span class="spec-key">RDP Password</span>
               <span>
                 <strong id="rdp-pass" data-secret="" style="font-family:monospace;">••••••••</strong>
                 <button class="btn-outline btn-sm" onclick="toggleRdpPass()">Show</button>
@@ -574,9 +604,12 @@
             <input type="text" id="req-input" required placeholder="Need software install, spec upgrade, or help? Type here..." />
             <button type="submit" class="btn-primary">Send</button>
           </form>
-          <div id="post-msg-wa-prompt" class="hidden" style="margin-top:10px; background:rgba(37,211,102,0.12); border:1px solid var(--whatsapp); padding:9px 12px; border-radius:9px; display:flex; justify-content:space-between; align-items:center; gap:8px;">
-            <span style="font-size:0.82rem;">✅ Posted! Want instant attention?</span>
-            <a id="post-msg-wa-link" href="#" target="_blank" class="btn btn-whatsapp btn-sm">📲 Ping Mohan on WhatsApp</a>
+          <div id="post-msg-wa-prompt" class="hidden" style="margin-top:10px; background:rgba(37,211,102,0.12); border:1px solid var(--whatsapp); padding:9px 12px; border-radius:9px; display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span style="font-size:0.82rem;">✅ Posted! Notify Mohan directly:</span>
+            <div style="display:flex; gap:6px;">
+              <a id="post-msg-wa-link" href="#" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp</a>
+              <a id="post-msg-sms-link" href="#" class="btn btn-primary btn-sm">🇺🇸 US SMS</a>
+            </div>
           </div>
         </div>
 
@@ -584,7 +617,6 @@
         <div class="card">
           <div class="card-title">🧾 Past Renewals, Trials & Referral Rewards</div>
 
-          <!-- COLLAPSIBLE DROPDOWN BOX FOR CLIENT HISTORY -->
           <details class="history-dropdown">
             <summary>
               <span>📂 Click to View Past Renewals, Trials & Paid History (<span id="hist-count">0</span>)</span>
@@ -619,7 +651,7 @@
         <div class="card-title">
           <span>🛡️ Admin Control Center (Mohan)</span>
           <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-            <span id="admin-alert-counter" class="badge badge-warn">0 Pending | 0 Trials | 0 SOS</span>
+            <span id="admin-alert-counter" class="badge badge-warn">0 Service Req | 0 Trials | 0 SOS</span>
             <button class="btn-primary btn-sm" onclick="openAddClientModal()">➕ Add New Client</button>
           </div>
         </div>
@@ -649,11 +681,11 @@
           </div>
 
           <div>
-            <label><strong>🟢 Workstation Server Status</strong></label>
+            <label><strong>🟢 Workstation Server Status (5-Min Popout)</strong></label>
             <div class="switch-row" style="margin-top:6px;">
               <div>
                 <div style="font-size:0.85rem; font-weight:600;" id="sys-toggle-title">All Workstations Online</div>
-                <div style="font-size:0.74rem; color:var(--muted);">Toggle OFF for Maintenance</div>
+                <div style="font-size:0.74rem; color:var(--muted);">Popout alerts every 5 min (Live / Maint)</div>
               </div>
               <label class="switch">
                 <input type="checkbox" id="toggle-sys" checked onchange="toggleSysSetting(this.checked)" />
@@ -667,16 +699,16 @@
       <!-- MANAGE CLIENTS TABLE -->
       <div class="card">
         <div class="card-title">
-          <span>👥 Client Management, PC Count, % Discounts, Trials & History</span>
+          <span>👥 Client Management, Payment Approval (30d Start), Date Adjustment & Headscale/RDP</span>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>Client & Referral</th>
-                <th>Status, Trial & SOS</th>
-                <th>PC Qty, Rate & Discount</th>
-                <th>PC Specs & RDP</th>
+                <th>Service Status, Trial & SOS</th>
+                <th>PC Qty, Rate & Expiry Control</th>
+                <th>PC Specs & Headscale/RDP</th>
                 <th>Quick Actions</th>
               </tr>
             </thead>
@@ -687,22 +719,23 @@
 
       <!-- CLIENT REQUIREMENTS & ADMIN REPLIES -->
       <div class="card">
-        <div class="card-title">📩 Client Requirements & WhatsApp Follow-Up</div>
+        <div class="card-title">📩 Client Requirements & Replies</div>
         <div id="admin-msg-list" class="msg-list" style="max-height:360px;"></div>
       </div>
     </div>
 
   </div>
 
-  <!-- POPOUT MODAL (Fires automatically on new Admin Broadcast or Renewal Reminder) -->
+  <!-- POPOUT MODAL -->
   <div id="popout-modal" class="modal-backdrop hidden">
     <div class="modal">
       <h3 id="modal-title" style="margin-bottom:10px; color:var(--warning);">🔔 Notice</h3>
       <p id="modal-body" style="font-size:0.94rem; color:var(--text); margin-bottom:18px; white-space:pre-line;"></p>
       <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
         <a id="modal-wa-btn" href="https://wa.me/919790342116" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp (+91)</a>
-        <a href="https://wa.me/19547512404" target="_blank" class="btn btn-outline btn-sm">🇺🇸 WhatsApp (+1)</a>
-        <button class="btn-primary btn-sm" onclick="closeModal()">Got It</button>
+        <a href="sms:+19547512404" class="btn btn-primary btn-sm">🇺🇸 US SMS (+1)</a>
+        <a href="mailto:business@latticesteel.com" class="btn btn-outline btn-sm">✉️ Email</a>
+        <button class="btn-outline btn-sm" onclick="closeModal()">Got It</button>
       </div>
     </div>
   </div>
@@ -718,7 +751,7 @@
     </div>
   </div>
 
-  <!-- ADMIN HISTORY MANAGER MODAL (View, Add, Edit, Delete User History Entries) -->
+  <!-- ADMIN HISTORY MANAGER MODAL -->
   <div id="admin-history-modal" class="modal-backdrop hidden">
     <div class="modal" style="max-width:640px;">
       <h3 id="hist-modal-title" style="margin-bottom:10px;">🧾 Manage Client Renewal & Trial History</h3>
@@ -734,7 +767,7 @@
       </div>
 
       <div class="cred-box">
-        <strong style="font-size:0.85rem; color:#60a5fa;">➕ Add / Record Manual History Entry (Renewal or Trial)</strong>
+        <strong style="font-size:0.85rem; color:#60a5fa;">➕ Add / Record Manual History Entry</strong>
         <div class="grid-3" style="gap:8px; margin-top:8px;">
           <div class="form-group"><label>Date</label><input type="date" id="new-hist-date" /></div>
           <div class="form-group"><label>Type / Label</label><input type="text" id="new-hist-label" placeholder="e.g., 30d Renewal or 2-Hr Trial" /></div>
@@ -757,7 +790,7 @@
   <!-- ADD / EDIT CLIENT MODAL (Admin) -->
   <div id="edit-client-modal" class="modal-backdrop hidden">
     <div class="modal">
-      <h3 id="edit-modal-heading" style="margin-bottom:12px;">✏️ Edit Client Plan, PC Count, Discount & Specs</h3>
+      <h3 id="edit-modal-heading" style="margin-bottom:12px;">✏️ Edit Client Plan, Expiry & Headscale/RDP</h3>
       <input type="hidden" id="edit-uid" />
       <input type="hidden" id="edit-is-new" value="0" />
 
@@ -768,11 +801,12 @@
       <div class="grid-2" style="gap:10px;">
         <div class="form-group"><label>Phone Number</label><input type="text" id="edit-phone" /></div>
         <div class="form-group">
-          <label>Verification Status</label>
-          <select id="edit-verified">
-            <option value="approved">✅ Approved</option>
-            <option value="pending">⏳ Pending Verification</option>
-            <option value="rejected">❌ Rejected / Re-upload Needed</option>
+          <label>Service / Payment Status</label>
+          <select id="edit-service-status">
+            <option value="awaiting_payment">⏳ Awaiting Payment (No Expiry Yet)</option>
+            <option value="requested">🚀 Service Requested (Pending Approval)</option>
+            <option value="active">✅ Active (Payment Approved — Counting Days)</option>
+            <option value="rejected">❌ Rejected / Suspended</option>
           </select>
         </div>
       </div>
@@ -794,7 +828,7 @@
       <div class="grid-3" style="gap:10px;">
         <div class="form-group"><label>Total Period (Days)</label><input type="number" id="edit-days" value="30" /></div>
         <div class="form-group"><label>Start Date</label><input type="date" id="edit-start" /></div>
-        <div class="form-group"><label>Expiry Date</label><input type="date" id="edit-expiry" /></div>
+        <div class="form-group"><label>Expiry Date (Add/Reduce)</label><input type="date" id="edit-expiry" /></div>
       </div>
 
       <hr style="border-color:var(--border); margin:10px 0;" />
@@ -810,9 +844,9 @@
 
       <hr style="border-color:var(--border); margin:10px 0;" />
       <div class="grid-3" style="gap:8px;">
-        <div class="form-group"><label>Tailscale / RDP IP</label><input type="text" id="edit-rdp-ip" placeholder="100.64.0.x" /></div>
-        <div class="form-group"><label>Windows User</label><input type="text" id="edit-rdp-user" placeholder="Administrator" /></div>
-        <div class="form-group"><label>Windows Pass</label><input type="text" id="edit-rdp-pass" placeholder="Pass@123" /></div>
+        <div class="form-group"><label>Headscale / RDP IP</label><input type="text" id="edit-rdp-ip" placeholder="100.64.0.x" /></div>
+        <div class="form-group"><label>RDP Username</label><input type="text" id="edit-rdp-user" placeholder="Administrator" /></div>
+        <div class="form-group"><label>RDP Password</label><input type="text" id="edit-rdp-pass" placeholder="Pass@123" /></div>
       </div>
 
       <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:10px;">
@@ -822,9 +856,9 @@
     </div>
   </div>
 
-  <!-- FLOATING WHATSAPP BUTTON -->
+  <!-- FLOATING WHATSAPP BUTTON (India Number Only) -->
   <a href="https://wa.me/919790342116?text=Hi%20Mohan%2C%20I%20need%20help%20with%20my%20Rented%20PC." target="_blank" class="wa-float">
-    💬 Chat on WhatsApp
+    💬 WhatsApp (+91)
   </a>
 
   <!-- FIREBASE SDK & APP LOGIC -->
@@ -836,19 +870,20 @@
     // =========================================================================
     // PASTE YOUR FREE FIREBASE SPARK CONFIG HERE
     // =========================================================================
-const firebaseConfig = {
-    apiKey: "AIzaSyDHQkwAASTmkXQ-dCxcRedfX1pQ6AEl4G8",
-    authDomain: "remote-pc-rental.firebaseapp.com",
-    projectId: "remote-pc-rental",
-    storageBucket: "remote-pc-rental.firebasestorage.app",
-    messagingSenderId: "219094452898",
-    appId: "1:219094452898:web:2fc45b710ff9e2771025fb"
-  };
+    const firebaseConfig = {
+      apiKey: "PASTE_YOUR_API_KEY",
+      authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "PASTE_YOUR_PROJECT_ID",
+      storageBucket: "PASTE_YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "PASTE_YOUR_SENDER_ID",
+      appId: "PASTE_YOUR_APP_ID"
+    };
 
     const ADMIN_EMAIL = "mohanrajramesh4030@gmail.com";
-    const UPI_ID = "9790342116@icici";
+    const BIZ_EMAIL = "business@latticesteel.com";
+    const UPI_ID = "9790342116@payment";
     const WA_IN = "919790342116";
-    const WA_US = "19547512404";
+    const SMS_US = "+19547512404";
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
@@ -860,8 +895,28 @@ const firebaseConfig = {
     let currentBroadcast = "";
     let lastSeenBroadcastId = null;
     let cachedClients = {};
+    let currentSysOnline = true;
+    let lastSysStateSeen = null;
 
-    // Helper: Calculate Final Total = (Per-PC Rate * PC Qty) - Discount %
+    function triggerSysStatusPopout(isOnline) {
+      if (isOnline) {
+        showModal(
+          "🟢 All Workstations Live & Online",
+          "All Lattice Remote PC workstations and Headscale / RDP connections are live and running normally.\n\nWhatsApp, SMS & Calls: +919790342116 | US SMS & Calls: +19547512404"
+        );
+      } else {
+        showModal(
+          "🛠️ Scheduled Maintenance",
+          "We are currently under scheduled maintenance and will be back shortly. Thank you for your patience!\n\nFor urgent queries: WhatsApp/SMS/Calls +919790342116 | US SMS/Calls +19547512404"
+        );
+      }
+    }
+
+    // Popout once every 5 minutes (300,000 ms) whether Live or Under Maintenance
+    setInterval(() => {
+      triggerSysStatusPopout(currentSysOnline);
+    }, 5 * 60 * 1000);
+
     function calcTotals(u) {
       const rate = Number(u.rentAmount || 0);
       const qty = Math.max(1, Number(u.pcCount || 1));
@@ -872,28 +927,42 @@ const firebaseConfig = {
       return { rate, qty, disc, subtotal, discountAmt, finalTotal };
     }
 
-    // Auto-fill referral parameter from URL (?ref=Name)
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get("ref")) {
       document.getElementById("signup-ref").value = urlParams.get("ref");
     }
 
-    // Listen to Global Settings (Broadcast Popout, KYC Toggle, System Status)
+    // Listen to Global Settings (Broadcast Popout, KYC Toggle, Maintenance Mode Banner + 5-Min Popout)
     onSnapshot(doc(db, "settings", "global"), (snap) => {
       const data = snap.exists() ? snap.data() : { kycRequired: false, broadcast: "", broadcastId: 0, sysOnline: true };
       kycRequired = !!data.kycRequired;
       currentBroadcast = data.broadcast || "";
       const broadcastId = data.broadcastId || 0;
       const sysOnline = data.sysOnline !== false;
+      currentSysOnline = sysOnline;
 
+      // Update Header Pill & Full-Width Maintenance Banner
       const sysPill = document.getElementById("header-sys-status");
+      const maintBanner = document.getElementById("global-maint-banner");
       if (sysOnline) {
         sysPill.className = "sys-pill";
         sysPill.innerHTML = `<span class="dot"></span> All Workstations Online`;
+        maintBanner.classList.add("hidden");
       } else {
         sysPill.className = "sys-pill maint";
-        sysPill.innerHTML = `<span class="dot"></span> Scheduled Maintenance`;
+        sysPill.innerHTML = `<span class="dot"></span> Under Maintenance`;
+        maintBanner.classList.remove("hidden");
       }
+
+      // Pop up immediately when toggled between Live and Maintenance (or when Maintenance is active on load)
+      if (lastSysStateSeen === null) {
+        lastSysStateSeen = sysOnline;
+        if (!sysOnline) triggerSysStatusPopout(false);
+      } else if (lastSysStateSeen !== sysOnline) {
+        lastSysStateSeen = sysOnline;
+        triggerSysStatusPopout(sysOnline);
+      }
+
       const sysToggle = document.getElementById("toggle-sys");
       if (sysToggle) {
         sysToggle.checked = sysOnline;
@@ -919,7 +988,6 @@ const firebaseConfig = {
         document.getElementById("kyc-status-label").textContent = kycRequired ? "Currently ON (Shown on Sign-Up)" : "Currently OFF (Hidden on Sign-Up)";
       }
 
-      // Highlighted Banner + Automatic Live Popout Whenever Admin Posts a New Broadcast
       const banner = document.getElementById("broadcast-banner");
       if (currentBroadcast && currentUser) {
         document.getElementById("broadcast-text").textContent = currentBroadcast;
@@ -983,7 +1051,7 @@ const firebaseConfig = {
       });
     }
 
-    // Sign Up Handler
+    // Sign Up Handler — Starts in "awaiting_payment" with NO expiry date until paid & approved
     window.handleSignUp = async (e) => {
       e.preventDefault();
       const msgEl = document.getElementById("auth-msg");
@@ -1001,13 +1069,10 @@ const firebaseConfig = {
         const proofBase64 = proofFile ? await fileToBase64(proofFile) : "";
 
         const cred = await createUserWithEmailAndPassword(auth, email, password);
-        const today = new Date();
-        const expiry = new Date();
-        expiry.setDate(today.getDate() + 30);
 
         await setDoc(doc(db, "users", cred.user.uid), {
           name, email, phone, address, referredBy, aadhaar, proofBase64,
-          verifiedStatus: "pending",
+          serviceStatus: "awaiting_payment",
           trialStatus: "eligible",
           sosReboot: false,
           currency: "INR",
@@ -1015,8 +1080,8 @@ const firebaseConfig = {
           pcCount,
           discountPercent: 0,
           totalDays: 30,
-          startDate: today.toISOString().split("T")[0],
-          expiryDate: expiry.toISOString().split("T")[0],
+          startDate: "",
+          expiryDate: "",
           specs: { cpu: "Pending Assignment", ram: "--", gpu: "--", storage: "--", notes: "--" },
           rdp: { ip: "--", user: "--", pass: "" },
           history: []
@@ -1050,46 +1115,54 @@ const firebaseConfig = {
         currentClientData = d;
         const sym = d.currency === "USD" ? "$" : "₹";
         const { rate, qty, disc, finalTotal } = calcTotals(d);
+        const sStatus = d.serviceStatus || (d.expiryDate ? "active" : "awaiting_payment");
 
-        // Verification Status UI
         const vBadge = document.getElementById("verify-badge");
         const vAlert = document.getElementById("client-verify-alert");
-        const nudgeText = `Hi Mohan, I just registered on Lattice Remote PC (Name: ${d.name}, Email: ${d.email}, PCs Needed: ${qty}). Please verify and approve my account.`;
+        const reqBtn = document.getElementById("btn-request-service");
+        const nudgeText = `Hi Mohan, I am ${d.name} (${d.email}). I have requested Remote PC service activation for ${qty} PC(s). Please review and activate.`;
         document.getElementById("btn-wa-verify-nudge").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(nudgeText)}`;
+        document.getElementById("btn-sms-verify-nudge").href = `sms:${SMS_US}?body=${encodeURIComponent(nudgeText)}`;
 
-        if (d.verifiedStatus === "approved") {
-          vBadge.className = "badge badge-active"; vBadge.textContent = "✅ Verified";
+        if (sStatus === "active") {
+          vBadge.className = "badge badge-active"; vBadge.textContent = "✅ Service Active";
           vAlert.classList.add("hidden");
-        } else if (d.verifiedStatus === "rejected") {
-          vBadge.className = "badge badge-expired"; vBadge.textContent = "❌ Re-verification Needed";
+        } else if (sStatus === "requested") {
+          vBadge.className = "badge badge-warn"; vBadge.textContent = "🚀 Activation Requested";
           vAlert.classList.remove("hidden");
-          document.getElementById("verify-alert-title").textContent = "❌ Verification Rejected / Action Needed";
-          document.getElementById("verify-alert-desc").textContent = "Please message Mohan via WhatsApp or the support box below with updated ID details.";
+          document.getElementById("verify-alert-title").textContent = "🚀 Service Activation Requested — Awaiting Payment Confirmation";
+          document.getElementById("verify-alert-desc").textContent = "Once your payment is received and approved by Mohan, your 30-day expiry countdown will start automatically from the approval date.";
+          reqBtn.textContent = "✅ Request Sent";
+          reqBtn.disabled = true;
+        } else if (sStatus === "rejected") {
+          vBadge.className = "badge badge-expired"; vBadge.textContent = "❌ Action Needed";
+          vAlert.classList.remove("hidden");
+          document.getElementById("verify-alert-title").textContent = "❌ Account Verification / Payment Issue";
+          document.getElementById("verify-alert-desc").textContent = "Please contact Mohan via WhatsApp/SMS/Call (+919790342116), US SMS/Call (+19547512404), or business@latticesteel.com.";
         } else {
-          vBadge.className = "badge badge-warn"; vBadge.textContent = "⏳ Pending Approval";
+          vBadge.className = "badge badge-warn"; vBadge.textContent = "⏳ Not Activated";
           vAlert.classList.remove("hidden");
+          reqBtn.textContent = "🚀 Request Service Activation";
+          reqBtn.disabled = false;
         }
 
-        // 2-Hour Free Trial Status (Available ONLY for Signed-Up Users)
         const trialBtn = document.getElementById("btn-book-trial");
         const trialSub = document.getElementById("client-trial-sub");
         if (d.trialStatus === "requested") {
-          trialBtn.textContent = "⏳ 2-Hr Trial Requested (Ping WhatsApp)";
-          trialSub.textContent = "Your 2-Hour Free Trial request has been sent to Mohan. Click the button to follow up on WhatsApp.";
+          trialBtn.textContent = "⏳ 2-Hr Trial Requested";
+          trialSub.textContent = "Your 2-Hour Free Trial request has been sent to Mohan. Follow up via WhatsApp/SMS (+919790342116) or US SMS (+19547512404).";
         } else if (d.trialStatus === "completed") {
           trialBtn.textContent = "✅ 2-Hr Trial Completed";
           trialBtn.disabled = true;
-          trialSub.textContent = "You have completed your 2-Hour Free Trial. Renew your monthly plan below anytime!";
+          trialSub.textContent = "You have completed your 2-Hour Free Trial. Request service activation or pay below to start your 30-day plan!";
         } else {
-          trialBtn.textContent = "🎁 Book My 2-Hr Free Trial Now";
+          trialBtn.textContent = "🎁 Book Trial (WhatsApp)";
           trialBtn.disabled = false;
         }
 
-        // SOS Reboot Button State
         const sosBtn = document.getElementById("btn-sos-reboot");
         sosBtn.textContent = d.sosReboot ? "🚨 Reboot Alert Sent (Active)" : "🚨 PC Frozen / Need Reboot";
 
-        // Pricing, PC Qty & Discount Calculation
         document.getElementById("disp-unit-rate").textContent = `${sym}${rate}/PC`;
         document.getElementById("disp-discount-note").textContent = disc > 0 ? `🎉 ${disc}% Admin Discount Applied` : "Standard per-PC rate";
         document.getElementById("client-pc-qty").value = qty;
@@ -1098,44 +1171,53 @@ const firebaseConfig = {
           ? `${qty} PC(s) × ${sym}${rate} − ${disc}% off`
           : `${qty} PC(s) × ${sym}${rate}`;
 
-        // Countdown Math
-        const today = new Date(); today.setHours(0, 0, 0, 0);
-        const exp = new Date(d.expiryDate); exp.setHours(0, 0, 0, 0);
-        const diffDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
-        const balanceDays = Math.max(0, diffDays);
-        const totalDays = d.totalDays || 30;
-        const pct = Math.min(100, Math.max(0, (balanceDays / totalDays) * 100));
-
-        document.getElementById("disp-total-days").textContent = `${totalDays} Days`;
-        document.getElementById("disp-balance-days").textContent = `${balanceDays} Days`;
-        document.getElementById("disp-start").textContent = d.startDate || "--";
-        document.getElementById("disp-expiry").textContent = d.expiryDate || "--";
-
         const bar = document.getElementById("days-progress");
         const badge = document.getElementById("status-badge");
         const balText = document.getElementById("disp-balance-days");
-        bar.style.width = `${pct}%`;
 
-        if (diffDays <= 0) {
-          badge.className = "badge badge-expired"; badge.textContent = "Expired — Renew Now";
-          bar.style.background = "var(--danger)"; balText.style.color = "var(--danger)";
-          if (!renewalReminderShown) {
-            renewalReminderShown = true;
-            showModal("🚨 Service Expired", `Hi ${d.name}, your remote PC rental (${qty} PC(s)) expired on ${d.expiryDate}. Please pay ${sym}${finalTotal} via UPI (${UPI_ID}) and intimate Mohan on WhatsApp.`);
-          }
-        } else if (diffDays <= 5) {
-          badge.className = "badge badge-warn"; badge.textContent = `Expiring in ${diffDays} Days`;
-          bar.style.background = "var(--warning)"; balText.style.color = "var(--warning)";
-          if (!renewalReminderShown) {
-            renewalReminderShown = true;
-            showModal("⏳ Renewal Reminder", `Hi ${d.name}, only ${diffDays} day(s) left on your plan for ${qty} PC(s) (Expires: ${d.expiryDate}). Total renewal: ${sym}${finalTotal}.`);
-          }
+        if (sStatus !== "active" || !d.expiryDate) {
+          badge.className = "badge badge-warn";
+          badge.textContent = "Starts Upon Payment Approval";
+          balText.textContent = "--";
+          balText.style.color = "var(--muted)";
+          document.getElementById("disp-period-sub").textContent = "30 days from approval date";
+          document.getElementById("disp-start").textContent = "Not Started";
+          document.getElementById("disp-expiry").textContent = "Starts After Payment";
+          bar.style.width = "0%";
         } else {
-          badge.className = "badge badge-active"; badge.textContent = "Active";
-          bar.style.background = "var(--success)"; balText.style.color = "var(--success)";
+          const today = new Date(); today.setHours(0, 0, 0, 0);
+          const exp = new Date(d.expiryDate); exp.setHours(0, 0, 0, 0);
+          const diffDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
+          const balanceDays = Math.max(0, diffDays);
+          const totalDays = d.totalDays || 30;
+          const pct = Math.min(100, Math.max(0, (balanceDays / totalDays) * 100));
+
+          balText.textContent = `${balanceDays} Days`;
+          document.getElementById("disp-period-sub").textContent = `Out of ${totalDays} Days`;
+          document.getElementById("disp-start").textContent = d.startDate || "--";
+          document.getElementById("disp-expiry").textContent = d.expiryDate;
+          bar.style.width = `${pct}%`;
+
+          if (diffDays <= 0) {
+            badge.className = "badge badge-expired"; badge.textContent = "Expired — Renew Now";
+            bar.style.background = "var(--danger)"; balText.style.color = "var(--danger)";
+            if (!renewalReminderShown) {
+              renewalReminderShown = true;
+              showModal("🚨 Service Expired", `Hi ${d.name}, your remote PC rental (${qty} PC(s)) expired on ${d.expiryDate}. Please pay ${sym}${finalTotal} and intimate Mohan via WhatsApp/SMS (+919790342116), US SMS (+19547512404), or ${BIZ_EMAIL}.`);
+            }
+          } else if (diffDays <= 5) {
+            badge.className = "badge badge-warn"; badge.textContent = `Expiring in ${diffDays} Days`;
+            bar.style.background = "var(--warning)"; balText.style.color = "var(--warning)";
+            if (!renewalReminderShown) {
+              renewalReminderShown = true;
+              showModal("⏳ Renewal Reminder", `Hi ${d.name}, only ${diffDays} day(s) left on your plan for ${qty} PC(s) (Expires: ${d.expiryDate}). Total renewal: ${sym}${finalTotal}.`);
+            }
+          } else {
+            badge.className = "badge badge-active"; badge.textContent = "Active";
+            bar.style.background = "var(--success)"; balText.style.color = "var(--success)";
+          }
         }
 
-        // Dynamic UPI QR Code with Exact Final Payable Amount
         document.getElementById("qr-amount-label").textContent = `₹${finalTotal}`;
         document.getElementById("qr-qty-label").textContent = `${qty} PC(s)`;
         document.getElementById("usd-total-label").textContent = `$${finalTotal} for ${qty} PC(s)`;
@@ -1150,11 +1232,11 @@ const firebaseConfig = {
           document.getElementById("upi-qr").src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiUri)}`;
         }
 
-        const waText = `Hi Mohan, I am ${d.name}. I have paid ${sym}${finalTotal} (${qty} PC(s)${disc > 0 ? `, ${disc}% discount` : ""}) to renew my Remote PC plan (Current Expiry: ${d.expiryDate}). Please extend my service.`;
-        document.getElementById("btn-wa-renew").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(waText)}`;
-        document.getElementById("btn-wa-renew-us").href = `https://wa.me/${WA_US}?text=${encodeURIComponent(waText)}`;
+        const payText = `Hi Mohan, I am ${d.name} (${d.email}). I have paid ${sym}${finalTotal} (${qty} PC(s)${disc > 0 ? `, ${disc}% discount` : ""}) for my Remote PC plan. Please activate / extend my service.`;
+        document.getElementById("btn-wa-renew").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(payText)}`;
+        document.getElementById("btn-sms-renew-us").href = `sms:${SMS_US}?body=${encodeURIComponent(payText)}`;
+        document.getElementById("btn-email-renew").href = `mailto:${BIZ_EMAIL}?subject=${encodeURIComponent("Remote PC Payment Intimation - " + d.name)}&body=${encodeURIComponent(payText)}`;
 
-        // PC Specs & RDP Credentials
         const s = d.specs || {};
         document.getElementById("spec-cpu").textContent = s.cpu || "Pending Assignment";
         document.getElementById("spec-ram").textContent = s.ram || "--";
@@ -1169,7 +1251,6 @@ const firebaseConfig = {
         passEl.dataset.secret = rdp.pass || "";
         passEl.textContent = rdp.pass ? "••••••••" : "--";
 
-        // Collapsible History Table
         const histBody = document.getElementById("client-history-tbody");
         const hist = d.history || [];
         document.getElementById("hist-count").textContent = hist.length;
@@ -1202,7 +1283,13 @@ const firebaseConfig = {
       });
     }
 
-    // Client Updates Their Required PC Quantity (Recalculates Total & QR Instantly)
+    window.requestServiceActivation = async () => {
+      if (!currentUser || !currentClientData) return;
+      await updateDoc(doc(db, "users", currentUser.uid), { serviceStatus: "requested" });
+      const msg = `🚀 SERVICE ACTIVATION REQUEST:\nName: ${currentClientData.name}\nEmail: ${currentClientData.email}\nPC Count: ${currentClientData.pcCount || 1}\nPlease confirm payment and activate my 30-day plan.`;
+      window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(msg)}`, "_blank");
+    };
+
     window.updateClientPcQty = async () => {
       if (!currentUser || !currentClientData) return;
       const newQty = Math.max(1, Math.min(100, Number(document.getElementById("client-pc-qty").value || 1)));
@@ -1210,8 +1297,7 @@ const firebaseConfig = {
       alert(`PC quantity updated to ${newQty}. Your total payable amount and UPI QR code have been updated!`);
     };
 
-    // Signed-Up Client Books 2-Hour Free Trial
-    window.bookSignedUpFreeTrial = async () => {
+    window.bookSignedUpFreeTrial = async (channel) => {
       if (!currentUser || !currentClientData) return;
       const todayStr = new Date().toISOString().split("T")[0];
       if (currentClientData.trialStatus !== "requested") {
@@ -1223,18 +1309,22 @@ const firebaseConfig = {
             pcCount: currentClientData.pcCount || 1,
             amount: 0,
             days: 0,
-            newExpiry: currentClientData.expiryDate
+            newExpiry: currentClientData.expiryDate || "Trial Only"
           })
         });
       }
-      const msg = `🎁 2-HOUR FREE TRIAL REQUEST:\nName: ${currentClientData.name}\nEmail: ${currentClientData.email}\nPC Count: ${currentClientData.pcCount || 1}\nPlease share my 2-hour trial workstation login.`;
-      window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(msg)}`, "_blank");
+      const msg = `🎁 2-HOUR FREE TRIAL REQUEST:\nName: ${currentClientData.name}\nEmail: ${currentClientData.email}\nPC Count: ${currentClientData.pcCount || 1}\nPlease share my 2-hour trial Headscale & RDP credentials.`;
+      if (channel === "sms") {
+        window.location.href = `sms:${SMS_US}?body=${encodeURIComponent(msg)}`;
+      } else {
+        window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(msg)}`, "_blank");
+      }
     };
 
     window.triggerRebootSOS = async () => {
       if (!currentUser || !currentClientData) return;
       await updateDoc(doc(db, "users", currentUser.uid), { sosReboot: true });
-      const sosMsg = `🚨 URGENT REBOOT REQUEST: Hi Mohan, I am ${currentClientData.name} (${currentClientData.email}). My remote PC (IP: ${currentClientData.rdp?.ip || "N/A"}) is frozen/unresponsive. Please reboot it.`;
+      const sosMsg = `🚨 URGENT REBOOT REQUEST: Hi Mohan, I am ${currentClientData.name} (${currentClientData.email}). My remote PC (Headscale IP: ${currentClientData.rdp?.ip || "N/A"}) is frozen/unresponsive. Please reboot it.`;
       window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(sosMsg)}`, "_blank");
     };
 
@@ -1249,8 +1339,9 @@ const firebaseConfig = {
         uid: currentUser.uid, userName, text, reply: "", createdAt: serverTimestamp()
       });
 
-      const waMsg = `Hi Mohan, I posted a requirement on Lattice Remote PC:\nName: ${userName}\nRequest: ${text}`;
-      document.getElementById("post-msg-wa-link").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(waMsg)}`;
+      const pingMsg = `Hi Mohan, I posted a requirement on Lattice Remote PC:\nName: ${userName}\nRequest: ${text}`;
+      document.getElementById("post-msg-wa-link").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(pingMsg)}`;
+      document.getElementById("post-msg-sms-link").href = `sms:${SMS_US}?body=${encodeURIComponent(pingMsg)}`;
       document.getElementById("post-msg-wa-prompt").classList.remove("hidden");
       input.value = "";
     };
@@ -1263,7 +1354,7 @@ const firebaseConfig = {
         const tbody = document.getElementById("admin-users-tbody");
         tbody.innerHTML = "";
         cachedClients = {};
-        let pendingCount = 0;
+        let reqCount = 0;
         let trialCount = 0;
         let sosCount = 0;
 
@@ -1272,23 +1363,27 @@ const firebaseConfig = {
           const uid = docSnap.id;
           if ((u.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()) return;
           cachedClients[uid] = u;
-          if (u.verifiedStatus === "pending") pendingCount++;
+
+          const sStatus = u.serviceStatus || (u.expiryDate ? "active" : "awaiting_payment");
+          if (sStatus === "requested" || sStatus === "awaiting_payment") reqCount++;
           if (u.trialStatus === "requested") trialCount++;
           if (u.sosReboot) sosCount++;
 
           const sym = u.currency === "USD" ? "$" : "₹";
           const { rate, qty, disc, finalTotal } = calcTotals(u);
-          const exp = new Date(u.expiryDate);
-          const today = new Date(); today.setHours(0,0,0,0);
-          const bal = Math.max(0, Math.ceil((exp - today) / (1000 * 60 * 60 * 24)));
           const s = u.specs || {};
           const rdp = u.rdp || {};
 
-          const vBadge = u.verifiedStatus === "approved"
-            ? `<span class="badge badge-active">✅ Approved</span>`
-            : u.verifiedStatus === "rejected"
-            ? `<span class="badge badge-expired">❌ Rejected</span>`
-            : `<span class="badge badge-warn">⏳ Pending</span>`;
+          let statusHtml = "";
+          if (sStatus === "active") {
+            statusHtml = `<span class="badge badge-active">✅ Active</span>`;
+          } else if (sStatus === "requested") {
+            statusHtml = `<span class="badge badge-warn">🚀 Service Requested</span>`;
+          } else if (sStatus === "rejected") {
+            statusHtml = `<span class="badge badge-expired">❌ Rejected</span>`;
+          } else {
+            statusHtml = `<span class="badge badge-warn">⏳ Awaiting Payment</span>`;
+          }
 
           const trialBadge = u.trialStatus === "requested"
             ? `<div style="margin-top:4px;"><span class="badge badge-warn">🎁 2-HR TRIAL REQ</span> <button class="btn-success btn-sm" onclick="markTrialDone('${uid}')">Done</button></div>`
@@ -1300,10 +1395,37 @@ const firebaseConfig = {
             ? `<div style="margin-top:4px;"><span class="badge badge-expired">🚨 REBOOT NEEDED</span> <button class="btn-outline btn-sm" onclick="clearSos('${uid}')">Clear</button></div>`
             : "";
 
-          const cleanPhone = String(u.phone || "").replace(/\D/g, "");
-          const waPhone = cleanPhone.length === 10 ? "91" + cleanPhone : cleanPhone;
-          const reminderText = `Hi ${u.name}, reminder from Lattice Remote PC: your plan for ${qty} PC(s) (${sym}${finalTotal}) has ${bal} day(s) left and expires on ${u.expiryDate}.`;
-          const waBtn = waPhone ? `<a href="https://wa.me/${waPhone}?text=${encodeURIComponent(reminderText)}" target="_blank" class="btn btn-whatsapp btn-sm">📲 WA</a>` : "";
+          let expiryControlHtml = "";
+          if (sStatus !== "active" || !u.expiryDate) {
+            expiryControlHtml = `
+              <small style="color:var(--warning);">No expiry set yet</small><br>
+              <button class="btn-success btn-sm" style="margin-top:4px;" onclick="approvePaymentAndStart30('${uid}')">✅ Approve Paid & Start 30d</button>
+            `;
+          } else {
+            const exp = new Date(u.expiryDate);
+            const today = new Date(); today.setHours(0,0,0,0);
+            const bal = Math.max(0, Math.ceil((exp - today) / (1000 * 60 * 60 * 24)));
+            expiryControlHtml = `
+              <small>Exp: <strong>${u.expiryDate}</strong></small> <span class="badge ${bal <= 5 ? 'badge-warn' : 'badge-active'}">${bal}d left</span>
+              <div style="margin-top:4px; display:flex; gap:4px; flex-wrap:wrap;">
+                <button class="btn-primary btn-sm" onclick="extendDays('${uid}', 30, '')">+30d</button>
+                <button class="btn-outline btn-sm" onclick="adjustExpiryByDays('${uid}', 1)" title="Add 1 Day">+1d</button>
+                <button class="btn-outline btn-sm" onclick="adjustExpiryByDays('${uid}', -1)" title="Reduce 1 Day">-1d</button>
+                <button class="btn-warn btn-sm" onclick="extendDays('${uid}', 2, '🎁 +2d Referral Bonus')" title="Referral Reward">+2d Ref</button>
+              </div>
+            `;
+          }
+
+          const rawPhone = String(u.phone || "").trim();
+          const digits = rawPhone.replace(/\D/g, "");
+          const reminderText = `Hi ${u.name}, update from Lattice Remote PC (${qty} PC(s), ${sym}${finalTotal})${u.expiryDate ? ` — Expiry: ${u.expiryDate}` : ""}.`;
+          let contactBtn = "";
+          if (digits.startsWith("1") && digits.length === 11) {
+            contactBtn = `<a href="sms:+${digits}?body=${encodeURIComponent(reminderText)}" class="btn btn-primary btn-sm">🇺🇸 SMS</a>`;
+          } else if (digits.length >= 10) {
+            const waNum = digits.length === 10 ? "91" + digits : digits;
+            contactBtn = `<a href="https://wa.me/${waNum}?text=${encodeURIComponent(reminderText)}" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WA</a>`;
+          }
 
           tbody.innerHTML += `
             <tr class="${u.sosReboot ? 'sos-row' : ''}">
@@ -1313,35 +1435,32 @@ const firebaseConfig = {
                 ${u.referredBy ? `<br><span class="badge badge-warn">Ref by: ${escapeHtml(u.referredBy)}</span>` : ""}
               </td>
               <td>
-                ${vBadge}${trialBadge}${sosBadge}
-                <div style="margin-top:5px; display:flex; gap:4px; flex-wrap:wrap;">
-                  ${u.verifiedStatus !== "approved" ? `<button class="btn-success btn-sm" onclick="setVerifyStatus('${uid}', 'approved')">Approve</button>` : ""}
-                  <button class="btn-outline btn-sm" onclick="viewClientDetails('${uid}')">Info/Proof</button>
+                ${statusHtml}${trialBadge}${sosBadge}
+                <div style="margin-top:5px;">
+                  <button class="btn-outline btn-sm" onclick="viewClientDetails('${uid}')">Info / Proof</button>
                 </div>
               </td>
               <td>
-                <strong>${qty} PC(s)</strong> × ${sym}${rate}<br>
-                ${disc > 0 ? `<span class="badge badge-active">${disc}% Off</span> ` : ""}<strong>Total: ${sym}${finalTotal}</strong><br>
-                <small>Exp: ${u.expiryDate}</small> <span class="badge ${bal <= 5 ? 'badge-warn' : 'badge-active'}">${bal}d left</span>
+                <strong>${qty} PC(s)</strong> × ${sym}${rate} ${disc > 0 ? `<span class="badge badge-active">${disc}% Off</span>` : ""}<br>
+                <strong>Total: ${sym}${finalTotal}</strong><br>
+                ${expiryControlHtml}
               </td>
               <td>
                 <small><strong>${escapeHtml(s.cpu || "-")}</strong> | ${escapeHtml(s.ram || "-")}<br>
-                ${escapeHtml(s.gpu || "-")} | IP: ${escapeHtml(rdp.ip || "-")}</small>
+                ${escapeHtml(s.gpu || "-")} | HS IP: ${escapeHtml(rdp.ip || "-")}</small>
               </td>
               <td>
                 <div style="display:flex; gap:4px; flex-wrap:wrap;">
-                  <button class="btn-primary btn-sm" onclick="extendDays('${uid}', 30, '')">+30d</button>
-                  <button class="btn-warn btn-sm" onclick="extendDays('${uid}', 2, '🎁 +2d Referral Bonus')" title="Add +2 Free Days Referral Reward">+2d Ref</button>
                   <button class="btn-outline btn-sm" onclick="openEditModal('${uid}')">Edit</button>
                   <button class="btn-outline btn-sm" onclick="openAdminHistoryModal('${uid}')">History</button>
-                  ${waBtn}
+                  ${contactBtn}
                   <button class="btn-danger btn-sm" onclick="deleteClientRecord('${uid}')">Del</button>
                 </div>
               </td>
             </tr>`;
         });
 
-        document.getElementById("admin-alert-counter").textContent = `${pendingCount} Pending | ${trialCount} Trials | ${sosCount} SOS`;
+        document.getElementById("admin-alert-counter").textContent = `${reqCount} Pending/Req | ${trialCount} Trials | ${sosCount} SOS`;
       });
 
       const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
@@ -1364,10 +1483,47 @@ const firebaseConfig = {
       });
     }
 
+    window.approvePaymentAndStart30 = async (uid) => {
+      const u = cachedClients[uid];
+      if (!u) return;
+      const { qty, finalTotal } = calcTotals(u);
+      const today = new Date();
+      const exp = new Date();
+      exp.setDate(today.getDate() + 30);
+      const startStr = today.toISOString().split("T")[0];
+      const expStr = exp.toISOString().split("T")[0];
+
+      await updateDoc(doc(db, "users", uid), {
+        serviceStatus: "active",
+        startDate: startStr,
+        expiryDate: expStr,
+        totalDays: 30,
+        history: arrayUnion({
+          date: startStr,
+          label: "✅ Initial 30d Activation",
+          pcCount: qty,
+          amount: finalTotal,
+          days: 30,
+          newExpiry: expStr
+        })
+      });
+    };
+
+    window.adjustExpiryByDays = async (uid, deltaDays) => {
+      const u = cachedClients[uid];
+      if (!u || !u.expiryDate) return;
+      const base = new Date(u.expiryDate);
+      base.setDate(base.getDate() + deltaDays);
+      const newExpiry = base.toISOString().split("T")[0];
+      await updateDoc(doc(db, "users", uid), {
+        expiryDate: newExpiry,
+        totalDays: Math.max(1, (u.totalDays || 30) + deltaDays)
+      });
+    };
+
     window.markTrialDone = async (uid) => { await updateDoc(doc(db, "users", uid), { trialStatus: "completed" }); };
     window.clearSos = async (uid) => { await updateDoc(doc(db, "users", uid), { sosReboot: false }); };
 
-    // Post Highlighted Notice + Trigger Live Popout on All Client Screens
     window.saveBroadcast = async () => {
       const text = document.getElementById("admin-broadcast-input").value.trim();
       await setDoc(doc(db, "settings", "global"), {
@@ -1384,7 +1540,6 @@ const firebaseConfig = {
 
     window.toggleKycSetting = async (checked) => { await setDoc(doc(db, "settings", "global"), { kycRequired: checked }, { merge: true }); };
     window.toggleSysSetting = async (checked) => { await setDoc(doc(db, "settings", "global"), { sysOnline: checked }, { merge: true }); };
-    window.setVerifyStatus = async (uid, status) => { await updateDoc(doc(db, "users", uid), { verifiedStatus: status }); };
 
     window.viewClientDetails = (uid) => {
       const u = cachedClients[uid];
@@ -1401,7 +1556,7 @@ const firebaseConfig = {
         <div class="spec-row"><span class="spec-key">PC Count & Discount</span><strong>${u.pcCount || 1} PC(s) | ${u.discountPercent || 0}% Off</strong></div>
         <div class="spec-row"><span class="spec-key">Referred By</span><strong>${escapeHtml(u.referredBy || "Direct")}</strong></div>
         <div class="spec-row"><span class="spec-key">ID Number</span><strong>${escapeHtml(u.aadhaar || "Not Provided")}</strong></div>
-        <div class="spec-row"><span class="spec-key">Trial Status</span><strong>${escapeHtml(u.trialStatus || "eligible")}</strong></div>
+        <div class="spec-row"><span class="spec-key">Service Status</span><strong>${escapeHtml(u.serviceStatus || "awaiting_payment")}</strong></div>
         ${proofHtml}
       `;
       document.getElementById("view-client-modal").classList.remove("hidden");
@@ -1411,12 +1566,14 @@ const firebaseConfig = {
       const u = cachedClients[uid];
       if (!u) return;
       const { qty, finalTotal } = calcTotals(u);
-      const base = new Date(u.expiryDate) > new Date() ? new Date(u.expiryDate) : new Date();
+      const base = (u.expiryDate && new Date(u.expiryDate) > new Date()) ? new Date(u.expiryDate) : new Date();
       base.setDate(base.getDate() + daysToAdd);
       const newExpiry = base.toISOString().split("T")[0];
       const todayStr = new Date().toISOString().split("T")[0];
 
       await updateDoc(doc(db, "users", uid), {
+        serviceStatus: "active",
+        startDate: u.startDate || todayStr,
         expiryDate: newExpiry,
         totalDays: daysToAdd === 30 ? 30 : (u.totalDays || 30) + daysToAdd,
         history: arrayUnion({
@@ -1430,7 +1587,6 @@ const firebaseConfig = {
       });
     };
 
-    // Admin History Review, Edit & Delete Modal
     window.openAdminHistoryModal = (uid) => {
       const u = cachedClients[uid];
       if (!u) return;
@@ -1462,7 +1618,7 @@ const firebaseConfig = {
           <td>${sym}${h.amount || 0}</td>
           <td>${escapeHtml(h.newExpiry || "--")}</td>
           <td>
-            <button class="btn-outline btn-sm" onclick="editHistoryAmount('${uid}', ${idx})">Edit Amt</button>
+            <button class="btn-outline btn-sm" onclick="editHistoryAmount('${uid}', ${idx})">Edit</button>
             <button class="btn-danger btn-sm" onclick="deleteHistoryEntry('${uid}', ${idx})">Del</button>
           </td>
         </tr>`).join("");
@@ -1521,8 +1677,6 @@ const firebaseConfig = {
     };
 
     window.openAddClientModal = () => {
-      const today = new Date();
-      const exp = new Date(); exp.setDate(today.getDate() + 30);
       document.getElementById("edit-modal-heading").textContent = "➕ Add New Rented PC Client";
       document.getElementById("edit-uid").value = "manual_" + Date.now();
       document.getElementById("edit-is-new").value = "1";
@@ -1530,14 +1684,14 @@ const firebaseConfig = {
       document.getElementById("edit-email").value = "";
       document.getElementById("edit-phone").value = "";
       document.getElementById("edit-address").value = "";
-      document.getElementById("edit-verified").value = "approved";
+      document.getElementById("edit-service-status").value = "awaiting_payment";
       document.getElementById("edit-currency").value = "INR";
       document.getElementById("edit-rent").value = 3500;
       document.getElementById("edit-pccount").value = 1;
       document.getElementById("edit-discount").value = 0;
       document.getElementById("edit-days").value = 30;
-      document.getElementById("edit-start").value = today.toISOString().split("T")[0];
-      document.getElementById("edit-expiry").value = exp.toISOString().split("T")[0];
+      document.getElementById("edit-start").value = "";
+      document.getElementById("edit-expiry").value = "";
       document.getElementById("edit-cpu").value = "";
       document.getElementById("edit-ram").value = "";
       document.getElementById("edit-gpu").value = "";
@@ -1552,14 +1706,14 @@ const firebaseConfig = {
     window.openEditModal = (uid) => {
       const u = cachedClients[uid];
       if (!u) return;
-      document.getElementById("edit-modal-heading").textContent = "✏️ Edit Client Plan, PC Count, Discount & Specs";
+      document.getElementById("edit-modal-heading").textContent = "✏️ Edit Client Plan, Expiry & Headscale/RDP";
       document.getElementById("edit-uid").value = uid;
       document.getElementById("edit-is-new").value = "0";
       document.getElementById("edit-name").value = u.name || "";
       document.getElementById("edit-email").value = u.email || "";
       document.getElementById("edit-phone").value = u.phone || "";
       document.getElementById("edit-address").value = u.address || "";
-      document.getElementById("edit-verified").value = u.verifiedStatus || "pending";
+      document.getElementById("edit-service-status").value = u.serviceStatus || (u.expiryDate ? "active" : "awaiting_payment");
       document.getElementById("edit-currency").value = u.currency || "INR";
       document.getElementById("edit-rent").value = u.rentAmount || 0;
       document.getElementById("edit-pccount").value = u.pcCount || 1;
@@ -1585,19 +1739,31 @@ const firebaseConfig = {
     window.saveClientEdits = async () => {
       const uid = document.getElementById("edit-uid").value;
       const isNew = document.getElementById("edit-is-new").value === "1";
+      const statusVal = document.getElementById("edit-service-status").value;
+      let startVal = document.getElementById("edit-start").value;
+      let expiryVal = document.getElementById("edit-expiry").value;
+
+      if (statusVal === "active" && !expiryVal) {
+        const today = new Date();
+        const exp = new Date();
+        exp.setDate(today.getDate() + 30);
+        startVal = today.toISOString().split("T")[0];
+        expiryVal = exp.toISOString().split("T")[0];
+      }
+
       const payload = {
         name: document.getElementById("edit-name").value.trim(),
         email: document.getElementById("edit-email").value.trim().toLowerCase(),
         phone: document.getElementById("edit-phone").value.trim(),
         address: document.getElementById("edit-address").value.trim(),
-        verifiedStatus: document.getElementById("edit-verified").value,
+        serviceStatus: statusVal,
         currency: document.getElementById("edit-currency").value,
         rentAmount: Number(document.getElementById("edit-rent").value),
         pcCount: Math.max(1, Number(document.getElementById("edit-pccount").value || 1)),
         discountPercent: Math.min(100, Math.max(0, Number(document.getElementById("edit-discount").value || 0))),
         totalDays: Number(document.getElementById("edit-days").value),
-        startDate: document.getElementById("edit-start").value,
-        expiryDate: document.getElementById("edit-expiry").value,
+        startDate: startVal,
+        expiryDate: expiryVal,
         specs: {
           cpu: document.getElementById("edit-cpu").value,
           ram: document.getElementById("edit-ram").value,
@@ -1623,17 +1789,15 @@ const firebaseConfig = {
       closeEditModal();
     };
 
-    // Landing Free Trial Prompt (Directs Visitors to Sign Up First)
     window.handleLandingTrialClick = () => {
       showAuth("signup");
       document.getElementById("auth-section").scrollIntoView({ behavior: "smooth" });
       document.getElementById("auth-msg").textContent = "🎁 Create your free account above to unlock your 2-Hour Free Trial booking button!";
     };
 
-    // Share Portal & Custom Quote Helpers
     window.sharePortal = () => {
       const url = window.location.origin + window.location.pathname;
-      const text = `Check out Lattice Remote PC — High-performance workstations on rent configured to your exact requirements (2-Hour Free Trial for members)! Contact: +919790342116 / +19547512404 | ${url}`;
+      const text = `Check out Lattice Remote PC — Custom workstations on rent via Headscale & RDP (2-Hour Free Trial for members)! WhatsApp/SMS/Calls: +919790342116 | US SMS/Calls: +19547512404 | Email: ${BIZ_EMAIL} | ${url}`;
       if (navigator.share) {
         navigator.share({ title: "Lattice Remote PC Rental", text, url }).catch(() => {});
       } else {
@@ -1649,17 +1813,23 @@ const firebaseConfig = {
       window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
     };
 
-    window.sendCustomQuote = (targetPhone) => {
+    window.sendCustomQuote = (channel) => {
       const cpu = document.getElementById("q-cpu").value;
       const ram = document.getElementById("q-ram").value;
       const gpu = document.getElementById("q-gpu").value;
       const dur = document.getElementById("q-dur").value;
       const soft = document.getElementById("q-soft").value.trim() || "Standard";
       const msg = `Hi Mohan, I want a quote for a Custom Remote PC Rental:\n• CPU: ${cpu}\n• RAM: ${ram}\n• GPU: ${gpu}\n• Plan: ${dur}\n• Software: ${soft}`;
-      window.open(`https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`, "_blank");
+
+      if (channel === "sms_us") {
+        window.location.href = `sms:${SMS_US}?body=${encodeURIComponent(msg)}`;
+      } else if (channel === "email") {
+        window.location.href = `mailto:${BIZ_EMAIL}?subject=${encodeURIComponent("Custom Remote PC Rental Quote")}&body=${encodeURIComponent(msg)}`;
+      } else {
+        window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(msg)}`, "_blank");
+      }
     };
 
-    // UI & Modal Helpers
     window.showAuth = (mode) => {
       document.getElementById("tab-signin").classList.toggle("active", mode === "signin");
       document.getElementById("tab-signup").classList.toggle("active", mode === "signup");
@@ -1672,7 +1842,7 @@ const firebaseConfig = {
       if (!el.dataset.secret) return;
       el.textContent = el.textContent === "••••••••" ? el.dataset.secret : "••••••••";
     };
-    window.copyRdpPass = () => { const sec = document.getElementById("rdp-pass").dataset.secret; if (sec) copyText(sec, "Windows Password copied!"); };
+    window.copyRdpPass = () => { const sec = document.getElementById("rdp-pass").dataset.secret; if (sec) copyText(sec, "RDP Password copied!"); };
     window.copyElem = (id) => copyText(document.getElementById(id).textContent, "Copied to clipboard!");
     window.copyText = (txt, msg) => { navigator.clipboard.writeText(txt); alert(msg); };
 
