@@ -334,7 +334,7 @@
     <div id="public-offers-card" class="card" style="border-color:rgba(16,185,129,0.4);">
       <div class="card-title">
         <span>🏷️ Special Offers & Active Promocodes</span>
-        <span style="font-size:0.78rem; color:#6ee7b7;">Apply promocodes on the payment section to lower your bill</span>
+        <span style="font-size:0.78rem; color:#6ee7b7;">Select a promocode and click Update on your PC count to refresh your billable total</span>
       </div>
       <div id="user-offers-grid" class="offers-grid">
         <div class="offer-box">
@@ -457,8 +457,8 @@
           </div>
           <div class="grid-2" style="gap:10px;">
             <div class="form-group">
-              <label>Initial PC Count Needed (Min. 5) *</label>
-              <input type="number" id="signup-pccount" min="5" max="200" value="5" required />
+              <label>Initial PC Count (Default 0 • Min. 5 for Plan)</label>
+              <input type="number" id="signup-pccount" min="0" max="200" value="0" />
             </div>
             <div class="form-group">
               <label>Referred By (+2 Free Days!)</label>
@@ -610,10 +610,10 @@
       <!-- Subscription, Multi-PC Pricing, Promocode & Renewal Countdown -->
       <div class="card">
         <div class="card-title">
-          <span>⏳ Rental Period, PC Quantity & Renewal Status <span id="disp-selected-tier" class="badge badge-active" style="margin-left:6px;">Team Rental</span></span>
+          <span>⏳ Rental Period, PC Quantity & Renewal Status <span id="disp-selected-tier" class="badge badge-active" style="margin-left:6px;">Not Selected</span></span>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
             <span id="verify-badge" class="badge badge-warn">Not Activated</span>
-            <span id="status-badge" class="badge badge-warn">Awaiting Payment</span>
+            <span id="status-badge" class="badge badge-warn">Default: 0 PCs</span>
             <button type="button" id="btn-sos-reboot" class="btn-danger btn-sm" onclick="triggerRebootSOS()">🚨 PC Frozen / Need Reboot</button>
           </div>
         </div>
@@ -622,20 +622,20 @@
           <div class="stat">
             <div class="stat-label">Per-PC Rate & Discount</div>
             <div class="stat-value" id="disp-unit-rate">₹0</div>
-            <div id="disp-discount-note" style="font-size:0.75rem; color:var(--success); margin-top:2px;">Standard per-PC rate</div>
+            <div id="disp-discount-note" style="font-size:0.75rem; color:var(--success); margin-top:2px;">Enter PC count (min 5) & click Update</div>
           </div>
           <div class="stat">
-            <div class="stat-label">Required PC Count (Min. 5)</div>
+            <div class="stat-label">PC Count (Default 0 • Min. 5)</div>
             <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
-              <input type="number" id="client-pc-qty" min="5" max="200" value="5" style="width:78px; padding:6px 8px; font-weight:800; font-size:1.05rem;" />
+              <input type="number" id="client-pc-qty" min="0" max="200" value="0" style="width:78px; padding:6px 8px; font-weight:800; font-size:1.05rem;" />
               <button type="button" class="btn-primary btn-sm" onclick="updateClientPcQty()">Update</button>
             </div>
-            <div style="font-size:0.73rem; color:var(--muted); margin-top:3px;">Minimum 5 PCs / users</div>
+            <div style="font-size:0.73rem; color:var(--muted); margin-top:3px;">Default 0 • Min. 5 PCs when updating</div>
           </div>
           <div class="stat" style="border-color:var(--primary);">
-            <div class="stat-label">Total Billable Value</div>
+            <div class="stat-label" id="disp-bill-label">Billable Price (After Update)</div>
             <div class="stat-value" id="disp-total-payable" style="color:#60a5fa;">₹0</div>
-            <div id="disp-calc-breakdown" style="font-size:0.74rem; color:var(--muted); margin-top:2px;">5 PCs × ₹0</div>
+            <div id="disp-calc-breakdown" style="font-size:0.74rem; color:var(--muted); margin-top:2px;">Set PC count (min 5) & click Update</div>
           </div>
           <div class="stat">
             <div class="stat-label">Balance Days Remaining</div>
@@ -644,11 +644,11 @@
           </div>
         </div>
 
-        <!-- Promocode Selector on User Side -->
+        <!-- Promocode Selector on User Side (Updates Price on Selection / Update) -->
         <div class="cred-box" style="margin-top:14px;">
           <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:10px;">
             <div style="flex:1; min-width:210px;">
-              <label><strong>🎟️ Select or Enter Promocode</strong></label>
+              <label><strong>🎟️ Select Promocode</strong></label>
               <select id="client-promocode-select" onchange="applySelectedPromocode()">
                 <option value="">-- No Promocode Selected --</option>
               </select>
@@ -665,10 +665,10 @@
           <div id="client-promo-feedback" style="font-size:0.8rem; color:#6ee7b7; margin-top:6px;"></div>
         </div>
 
-        <!-- Installment / Balance Breakdown Card -->
+        <!-- Installment / Balance Breakdown Card (Shown when service is active or partial payment exists) -->
         <div id="client-installment-card" class="cred-box hidden" style="border-color:rgba(245,158,11,0.55); background:rgba(245,158,11,0.06);">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
-            <strong style="color:#fcd34d; font-size:0.92rem;">💰 Installment & Payment Balance Breakdown</strong>
+            <strong style="color:#fcd34d; font-size:0.92rem;">💰 Service Balance & Installment Breakdown</strong>
             <button type="button" id="btn-request-part-payment" class="btn-warn btn-sm hidden" onclick="openPartPaymentRequestModal()">📝 Request Part Payment</button>
           </div>
           <div class="grid-4" style="gap:10px;">
@@ -708,7 +708,7 @@
           <div class="card-title">💳 Payment, Receipt Summary & Proof Upload</div>
           <div id="inr-upi-section">
             <p style="font-size:0.84rem; color:var(--muted); margin-bottom:10px;">
-              Scan the QR below for <strong id="qr-amount-label" style="color:var(--text);">₹0</strong> (<strong id="qr-qty-label" style="color:var(--text);">5 PCs</strong>). After paying, view your receipt summary, upload your payment receipt proof, and intimate admin.
+              Displayed amount: <strong id="qr-amount-label" style="color:var(--text);">₹0</strong> (<strong id="qr-qty-label" style="color:var(--text);">0 PCs</strong>). After paying, view your receipt summary, upload your payment receipt proof, and intimate admin.
             </p>
             <div class="upi-box">
               <div>
@@ -799,7 +799,6 @@
             </div>
           </div>
 
-          <!-- Collapsible Headscale & RDP Connection Quick-Guide -->
           <details class="guide-dropdown">
             <summary>
               <span>📘 Headscale & RDP Connection Quick-Guide</span>
@@ -816,7 +815,6 @@
       </div>
 
       <div class="grid-2">
-        <!-- Client Requirement & Support Box -->
         <div class="card">
           <div class="card-title">💬 Post Requirement / Request Support</div>
           <div id="client-msg-list" class="msg-list"></div>
@@ -833,7 +831,6 @@
           </div>
         </div>
 
-        <!-- Past Payments, Receipts & Referral Rewards -->
         <div class="card">
           <div class="card-title">🧾 Past Payments, Receipts & Referral Rewards</div>
 
@@ -1641,10 +1638,22 @@
       return activePromos.find(p => p.active !== false && String(p.code || "").toUpperCase() === normalized) || null;
     }
 
+    function hasExistingService(u) {
+      if (!u) return false;
+      const st = u.serviceStatus || "";
+      return st === "active" || !!u.expiryDate || Number(u.partialPaidAmount || 0) > 0;
+    }
+
+    function isUserQtyUpdated(u) {
+      if (!u) return false;
+      return Boolean(u.pcQtyUpdated) || (Number(u.pcCount || 0) >= MIN_USER_PC_QTY);
+    }
+
+    // Admin can use any PC count (1, 2, 3, 5+); user side defaults to 0 until user updates (min 5 for new request)
     function calcTotals(u, isAdminView = false, promoCodeOverride = null) {
       const rate = Number(u.rentAmount || 0);
-      const rawQty = Number(u.pcCount || (isAdminView ? 1 : MIN_USER_PC_QTY));
-      const qty = isAdminView ? Math.max(1, rawQty) : Math.max(MIN_USER_PC_QTY, rawQty);
+      const rawQty = Number(u.pcCount || 0);
+      const qty = isAdminView ? Math.max(1, rawQty || 1) : (isUserQtyUpdated(u) ? Math.max(MIN_USER_PC_QTY, rawQty) : 0);
       const disc = Math.min(100, Math.max(0, Number(u.discountPercent || 0)));
       const subtotal = rate * qty;
       const discountAmt = Math.round((subtotal * disc) / 100);
@@ -1703,7 +1712,7 @@
                   <div style="font-weight:700; margin-top:6px;">Use Code: <span class="promo-chip-code">${escapeHtml(p.code)}</span></div>
                   <p style="font-size:0.81rem; color:var(--muted); margin-top:3px;">${escapeHtml(p.note || "Applies directly to your billable total.")}</p>
                 </div>
-                <button type="button" class="btn-success btn-sm" onclick="quickUsePromoCode('${escapeHtml(p.code)}')">Apply ${escapeHtml(p.code)}</button>
+                <button type="button" class="btn-success btn-sm" onclick="quickUsePromoCode('${escapeHtml(p.code)}')">Select ${escapeHtml(p.code)}</button>
               </div>`;
           }).join("");
 
@@ -1736,7 +1745,7 @@
         await updateDoc(doc(db, "users", currentUser.uid), { appliedPromoCode }).catch(() => {});
       }
       renderOffersAndPromosUI();
-      notifyStatus(`Promocode ${appliedPromoCode} selected! Check your updated billable total.`);
+      notifyStatus(`Promocode ${appliedPromoCode} selected! Click Update on PC count to refresh client price.`);
     };
 
     window.applySelectedPromocode = async () => {
@@ -1747,6 +1756,7 @@
         await updateDoc(doc(db, "users", currentUser.uid), { appliedPromoCode }).catch(() => {});
       }
       renderOffersAndPromosUI();
+      notifyStatus(appliedPromoCode ? `Promocode ${appliedPromoCode} selected. Click Update to refresh price.` : "Promocode cleared.");
     };
 
     window.applyTypedPromocode = async () => {
@@ -1765,7 +1775,7 @@
         await updateDoc(doc(db, "users", currentUser.uid), { appliedPromoCode }).catch(() => {});
       }
       renderOffersAndPromosUI();
-      notifyStatus(`Applied promocode ${appliedPromoCode}!`);
+      notifyStatus(`Promocode ${appliedPromoCode} selected. Click Update to apply to client price!`);
     };
 
     window.clearAppliedPromocode = async () => {
@@ -1928,10 +1938,11 @@
       if (currentUser && currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
         await updateDoc(doc(db, "users", currentUser.uid), {
           pcCount: qty,
+          pcQtyUpdated: true,
           totalDays: suggestedDays,
           selectedPlan: planName
         });
-        notifyStatus(`Applied "${planName}" (${qty} PCs, ${suggestedDays} days)!`);
+        notifyStatus(`Applied "${planName}" (${qty} PCs, ${suggestedDays} days)! Price updated.`);
       } else {
         showAuth("signup");
         document.getElementById("signup-pccount").value = qty;
@@ -2124,11 +2135,9 @@
         const password = document.getElementById("signup-password").value;
         const phone = document.getElementById("signup-phone").value.trim();
         const address = document.getElementById("signup-address").value.trim();
-        const rawPcCount = Number(document.getElementById("signup-pccount").value || MIN_USER_PC_QTY);
-        if (rawPcCount < MIN_USER_PC_QTY) {
-          throw new Error(`Minimum PC user count is ${MIN_USER_PC_QTY}.`);
-        }
-        const pcCount = rawPcCount;
+        const rawPcCount = Number(document.getElementById("signup-pccount").value || 0);
+        const qtyUpdated = rawPcCount >= MIN_USER_PC_QTY;
+        const pcCount = qtyUpdated ? rawPcCount : 0;
         const referredBy = document.getElementById("signup-ref").value.trim();
         const aadhaar = kycRequired ? document.getElementById("signup-aadhaar").value.trim() : "";
         const proofFile = kycRequired ? document.getElementById("signup-proof").files[0] : null;
@@ -2141,7 +2150,7 @@
           proofBase64: compressedProof.dataUrl,
           proofFileName: compressedProof.fileName,
           accountPassword: password,
-          selectedPlan: pcCount >= 10 ? "Enterprise Bulk (10+ PCs)" : "Team Rental (5 PCs)",
+          selectedPlan: pcCount >= 10 ? "Enterprise Bulk (10+ PCs)" : (pcCount >= MIN_USER_PC_QTY ? "Team Rental (5 PCs)" : "Not Selected"),
           serviceStatus: "awaiting_payment",
           trialStatus: "eligible",
           sosReboot: false,
@@ -2154,6 +2163,7 @@
           currency: "INR",
           rentAmount: 0,
           pcCount,
+          pcQtyUpdated: qtyUpdated,
           discountPercent: 0,
           appliedPromoCode: "",
           totalDays: 30,
@@ -2359,37 +2369,60 @@
       if (d.appliedPromoCode && !appliedPromoCode) {
         appliedPromoCode = String(d.appliedPromoCode).toUpperCase();
       }
+      const existingService = hasExistingService(d);
+      const qtyUpdated = isUserQtyUpdated(d);
       const { rate, qty, disc, subtotal, discountAmt, promo, promoDiscountAmt, finalTotal } = calcTotals(d, false);
+      const partialPaid = Number(d.partialPaidAmount || 0);
+      const balanceRem = Math.max(0, finalTotal - partialPaid);
 
       document.getElementById("disp-unit-rate").textContent = `${sym}${rate}/PC`;
-      document.getElementById("disp-discount-note").textContent = disc > 0 ? `🎉 ${disc}% Volume Discount Applied` : "Standard per-PC rate";
       const pcQtyInp = document.getElementById("client-pc-qty");
-      if (pcQtyInp && document.activeElement !== pcQtyInp) pcQtyInp.value = qty;
+      if (pcQtyInp && document.activeElement !== pcQtyInp) {
+        pcQtyInp.value = qtyUpdated ? qty : 0;
+      }
 
-      document.getElementById("disp-total-payable").textContent = `${sym}${finalTotal}`;
-      let breakdownParts = [`${qty} PC(s) × ${sym}${rate}`];
-      if (disc > 0) breakdownParts.push(`-${disc}% (${sym}${discountAmt})`);
-      if (promo && promoDiscountAmt > 0) breakdownParts.push(`Promo ${promo.code} (-${sym}${promoDiscountAmt})`);
-      document.getElementById("disp-calc-breakdown").textContent = breakdownParts.join(" • ");
+      const billLabelEl = document.getElementById("disp-bill-label");
+      const totalEl = document.getElementById("disp-total-payable");
+      const breakdownEl = document.getElementById("disp-calc-breakdown");
+
+      if (!qtyUpdated && !existingService) {
+        // Default 0 view: do not auto-calculate confusing numbers until user updates PC count (>= 5)
+        billLabelEl.textContent = "Billable Price (Default 0)";
+        totalEl.textContent = `${sym}0`;
+        breakdownEl.textContent = "Default 0 • Enter PC count (min 5) & click Update";
+        document.getElementById("disp-discount-note").textContent = "Click Update after choosing PC count & promo";
+      } else if (existingService && partialPaid > 0) {
+        billLabelEl.textContent = "Balance Price Due";
+        totalEl.textContent = `${sym}${balanceRem}`;
+        breakdownEl.textContent = `Total: ${sym}${finalTotal} − Paid: ${sym}${partialPaid} = Balance ${sym}${balanceRem}`;
+        document.getElementById("disp-discount-note").textContent = disc > 0 ? `🎉 ${disc}% Volume Discount Applied` : "Existing service balance";
+      } else {
+        billLabelEl.textContent = "Total Billable Value";
+        totalEl.textContent = `${sym}${finalTotal}`;
+        let breakdownParts = [`${qty} PC(s) × ${sym}${rate}`];
+        if (disc > 0) breakdownParts.push(`-${disc}% (${sym}${discountAmt})`);
+        if (promo && promoDiscountAmt > 0) breakdownParts.push(`Promo ${promo.code} (-${sym}${promoDiscountAmt})`);
+        breakdownEl.textContent = breakdownParts.join(" • ");
+        document.getElementById("disp-discount-note").textContent = disc > 0 ? `🎉 ${disc}% Volume Discount Applied` : "Updated per-PC rate";
+      }
 
       const promoFeedback = document.getElementById("client-promo-feedback");
       if (promo) {
-        promoFeedback.textContent = `✅ Promocode "${promo.code}" applied — You save ${sym}${promoDiscountAmt}! Final Total: ${sym}${finalTotal}`;
+        promoFeedback.textContent = `✅ Promocode "${promo.code}" selected — Saves ${sym}${promoDiscountAmt}. Updated Billable Total: ${sym}${finalTotal}`;
       } else if (appliedPromoCode) {
         promoFeedback.textContent = `ℹ️ Code "${appliedPromoCode}" selected.`;
       } else {
-        promoFeedback.textContent = "Select a promocode above if available to reduce your total billable amount.";
+        promoFeedback.textContent = "Select a promocode if available, then click Update on PC count to refresh the client price.";
       }
 
+      // Installment / Balance Breakdown Card (Visible when user has existing service or partial payment/schedule)
       const partEnabled = !!d.partPaymentEnabled;
-      const partialPaid = Number(d.partialPaidAmount || 0);
       const schedule = Array.isArray(d.installmentSchedule) ? d.installmentSchedule : [];
       const instCard = document.getElementById("client-installment-card");
       const reqPartBtn = document.getElementById("btn-request-part-payment");
 
-      if (partEnabled || partialPaid > 0 || d.nextPartPaymentDate || d.fullPaymentDate || schedule.length > 0) {
+      if (existingService || partialPaid > 0 || d.nextPartPaymentDate || d.fullPaymentDate || schedule.length > 0 || (partEnabled && qtyUpdated)) {
         instCard.classList.remove("hidden");
-        const balanceRem = Math.max(0, finalTotal - partialPaid);
         document.getElementById("inst-total-billable").textContent = `${sym}${finalTotal}`;
         document.getElementById("inst-partial-paid").textContent = `${sym}${partialPaid}`;
         document.getElementById("inst-balance-rem").textContent = `${sym}${balanceRem}`;
@@ -2411,13 +2444,14 @@
         instCard.classList.add("hidden");
       }
 
+      const activePayAmt = (existingService && partialPaid > 0) ? balanceRem : finalTotal;
       const todayStr = new Date().toISOString().split("T")[0];
       document.getElementById("receipt-summary-date").textContent = `Date: ${todayStr}`;
       document.getElementById("receipt-summary-lines").innerHTML = `
         <div>• Client: <strong>${escapeHtml(d.name)}</strong> (${escapeHtml(d.email)})</div>
-        <div>• Plan: <strong>${escapeHtml(d.selectedPlan || "Team Rental")}</strong> • Quantity: <strong>${qty} PC(s)</strong></div>
+        <div>• Plan: <strong>${escapeHtml(d.selectedPlan || "Not Selected")}</strong> • Quantity: <strong>${qty} PC(s)</strong></div>
         <div>• Subtotal: ${sym}${subtotal}${disc > 0 ? ` • Discount: -${sym}${discountAmt}` : ""}${promoDiscountAmt > 0 ? ` • Promo (${escapeHtml(promo.code)}): -${sym}${promoDiscountAmt}` : ""}</div>
-        <div>• <strong>Total Billable: ${sym}${finalTotal}</strong>${partialPaid > 0 ? ` • Paid: ${sym}${partialPaid} • Balance: ${sym}${Math.max(0, finalTotal - partialPaid)}` : ""}</div>
+        <div>• <strong>${existingService && partialPaid > 0 ? "Balance Due" : "Total Billable"}: ${sym}${activePayAmt}</strong>${partialPaid > 0 ? ` (Paid: ${sym}${partialPaid} of ${sym}${finalTotal})` : ""}</div>
       `;
 
       const rcpts = Array.isArray(d.paymentReceipts) ? d.paymentReceipts : [];
@@ -2435,9 +2469,9 @@
           </div>`).join("");
       }
 
-      document.getElementById("qr-amount-label").textContent = `₹${finalTotal}`;
+      document.getElementById("qr-amount-label").textContent = `₹${activePayAmt}`;
       document.getElementById("qr-qty-label").textContent = `${qty} PC(s)`;
-      document.getElementById("usd-total-label").textContent = `$${finalTotal} for ${qty} PC(s)`;
+      document.getElementById("usd-total-label").textContent = `$${activePayAmt} for ${qty} PC(s)`;
 
       if (d.currency === "USD") {
         document.getElementById("inr-upi-section").classList.add("hidden");
@@ -2445,11 +2479,11 @@
       } else {
         document.getElementById("inr-upi-section").classList.remove("hidden");
         document.getElementById("usd-pay-section").classList.add("hidden");
-        const upiUri = `upi://pay?pa=${UPI_ID}&pn=admin%20PC%20Rental&am=${finalTotal || ""}&cu=INR`;
+        const upiUri = `upi://pay?pa=${UPI_ID}&pn=admin%20PC%20Rental&am=${activePayAmt || ""}&cu=INR`;
         document.getElementById("upi-qr").src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiUri)}`;
       }
 
-      const payText = `Hi admin, I am ${d.name} (${d.email}). Payment intimation for ${qty} PC(s), Total Billable: ${sym}${finalTotal}${promo ? ` (Promo: ${promo.code})` : ""}. Please review my uploaded receipt & activate.`;
+      const payText = `Hi admin, I am ${d.name} (${d.email}). Payment intimation for ${qty} PC(s), Amount: ${sym}${activePayAmt}${promo ? ` (Promo: ${promo.code})` : ""}. Please review my uploaded receipt & activate.`;
       document.getElementById("btn-wa-renew").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(payText)}`;
       document.getElementById("btn-sms-renew-us").href = `sms:${SMS_US}?body=${encodeURIComponent(payText)}`;
       document.getElementById("btn-email-renew").href = `mailto:${BIZ_EMAIL}?subject=${encodeURIComponent("Remote PC Payment Intimation - " + d.name)}&body=${encodeURIComponent(payText)}`;
@@ -2467,7 +2501,7 @@
         renderClientTimerCard(d);
         renderClientBillingAndReceipts(d, uid);
 
-        document.getElementById("disp-selected-tier").textContent = d.selectedPlan || (qty >= 10 ? "Enterprise Bulk" : "Team Rental");
+        document.getElementById("disp-selected-tier").textContent = d.selectedPlan || (qty >= 10 ? "Enterprise Bulk" : (qty >= MIN_USER_PC_QTY ? "Team Rental" : "Default 0"));
 
         const vBadge = document.getElementById("verify-badge");
         const vAlert = document.getElementById("client-verify-alert");
@@ -2521,7 +2555,7 @@
 
         if (sStatus !== "active" || !d.expiryDate) {
           badge.className = "badge badge-warn";
-          badge.textContent = "Starts Upon Payment Approval";
+          badge.textContent = isUserQtyUpdated(d) ? `${qty} PC(s) Selected` : "Default: 0 PCs";
           balText.textContent = "--";
           balText.style.color = "var(--muted)";
           document.getElementById("disp-period-sub").textContent = `${d.totalDays || 30} days from approval date`;
@@ -2591,7 +2625,7 @@
             <tr>
               <td>${escapeHtml(h.date)}</td>
               <td><strong>${escapeHtml(h.label || `${h.days}d Plan`)}</strong></td>
-              <td>${h.pcCount || MIN_USER_PC_QTY} PC</td>
+              <td>${h.pcCount || 0} PC</td>
               <td><strong>${sym}${h.amount || 0}</strong></td>
               <td>${escapeHtml(h.newExpiry || "--")}</td>
             </tr>`).join("");
@@ -2699,17 +2733,22 @@
       window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(msg)}`, "_blank");
     };
 
+    // User Update button: validates minimum 5 PCs when updating & refreshes price with any selected promocode
     window.updateClientPcQty = async () => {
       if (!currentUser || !currentClientData) return;
-      const entered = Number(document.getElementById("client-pc-qty").value || MIN_USER_PC_QTY);
+      const entered = Number(document.getElementById("client-pc-qty").value || 0);
       if (entered < MIN_USER_PC_QTY) {
-        notifyStatus(`Minimum PC user count on user portal is ${MIN_USER_PC_QTY}.`);
-        document.getElementById("client-pc-qty").value = MIN_USER_PC_QTY;
+        notifyStatus(`Minimum ${MIN_USER_PC_QTY} PCs required to update & calculate a rental price (default is 0).`);
         return;
       }
       const newQty = Math.min(200, entered);
-      await updateDoc(doc(db, "users", currentUser.uid), { pcCount: newQty });
-      notifyStatus(`PC quantity updated to ${newQty}. Total billable updated!`);
+      const codeToSave = appliedPromoCode || String(currentClientData.appliedPromoCode || "").toUpperCase();
+      await updateDoc(doc(db, "users", currentUser.uid), {
+        pcCount: newQty,
+        pcQtyUpdated: true,
+        appliedPromoCode: codeToSave
+      });
+      notifyStatus(`Updated to ${newQty} PC(s)${codeToSave ? " with promo " + codeToSave : ""}. Price updated!`);
     };
 
     window.bookSignedUpFreeTrial = async (channel) => {
@@ -3590,6 +3629,7 @@
         currency: document.getElementById("edit-currency").value,
         rentAmount: Number(document.getElementById("edit-rent").value),
         pcCount: Math.max(1, Number(document.getElementById("edit-pccount").value || 1)),
+        pcQtyUpdated: true,
         discountPercent: Math.min(100, Math.max(0, Number(document.getElementById("edit-discount").value || 0))),
         totalDays: Number(document.getElementById("edit-days").value),
         startDate: startVal,
