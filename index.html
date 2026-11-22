@@ -25,11 +25,10 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body {
       background: radial-gradient(circle at top right, #172554 0%, var(--bg) 48%);
-      color: var(--text); line-height: 1.5; min-height: 100vh; padding-bottom: 75px;
+      color: var(--text); line-height: 1.5; min-height: 100dvh; padding-bottom: 84px;
     }
     .hidden { display: none !important; }
 
-    /* 3D Floating Animations */
     @keyframes float3D {
       0%, 100% { transform: translateY(0px) rotateX(2deg) rotateY(-2deg); }
       50% { transform: translateY(-9px) rotateX(-2deg) rotateY(3deg); }
@@ -47,18 +46,16 @@
       filter: drop-shadow(0 10px 18px rgba(6, 182, 212, 0.3)); flex-shrink: 0;
     }
 
-    /* Navbar */
     header {
-      background: rgba(19, 27, 46, 0.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border); padding: 12px 24px;
+      background: rgba(19, 27, 46, 0.94); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 12px 18px;
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
       gap: 10px; position: sticky; top: 0; z-index: 50;
     }
-    .brand { font-size: 1.12rem; font-weight: 800; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .brand { font-size: 1.08rem; font-weight: 800; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .brand span { background: linear-gradient(90deg, #60a5fa, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .nav-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
-    /* System Status Pill */
     .sys-pill {
       display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px;
       border-radius: 99px; font-size: 0.75rem; font-weight: 700;
@@ -67,21 +64,22 @@
     .sys-pill.maint { background: rgba(245, 158, 11, 0.16); border-color: rgba(245, 158, 11, 0.45); color: var(--warning); }
     .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulseGlow 1.5s infinite; }
 
-    /* Full-Width Maintenance Notice Banner */
     .maint-banner {
       background: linear-gradient(90deg, rgba(245, 158, 11, 0.25), rgba(239, 68, 68, 0.22));
-      border-bottom: 1px solid var(--warning);
-      color: #fef3c7;
-      text-align: center;
-      padding: 11px 16px;
-      font-size: 0.92rem;
-      font-weight: 700;
+      border-bottom: 1px solid var(--warning); color: #fef3c7;
+      text-align: center; padding: 11px 16px; font-size: 0.9rem; font-weight: 700;
     }
 
-    /* Buttons */
+    .toast-bar {
+      position: fixed; top: 68px; left: 50%; transform: translateX(-50%);
+      background: #0f172a; border: 1px solid var(--accent); color: #e2e8f0;
+      padding: 10px 16px; border-radius: 10px; font-size: 0.85rem; font-weight: 600;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.55); z-index: 120; max-width: 92vw;
+    }
+
     button, .btn {
-      cursor: pointer; border: none; border-radius: 9px; padding: 9px 15px;
-      font-size: 0.87rem; font-weight: 600; transition: 0.16s ease;
+      cursor: pointer; border: none; border-radius: 9px; padding: 9px 14px; min-height: 36px;
+      font-size: 0.85rem; font-weight: 600; transition: 0.16s ease;
       display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
     }
     .btn-primary { background: linear-gradient(135deg, var(--primary), #2563eb); color: #fff; }
@@ -96,165 +94,141 @@
     .btn-danger:hover { background: var(--danger); color: #fff; }
     .btn-whatsapp { background: var(--whatsapp); color: #052e16; font-weight: 700; }
     .btn-whatsapp:hover { filter: brightness(1.07); }
-    .btn-sm { padding: 5px 10px; font-size: 0.78rem; border-radius: 7px; }
+    .btn-sm { padding: 5px 10px; min-height: 30px; font-size: 0.78rem; border-radius: 7px; }
 
-    /* Container & Cards */
-    .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
+    .container { max-width: 1260px; margin: 0 auto; padding: 18px 14px; }
     .card {
-      background: linear-gradient(180deg, rgba(26, 36, 61, 0.78) 0%, rgba(19, 27, 46, 0.94) 100%);
-      border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;
+      background: linear-gradient(180deg, rgba(26, 36, 61, 0.8) 0%, rgba(19, 27, 46, 0.95) 100%);
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 18px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
-    .card-title { font-size: 1.04rem; font-weight: 700; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .card-title { font-size: 1.03rem; font-weight: 700; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-    /* Promo Ad & Contact Banner */
     .promo-card {
-      background: linear-gradient(135deg, rgba(30, 58, 138, 0.6) 0%, rgba(15, 23, 42, 0.95) 100%);
-      border: 1px solid rgba(96, 165, 250, 0.45); border-radius: var(--radius); padding: 20px 22px;
-      margin-bottom: 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px;
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.62) 0%, rgba(15, 23, 42, 0.96) 100%);
+      border: 1px solid rgba(96, 165, 250, 0.45); border-radius: var(--radius); padding: 20px;
+      margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px;
     }
     .offer-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
     .offer-pill {
       background: rgba(16, 185, 129, 0.18); border: 1px solid rgba(16, 185, 129, 0.45);
-      color: #6ee7b7; padding: 4px 11px; border-radius: 99px; font-size: 0.76rem; font-weight: 700;
+      color: #6ee7b7; padding: 4px 11px; border-radius: 99px; font-size: 0.75rem; font-weight: 700;
     }
     .offer-pill.gold {
       background: rgba(245, 158, 11, 0.18); border-color: rgba(245, 158, 11, 0.45); color: #fcd34d;
     }
     .contact-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .chip {
-      background: rgba(9, 13, 22, 0.75); border: 1px solid var(--border); padding: 6px 12px;
-      border-radius: 99px; font-size: 0.8rem; color: #e2e8f0; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(9, 13, 22, 0.78); border: 1px solid var(--border); padding: 6px 12px;
+      border-radius: 99px; font-size: 0.79rem; color: #e2e8f0; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
     }
     .chip:hover { border-color: var(--primary); color: #fff; }
 
-    /* Team / Enterprise / Long-Term Tier Showcase Cards */
-    .tier-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 20px;
-    }
+    .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 15px; margin-bottom: 18px; }
     .tier-card {
       background: linear-gradient(160deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.96) 100%);
       border: 1px solid var(--border); border-radius: var(--radius); padding: 18px;
       display: flex; flex-direction: column; justify-content: space-between;
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      position: relative; overflow: hidden;
     }
-    .tier-card:hover {
-      transform: translateY(-4px); border-color: #60a5fa;
-      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
-    }
-    .tier-card.featured {
-      border-color: rgba(56, 189, 248, 0.65);
-      background: linear-gradient(160deg, rgba(29, 78, 216, 0.26) 0%, rgba(15, 23, 42, 0.97) 100%);
-    }
+    .tier-card:hover { transform: translateY(-3px); border-color: #60a5fa; box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22); }
+    .tier-card.featured { border-color: rgba(56, 189, 248, 0.65); background: linear-gradient(160deg, rgba(29, 78, 216, 0.26) 0%, rgba(15, 23, 42, 0.97) 100%); }
     .tier-tag {
       font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px;
       padding: 3px 9px; border-radius: 99px; display: inline-block; margin-bottom: 8px;
       background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.4);
     }
-    .tier-card.featured .tier-tag {
-      background: rgba(6, 182, 212, 0.22); color: #67e8f9; border-color: rgba(6, 182, 212, 0.5);
-    }
-    .tier-card.longterm .tier-tag {
-      background: rgba(245, 158, 11, 0.2); color: #fcd34d; border-color: rgba(245, 158, 11, 0.45);
-    }
-    .tier-title { font-size: 1.08rem; font-weight: 800; margin-bottom: 4px; }
-    .tier-sub { font-size: 0.82rem; color: #38bdf8; font-weight: 700; margin-bottom: 10px; }
-    .tier-list { list-style: none; font-size: 0.83rem; color: #cbd5e1; margin-bottom: 14px; }
-    .tier-list li { padding: 3px 0; display: flex; align-items: center; gap: 6px; }
+    .tier-card.featured .tier-tag { background: rgba(6, 182, 212, 0.22); color: #67e8f9; border-color: rgba(6, 182, 212, 0.5); }
+    .tier-card.longterm .tier-tag { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border-color: rgba(245, 158, 11, 0.45); }
+    .tier-title { font-size: 1.06rem; font-weight: 800; margin-bottom: 4px; }
+    .tier-sub { font-size: 0.81rem; color: #38bdf8; font-weight: 700; margin-bottom: 10px; }
+    .tier-list { list-style: none; font-size: 0.82rem; color: #cbd5e1; margin-bottom: 14px; }
+    .tier-list li { padding: 3px 0; display: flex; align-items: flex-start; gap: 6px; }
 
-    /* Hourly Timer Digital Display */
+    .offers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+    .offer-box {
+      background: var(--bg); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 11px; padding: 13px;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 8px;
+    }
+    .promo-chip-code {
+      font-family: monospace; font-weight: 800; font-size: 0.82rem; padding: 3px 8px;
+      border-radius: 6px; background: rgba(16, 185, 129, 0.16); color: #6ee7b7; border: 1px dashed rgba(16, 185, 129, 0.5);
+    }
+
     .timer-banner {
       background: linear-gradient(135deg, rgba(6, 182, 212, 0.16), rgba(30, 58, 138, 0.35));
-      border: 1px solid rgba(34, 211, 238, 0.55);
-      border-radius: var(--radius);
-      padding: 18px 20px;
-      margin-bottom: 20px;
+      border: 1px solid rgba(34, 211, 238, 0.55); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 18px;
     }
     .digital-clock {
-      font-family: "Courier New", Courier, monospace;
-      font-size: 1.9rem;
-      font-weight: 900;
-      letter-spacing: 1px;
-      color: #22d3ee;
-      text-shadow: 0 0 14px rgba(34, 211, 238, 0.35);
+      font-family: "Courier New", Courier, monospace; font-size: clamp(1.35rem, 4vw, 1.9rem);
+      font-weight: 900; letter-spacing: 1px; color: #22d3ee; text-shadow: 0 0 14px rgba(34, 211, 238, 0.35);
     }
     .digital-clock.warn { color: var(--warning); text-shadow: 0 0 14px rgba(245, 158, 11, 0.35); }
     .digital-clock.expired { color: var(--danger); text-shadow: 0 0 14px rgba(239, 68, 68, 0.35); }
     .timer-custom-msg {
-      margin-top: 10px;
-      background: rgba(245, 158, 11, 0.14);
-      border: 1px solid rgba(245, 158, 11, 0.45);
-      border-radius: 9px;
-      padding: 9px 12px;
-      font-size: 0.86rem;
-      color: #fde68a;
+      margin-top: 10px; background: rgba(245, 158, 11, 0.14); border: 1px solid rgba(245, 158, 11, 0.45);
+      border-radius: 9px; padding: 9px 12px; font-size: 0.86rem; color: #fde68a;
     }
 
-    /* Highlighted Admin Broadcast Banner */
     .broadcast-banner {
       background: linear-gradient(90deg, rgba(245, 158, 11, 0.24), rgba(59, 130, 246, 0.24));
       border: 1px solid var(--warning); border-radius: var(--radius); padding: 13px 18px;
-      margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      box-shadow: 0 0 22px rgba(245, 158, 11, 0.18);
+      margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
     }
 
-    /* Forms & Inputs */
     .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
     .tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; color: var(--muted); font-weight: 600; border-bottom: 2px solid transparent; }
     .tab.active { color: #60a5fa; border-bottom-color: var(--primary); }
-    .form-group { margin-bottom: 12px; }
-    label { display: block; font-size: 0.81rem; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
+    .form-group { margin-bottom: 11px; }
+    label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
     input, textarea, select {
-      width: 100%; padding: 9px 12px; border-radius: 8px;
-      border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 0.9rem;
+      width: 100%; padding: 9px 11px; border-radius: 8px; min-height: 36px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 0.88rem;
     }
     input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); }
     .pw-wrap { position: relative; }
-    .pw-toggle { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; color: var(--muted); padding: 4px; font-size: 0.8rem; }
+    .pw-toggle { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; color: var(--muted); padding: 4px; min-height: auto; font-size: 0.82rem; }
+    .link-btn { background: none; border: none; color: #60a5fa; padding: 0; min-height: auto; font-size: 0.81rem; font-weight: 600; cursor: pointer; text-decoration: underline; }
+    .link-btn:hover { color: #93c5fd; }
 
-    /* Grids & Stats */
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 12px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
     .stat { background: var(--bg); border: 1px solid var(--border); border-radius: 11px; padding: 13px; }
     .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-    .stat-value { font-size: 1.38rem; font-weight: 800; margin-top: 4px; }
+    .stat-value { font-size: 1.32rem; font-weight: 800; margin-top: 4px; }
 
-    /* Progress & Badges */
     .progress-wrap { background: var(--bg); height: 10px; border-radius: 99px; overflow: hidden; margin: 14px 0 6px; border: 1px solid var(--border); }
     .progress-bar { height: 100%; background: var(--success); transition: width 0.4s ease; }
-    .badge { padding: 3px 9px; border-radius: 99px; font-size: 0.73rem; font-weight: 700; display: inline-block; }
+    .badge { padding: 3px 9px; border-radius: 99px; font-size: 0.72rem; font-weight: 700; display: inline-block; }
     .badge-active { background: rgba(16, 185, 129, 0.16); color: var(--success); }
     .badge-warn { background: rgba(245, 158, 11, 0.16); color: var(--warning); }
     .badge-expired { background: rgba(239, 68, 68, 0.18); color: var(--danger); }
 
-    /* UPI & Credentials */
     .upi-box {
       background: var(--bg); border: 1px dashed var(--primary); border-radius: 11px;
-      padding: 15px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
     }
-    .upi-id { font-family: monospace; font-size: 1.05rem; color: #93c5fd; font-weight: 700; }
-    .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid rgba(40, 53, 84, 0.6); font-size: 0.88rem; gap: 8px; }
+    .upi-id { font-family: monospace; font-size: 1.02rem; color: #93c5fd; font-weight: 700; }
+    .spec-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid rgba(40, 53, 84, 0.6); font-size: 0.86rem; gap: 8px; }
     .spec-row:last-child { border-bottom: none; }
     .spec-key { color: var(--muted); }
     .cred-box { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-top: 12px; }
 
-    /* Collapsible History Dropdown */
-    details.history-dropdown {
-      background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; margin-bottom: 12px;
+    details.history-dropdown, details.guide-dropdown {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; margin-top: 10px;
     }
-    details.history-dropdown summary {
-      cursor: pointer; font-weight: 700; font-size: 0.9rem; color: #93c5fd; list-style: none; display: flex; justify-content: space-between; align-items: center;
+    details.history-dropdown summary, details.guide-dropdown summary {
+      cursor: pointer; font-weight: 700; font-size: 0.88rem; color: #93c5fd; list-style: none;
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
     }
-    details.history-dropdown summary::-webkit-details-marker { display: none; }
+    details.history-dropdown summary::-webkit-details-marker, details.guide-dropdown summary::-webkit-details-marker { display: none; }
 
-    /* Chat & Tables */
     .msg-list { max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
-    .msg-item { background: var(--bg); border: 1px solid var(--border); padding: 10px 14px; border-radius: 10px; font-size: 0.88rem; }
-    .msg-reply { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); color: #93c5fd; font-size: 0.84rem; }
+    .msg-item { background: var(--bg); border: 1px solid var(--border); padding: 10px 14px; border-radius: 10px; font-size: 0.86rem; }
+    .msg-reply { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); color: #93c5fd; font-size: 0.83rem; }
 
-    .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--bg); padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border); }
+    .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--bg); padding: 10px 13px; border-radius: 10px; border: 1px solid var(--border); }
     .switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider { position: absolute; cursor: pointer; inset: 0; background: #475569; border-radius: 24px; transition: 0.2s; }
@@ -262,24 +236,32 @@
     input:checked + .slider { background: var(--success); }
     input:checked + .slider:before { transform: translateX(20px); }
 
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.85); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 100; overflow-y: auto; }
-    .modal { background: var(--surface); border: 1px solid var(--primary); border-radius: 14px; max-width: 580px; width: 100%; padding: 22px; box-shadow: 0 24px 48px rgba(0,0,0,0.65); max-height: 90vh; overflow-y: auto; }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.85); display: flex; align-items: center; justify-content: center; padding: 14px; z-index: 100; overflow-y: auto; }
+    .modal { background: var(--surface); border: 1px solid var(--primary); border-radius: 14px; max-width: 660px; width: 100%; padding: 20px; box-shadow: 0 24px 48px rgba(0,0,0,0.65); max-height: 90dvh; overflow-y: auto; }
 
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
-    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 640px; }
+    th, td { text-align: left; padding: 9px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
     th { color: var(--muted); font-weight: 600; white-space: nowrap; }
     tr.sos-row { background: rgba(239, 68, 68, 0.12); }
 
     .wa-float {
-      position: fixed; bottom: 18px; right: 18px; background: var(--whatsapp); color: #052e16;
-      padding: 11px 17px; border-radius: 99px; font-weight: 700; font-size: 0.87rem;
+      position: fixed; bottom: 16px; right: 16px; background: var(--whatsapp); color: #052e16;
+      padding: 10px 16px; border-radius: 99px; font-weight: 700; font-size: 0.85rem;
       box-shadow: 0 8px 22px rgba(0,0,0,0.45); text-decoration: none; display: flex; align-items: center; gap: 7px; z-index: 90;
     }
     .wa-float:hover { transform: translateY(-2px); }
+
+    @media (max-width: 640px) {
+      .grid-3 .cred-box[style*="span 2"] { grid-column: span 1 !important; }
+      .wa-float { bottom: 12px; right: 12px; padding: 9px 14px; font-size: 0.8rem; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- NON-BLOCKING STATUS TOAST -->
+  <div id="status-toast" class="toast-bar hidden"></div>
 
   <!-- FULL-WIDTH MAINTENANCE BANNER -->
   <div id="global-maint-banner" class="maint-banner hidden">
@@ -293,11 +275,12 @@
       <span id="header-sys-status" class="sys-pill"><span class="dot"></span> All Workstations Online</span>
     </div>
     <div class="nav-right">
-      <button class="btn-outline btn-sm" onclick="sharePortal()">🔗 Share Site</button>
-      <span id="user-greeting" class="hidden" style="font-size:0.83rem; color:var(--muted);"></span>
-      <button id="btn-nav-signin" class="btn-outline btn-sm" onclick="showAuth('signin')">Sign In</button>
-      <button id="btn-nav-signup" class="btn-primary btn-sm" onclick="showAuth('signup')">Sign Up</button>
-      <button id="btn-nav-signout" class="btn-danger btn-sm hidden" onclick="handleSignOut()">Sign Out</button>
+      <button type="button" class="btn-outline btn-sm" onclick="sharePortal()">🔗 Share Site</button>
+      <span id="user-greeting" class="hidden" style="font-size:0.82rem; color:var(--muted);"></span>
+      <button type="button" id="btn-nav-signin" class="btn-outline btn-sm" onclick="showAuth('signin')">Sign In</button>
+      <button type="button" id="btn-nav-signup" class="btn-primary btn-sm" onclick="showAuth('signup')">Sign Up</button>
+      <button type="button" id="btn-nav-changepw" class="btn-outline btn-sm hidden" onclick="openChangePasswordModal()">🔑 Change Password</button>
+      <button type="button" id="btn-nav-signout" class="btn-danger btn-sm hidden" onclick="handleSignOut()">Sign Out</button>
     </div>
   </header>
 
@@ -305,28 +288,25 @@
 
     <!-- PROMO AD & CONTACT DIRECTORY -->
     <div class="promo-card">
-      <div style="flex:1; min-width:270px;">
+      <div style="flex:1; min-width:260px;">
         <div class="offer-pills">
           <span class="offer-pill">🎁 2-Hour Free Trial (Signed-Up Users Only)</span>
           <span class="offer-pill gold">🤝 +2 Free Days Per Referral</span>
           <span class="offer-pill">👥 Minimum 5 PCs / Users</span>
+          <span class="offer-pill">⚡ Headscale + RDP Ready</span>
         </div>
-        <h2 style="font-size:1.25rem; margin:4px 0 6px;">Remote Workstations Rented Strictly as Per Your Custom Requirements</h2>
-        <p style="font-size:0.87rem; color:#cbd5e1;">
-          Dedicated Ryzen/Intel CPU, high-speed DDR5 RAM, and NVIDIA RTX GPU workstations connected via <strong>Headscale & RDP</strong> for CAD, 3D Steel Detailing (SDS/2, Tekla, AutoCAD), and Rendering (Minimum 5 PC users). <strong>Sign up free to unlock your 2-Hour Free Trial booking!</strong>
+        <h2 style="font-size:1.22rem; margin:4px 0 6px;">Remote Workstations Rented Strictly as Per Your Custom Requirements</h2>
+        <p style="font-size:0.86rem; color:#cbd5e1;">
+          Dedicated high-clock CPU, fast DDR5 RAM, and NVIDIA RTX GPU nodes over <strong>Headscale & RDP</strong> for CAD, 3D Steel Detailing (SDS/2, Tekla, AVEVA E3D, AutoCAD, Bluebeam BYOL), and rendering. <strong>Sign up free to unlock your 2-Hour Free Trial!</strong>
         </p>
         <div class="contact-chips">
           <button type="button" class="chip" style="border-color:var(--whatsapp); color:#86efac; cursor:pointer;" onclick="handleLandingTrialClick()">🎁 Claim 2-Hr Free Trial (Sign Up First)</button>
-          <a href="https://wa.me/919790342116?text=Hi%20admin%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." target="_blank" class="chip">🇮🇳 WhatsApp, SMS & Calls: +919790342116</a>
+          <a href="https://wa.me/919790342116?text=Hi%20admin%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." target="_blank" rel="noopener" class="chip">🇮🇳 WhatsApp, SMS & Calls: +919790342116</a>
           <a href="sms:+19547512404?body=Hi%20admin%2C%20I%20am%20interested%20in%20renting%20a%20Custom%20Remote%20PC." class="chip">🇺🇸 SMS & Calls: +19547512404</a>
           <a href="mailto:business@latticesteel.com?subject=Remote%20PC%20Rental%20Inquiry" class="chip">✉️ business@latticesteel.com</a>
         </div>
-        <div style="font-size:0.75rem; color:var(--muted); margin-top:6px;">
-          * WhatsApp, SMS & Calls are available on +919790342116. SMS & Calls are available on +19547512404.
-        </div>
       </div>
 
-      <!-- 3D Isometric Workstation Visual -->
       <svg class="hero-3d-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
         <ellipse cx="100" cy="142" rx="68" ry="12" fill="rgba(59,130,246,0.25)"/>
         <polygon points="100,92 165,118 100,144 35,118" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
@@ -350,7 +330,25 @@
       </svg>
     </div>
 
-    <!-- TEAM, ENTERPRISE & LONG-TERM PLAN TIERS (Visible Before Sign-Up AND on Logged-In User Side) -->
+    <!-- ACTIVE OFFERS & PROMOCODES SHOWCASE -->
+    <div id="public-offers-card" class="card" style="border-color:rgba(16,185,129,0.4);">
+      <div class="card-title">
+        <span>🏷️ Special Offers & Active Promocodes</span>
+        <span style="font-size:0.78rem; color:#6ee7b7;">Apply promocodes on the payment section to lower your bill</span>
+      </div>
+      <div id="user-offers-grid" class="offers-grid">
+        <div class="offer-box">
+          <div>
+            <span class="badge badge-active">🎁 Launch Offer</span>
+            <div style="font-weight:700; margin-top:6px;">2-Hour Free Workstation Trial</div>
+            <p style="font-size:0.81rem; color:var(--muted); margin-top:3px;">Sign up free and test CAD/3D performance over Headscale & RDP before committing.</p>
+          </div>
+          <div style="font-size:0.78rem; color:#fcd34d;">Code: <span class="promo-chip-code">TRIAL2H</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM, ENTERPRISE & LONG-TERM PLAN TIERS -->
     <div id="rental-tiers-showcase" class="tier-grid">
       <div class="tier-card">
         <div>
@@ -360,7 +358,7 @@
           <ul class="tier-list">
             <li>✅ Minimum 5 Dedicated Remote PCs</li>
             <li>✅ Isolated Headscale & RDP Access</li>
-            <li>✅ Pre-installed softwares such as E3D, SP3D, Tekla, SDS/2, AutoCAD & Bluebeam (BYOL)</li>
+            <li>✅ Ready for E3D, SP3D, Tekla, SDS/2, AutoCAD & Bluebeam (BYOL)</li>
             <li>✅ 2-Hour Free Trial for New Sign-Ups</li>
           </ul>
         </div>
@@ -375,8 +373,8 @@
           <ul class="tier-list">
             <li>✅ 10+ Dedicated Workstation Nodes</li>
             <li>✅ Custom CPU / 64GB–128GB RAM / RTX GPU</li>
-            <li>✅ Priority Reboot & SLA Support</li>
-            <li>✅ Eligible for Admin % Volume Discounts</li>
+            <li>✅ Priority Reboot & Fast Support</li>
+            <li>✅ Eligible for Volume Discounts & Promocodes</li>
           </ul>
         </div>
         <button type="button" class="btn-primary btn-sm" style="width:100%;" onclick="selectRentalTier('Enterprise Bulk (10 PCs)', 10, 30)">Select Enterprise Plan (10 PCs)</button>
@@ -391,7 +389,7 @@
             <li>✅ Minimum 5 PCs Locked for 90+ Days</li>
             <li>✅ Dedicated Reserved Server Hardware</li>
             <li>✅ Priority Hardware & Software Upgrades</li>
-            <li>✅ Earn +2 Bonus Days for every friend who activates a plan</li>
+            <li>✅ +2 Bonus Days Per Referred Friend</li>
           </ul>
         </div>
         <button type="button" class="btn-warn btn-sm" style="width:100%;" onclick="selectRentalTier('Long-Term (3+ Months / 5+ PCs)', 5, 90)">Select Long-Term Plan</button>
@@ -404,12 +402,11 @@
         <strong style="color:var(--warning);">📢 Notice from Admin:</strong>
         <span id="broadcast-text" style="margin-left:6px;"></span>
       </div>
-      <button class="btn-outline btn-sm" onclick="openNoticePopout()">View Popout</button>
+      <button type="button" class="btn-outline btn-sm" onclick="openNoticePopout()">View Popout</button>
     </div>
 
     <!-- LANDING / AUTH SECTION -->
     <div id="auth-section" class="grid-2">
-      <!-- Left: Sign In / Sign Up -->
       <div class="card">
         <div class="tabs">
           <div id="tab-signin" class="tab active" onclick="showAuth('signin')">Client Sign In</div>
@@ -422,8 +419,11 @@
             <input type="email" id="signin-email" required placeholder="you@example.com" />
           </div>
           <div class="form-group">
-            <label>Password</label>
-            <div class="pw-wrap">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+              <label style="margin-bottom:0;">Password</label>
+              <button type="button" class="link-btn" onclick="openForgotPasswordModal()">Forgot Password (OTP)?</button>
+            </div>
+            <div class="pw-wrap" style="margin-top:4px;">
               <input type="password" id="signin-password" required placeholder="Enter your password" />
               <button type="button" class="pw-toggle" onclick="togglePw('signin-password')">👁️</button>
             </div>
@@ -458,7 +458,7 @@
           <div class="grid-2" style="gap:10px;">
             <div class="form-group">
               <label>Initial PC Count Needed (Min. 5) *</label>
-              <input type="number" id="signup-pccount" min="5" max="100" value="5" required />
+              <input type="number" id="signup-pccount" min="5" max="200" value="5" required />
             </div>
             <div class="form-group">
               <label>Referred By (+2 Free Days!)</label>
@@ -466,16 +466,15 @@
             </div>
           </div>
 
-          <!-- CONDITIONAL KYC FIELDS -->
           <div id="kyc-signup-fields" class="hidden">
             <div class="form-group">
-              <label>Aadhaar / Govt ID Number *</label>
-              <input type="text" id="signup-aadhaar" maxlength="16" placeholder="XXXX XXXX XXXX" />
+              <label>ID / Reference Number *</label>
+              <input type="text" id="signup-aadhaar" maxlength="16" placeholder="Enter ID reference" />
             </div>
             <div class="form-group">
-              <label>Digital ID Proof (Image or PDF) *</label>
+              <label>Digital ID Proof (Image or PDF — Auto-Compressed) *</label>
               <input type="file" id="signup-proof" accept="image/*,.pdf" />
-              <small style="color:var(--muted); font-size:0.74rem;">Max 700 KB (Image/PDF) for admin verification.</small>
+              <small style="color:var(--muted); font-size:0.74rem;">Images auto-compressed; max 750 KB.</small>
             </div>
           </div>
 
@@ -484,13 +483,13 @@
         <p id="auth-msg" style="margin-top:12px; font-size:0.84rem; color:var(--warning); text-align:center;"></p>
       </div>
 
-      <!-- Right: Custom PC Quote Request -->
+      <!-- Custom PC Quote Builder -->
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px;">
           <div>
             <div style="font-size:1.05rem; font-weight:700;">🛠️ Custom PC Rental Quote Builder</div>
             <p style="font-size:0.83rem; color:var(--muted); margin-top:3px;">
-              Configure your required workstation specs & PC count (minimum 5 users) to get an instant quote via WhatsApp, SMS, or Email.
+              Configure specs & PC count (minimum 5 users) to get an instant quote via WhatsApp, SMS, or Email.
             </p>
           </div>
           <svg class="gpu-3d-svg" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -559,7 +558,7 @@
     <!-- CLIENT DASHBOARD -->
     <div id="client-dashboard" class="hidden">
 
-      <!-- HOURLY TIMER CARD (Controlled by Admin "Show Timer to All" + Per-User Visibility & Custom Message) -->
+      <!-- PER-USER TIMER BANNER -->
       <div id="client-hourly-timer-card" class="timer-banner hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;">
           <div>
@@ -568,11 +567,11 @@
             </div>
             <div id="client-digital-clock" class="digital-clock">102h 00m 00s</div>
             <div id="client-timer-meta" style="font-size:0.82rem; color:#cbd5e1; margin-top:2px;">
-              Cycle: 102 Hours • Expires at: --
+              Cycle: 102 Hours • Updated Renewal Timing: --
             </div>
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <a id="client-timer-wa-btn" href="#" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 Request Timer Renewal (WhatsApp)</a>
+            <a id="client-timer-wa-btn" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">🇮🇳 Request Timer Renewal (WhatsApp)</a>
             <a id="client-timer-sms-btn" href="#" class="btn btn-outline btn-sm">🇺🇸 SMS Renewal</a>
           </div>
         </div>
@@ -583,16 +582,16 @@
       <div id="client-verify-alert" class="card hidden" style="border-color:var(--warning); background:rgba(245,158,11,0.08);">
         <strong id="verify-alert-title" style="color:var(--warning);">⏳ Awaiting Payment & Service Activation</strong>
         <p id="verify-alert-desc" style="font-size:0.87rem; color:var(--muted); margin-top:4px;">
-          Your expiry countdown will start for 30 days once your payment is received and your service is activated by admin.
+          Your expiry countdown will start once your payment is received and activated by admin.
         </p>
         <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
-          <button id="btn-request-service" class="btn-primary btn-sm" onclick="requestServiceActivation()">🚀 Request Service Activation</button>
-          <a id="btn-wa-verify-nudge" href="#" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp (+91)</a>
+          <button type="button" id="btn-request-service" class="btn-primary btn-sm" onclick="requestServiceActivation()">🚀 Request Service Activation</button>
+          <a id="btn-wa-verify-nudge" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp (+91)</a>
           <a id="btn-sms-verify-nudge" href="#" class="btn btn-outline btn-sm">🇺🇸 SMS (+1)</a>
         </div>
       </div>
 
-      <!-- Signed-Up User Exclusive: 2-Hour Free Trial Booking Card -->
+      <!-- 2-Hour Free Trial Card -->
       <div id="client-trial-card" class="card" style="border-color:rgba(16,185,129,0.45); background:linear-gradient(90deg, rgba(16,185,129,0.12), rgba(19,27,46,0.94));">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
           <div>
@@ -602,20 +601,20 @@
             </p>
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <button id="btn-book-trial" class="btn-whatsapp btn-sm" onclick="bookSignedUpFreeTrial('wa')">🎁 Book Trial (WhatsApp)</button>
-            <button class="btn-outline btn-sm" onclick="bookSignedUpFreeTrial('sms')">🇺🇸 Book Trial (SMS)</button>
+            <button type="button" id="btn-book-trial" class="btn-whatsapp btn-sm" onclick="bookSignedUpFreeTrial('wa')">🎁 Book Trial (WhatsApp)</button>
+            <button type="button" class="btn-outline btn-sm" onclick="bookSignedUpFreeTrial('sms')">🇺🇸 Book Trial (SMS)</button>
           </div>
         </div>
       </div>
 
-      <!-- Subscription, Multi-PC Pricing & Renewal Countdown -->
+      <!-- Subscription, Multi-PC Pricing, Promocode & Renewal Countdown -->
       <div class="card">
         <div class="card-title">
           <span>⏳ Rental Period, PC Quantity & Renewal Status <span id="disp-selected-tier" class="badge badge-active" style="margin-left:6px;">Team Rental</span></span>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
             <span id="verify-badge" class="badge badge-warn">Not Activated</span>
             <span id="status-badge" class="badge badge-warn">Awaiting Payment</span>
-            <button id="btn-sos-reboot" class="btn-danger btn-sm" onclick="triggerRebootSOS()">🚨 PC Frozen / Need Reboot</button>
+            <button type="button" id="btn-sos-reboot" class="btn-danger btn-sm" onclick="triggerRebootSOS()">🚨 PC Frozen / Need Reboot</button>
           </div>
         </div>
 
@@ -628,13 +627,13 @@
           <div class="stat">
             <div class="stat-label">Required PC Count (Min. 5)</div>
             <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
-              <input type="number" id="client-pc-qty" min="5" max="100" value="5" style="width:78px; padding:6px 8px; font-weight:800; font-size:1.1rem;" />
-              <button class="btn-primary btn-sm" onclick="updateClientPcQty()">Update</button>
+              <input type="number" id="client-pc-qty" min="5" max="200" value="5" style="width:78px; padding:6px 8px; font-weight:800; font-size:1.05rem;" />
+              <button type="button" class="btn-primary btn-sm" onclick="updateClientPcQty()">Update</button>
             </div>
             <div style="font-size:0.73rem; color:var(--muted); margin-top:3px;">Minimum 5 PCs / users</div>
           </div>
           <div class="stat" style="border-color:var(--primary);">
-            <div class="stat-label">Final Total Payable</div>
+            <div class="stat-label">Total Billable Value</div>
             <div class="stat-value" id="disp-total-payable" style="color:#60a5fa;">₹0</div>
             <div id="disp-calc-breakdown" style="font-size:0.74rem; color:var(--muted); margin-top:2px;">5 PCs × ₹0</div>
           </div>
@@ -645,30 +644,79 @@
           </div>
         </div>
 
+        <!-- Promocode Selector on User Side -->
+        <div class="cred-box" style="margin-top:14px;">
+          <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:10px;">
+            <div style="flex:1; min-width:210px;">
+              <label><strong>🎟️ Select or Enter Promocode</strong></label>
+              <select id="client-promocode-select" onchange="applySelectedPromocode()">
+                <option value="">-- No Promocode Selected --</option>
+              </select>
+            </div>
+            <div style="flex:1; min-width:180px;">
+              <label>Or Type Code Manually</label>
+              <div style="display:flex; gap:6px;">
+                <input type="text" id="client-promocode-input" placeholder="e.g. LATTICE10" style="text-transform:uppercase;" />
+                <button type="button" class="btn-primary btn-sm" onclick="applyTypedPromocode()">Apply</button>
+              </div>
+            </div>
+            <button type="button" class="btn-outline btn-sm" onclick="clearAppliedPromocode()">Clear Code</button>
+          </div>
+          <div id="client-promo-feedback" style="font-size:0.8rem; color:#6ee7b7; margin-top:6px;"></div>
+        </div>
+
+        <!-- Installment / Balance Breakdown Card -->
+        <div id="client-installment-card" class="cred-box hidden" style="border-color:rgba(245,158,11,0.55); background:rgba(245,158,11,0.06);">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
+            <strong style="color:#fcd34d; font-size:0.92rem;">💰 Installment & Payment Balance Breakdown</strong>
+            <button type="button" id="btn-request-part-payment" class="btn-warn btn-sm hidden" onclick="openPartPaymentRequestModal()">📝 Request Part Payment</button>
+          </div>
+          <div class="grid-4" style="gap:10px;">
+            <div class="stat">
+              <div class="stat-label">Total Billable</div>
+              <div class="stat-value" id="inst-total-billable" style="font-size:1.1rem;">₹0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Partial Paid</div>
+              <div class="stat-value" id="inst-partial-paid" style="font-size:1.1rem; color:var(--success);">₹0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Balance Remaining</div>
+              <div class="stat-value" id="inst-balance-rem" style="font-size:1.1rem; color:var(--warning);">₹0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Next Part / Full Due</div>
+              <div style="font-size:0.82rem; font-weight:700; margin-top:4px;">Next: <span id="inst-next-date" style="color:#67e8f9;">--</span></div>
+              <div style="font-size:0.82rem; font-weight:700;">Full: <span id="inst-full-date" style="color:#fcd34d;">--</span></div>
+            </div>
+          </div>
+          <div id="inst-schedule-list" style="margin-top:8px; font-size:0.8rem; color:#cbd5e1;"></div>
+        </div>
+
         <div class="progress-wrap">
           <div id="days-progress" class="progress-bar" style="width: 0%;"></div>
         </div>
-        <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:var(--muted);">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; font-size:0.82rem; color:var(--muted); gap:6px;">
           <span>Start Date: <strong id="disp-start" style="color:var(--text);">Not Started</strong></span>
           <span>Expiry / Renewal Date: <strong id="disp-expiry" style="color:var(--warning);">Starts After Payment</strong></span>
         </div>
       </div>
 
       <div class="grid-2">
-        <!-- Payment & Intimation -->
+        <!-- Payment, Receipt Summary & Proof Upload -->
         <div class="card">
-          <div class="card-title">💳 Payment, Scanner & Intimation</div>
+          <div class="card-title">💳 Payment, Receipt Summary & Proof Upload</div>
           <div id="inr-upi-section">
-            <p style="font-size:0.85rem; color:var(--muted); margin-bottom:12px;">
-              Scan the QR below—it loads your exact total (<strong id="qr-amount-label" style="color:var(--text);">₹0</strong>) for <strong id="qr-qty-label" style="color:var(--text);">5 PCs</strong>. Then intimate admin via WhatsApp, SMS, or Email!
+            <p style="font-size:0.84rem; color:var(--muted); margin-bottom:10px;">
+              Scan the QR below for <strong id="qr-amount-label" style="color:var(--text);">₹0</strong> (<strong id="qr-qty-label" style="color:var(--text);">5 PCs</strong>). After paying, view your receipt summary, upload your payment receipt proof, and intimate admin.
             </p>
             <div class="upi-box">
               <div>
                 <div style="font-size:0.74rem; color:var(--muted);">UPI ID</div>
                 <div class="upi-id">9790342116@icici</div>
-                <button class="btn-outline btn-sm" style="margin-top:8px;" onclick="copyText('9790342116@icici', 'UPI ID copied!')">📋 Copy UPI ID</button>
+                <button type="button" class="btn-outline btn-sm" style="margin-top:8px;" onclick="copyText('9790342116@icici', 'UPI ID copied!')">📋 Copy UPI ID</button>
               </div>
-              <img id="upi-qr" alt="UPI QR" style="width:110px; height:110px; border-radius:8px; background:#fff; padding:4px;" />
+              <img id="upi-qr" alt="UPI QR" style="width:106px; height:106px; border-radius:8px; background:#fff; padding:4px;" />
             </div>
           </div>
 
@@ -676,27 +724,45 @@
             <div class="upi-box">
               <div>
                 <div style="font-size:0.85rem; color:#93c5fd; font-weight:700;">International / USD Billing (<span id="usd-total-label">$0</span>)</div>
-                <div style="font-size:0.84rem; color:var(--muted); margin-top:4px;">
+                <div style="font-size:0.83rem; color:var(--muted); margin-top:4px;">
                   Contact us via Email (<strong>business@latticesteel.com</strong>) or SMS (<strong>+19547512404</strong>) for international payment instructions.
                 </div>
               </div>
             </div>
           </div>
 
-          <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
-            <a id="btn-wa-renew" href="#" target="_blank" class="btn btn-whatsapp" style="flex:1;">
-              🇮🇳 WhatsApp (+91)
-            </a>
-            <a id="btn-sms-renew-us" href="#" class="btn btn-primary" style="flex:1;">
-              🇺🇸 SMS (+1)
-            </a>
-            <a id="btn-email-renew" href="#" class="btn btn-outline" style="flex:1;">
-              ✉️ Email
-            </a>
+          <!-- Live Payment Summary Receipt Box -->
+          <div class="cred-box" style="border-color:rgba(59,130,246,0.45);">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
+              <strong style="font-size:0.86rem; color:#93c5fd;">🧾 Payment Summary Receipt</strong>
+              <span id="receipt-summary-date" style="font-size:0.75rem; color:var(--muted);">--</span>
+            </div>
+            <div id="receipt-summary-lines" style="font-size:0.81rem; color:#cbd5e1; margin-top:6px;"></div>
+          </div>
+
+          <!-- User Upload Payment Receipt (Append-Only + Auto-Compressed) -->
+          <div class="cred-box">
+            <strong style="font-size:0.85rem; color:#6ee7b7;">📤 Upload Payment Receipt Proof (Locked Once Submitted)</strong>
+            <p style="font-size:0.75rem; color:var(--muted); margin-top:2px;">
+              Images are automatically compressed before upload. Submitted receipts cannot be modified or deleted by you—use "Add Extra Receipt" anytime.
+            </p>
+            <div class="grid-2" style="gap:8px; margin-top:8px;">
+              <input type="text" id="user-receipt-note" placeholder="Ref / UTR / Note (e.g., UPI Ref 12345)" />
+              <input type="file" id="user-receipt-file" accept="image/*,.pdf" />
+            </div>
+            <button type="button" class="btn-primary btn-sm" style="margin-top:8px;" onclick="uploadUserPaymentReceipt()">➕ Submit / Add Extra Receipt</button>
+
+            <div id="client-uploaded-receipts-list" style="margin-top:10px; font-size:0.8rem;"></div>
+          </div>
+
+          <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+            <a id="btn-wa-renew" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp" style="flex:1;">🇮🇳 WhatsApp (+91)</a>
+            <a id="btn-sms-renew-us" href="#" class="btn btn-primary" style="flex:1;">🇺🇸 SMS (+1)</a>
+            <a id="btn-email-renew" href="#" class="btn btn-outline" style="flex:1;">✉️ Email</a>
           </div>
         </div>
 
-        <!-- Assigned PC Specs + Headscale & RDP Credentials -->
+        <!-- Assigned PC Specs + Headscale IP + Hidden XXXX Port + Quick Guide -->
         <div class="card">
           <div class="card-title">🖥️ Your Assigned PC & Headscale / RDP Login</div>
           <div class="spec-row"><span class="spec-key">Processor (CPU)</span><strong id="spec-cpu">Pending Assignment</strong></div>
@@ -709,21 +775,43 @@
             <div style="font-size:0.75rem; color:#60a5fa; font-weight:700; margin-bottom:6px; text-transform:uppercase;">🔐 Headscale & RDP Connection Credentials</div>
             <div class="spec-row">
               <span class="spec-key">Headscale / RDP IP</span>
-              <span><strong id="rdp-ip" style="font-family:monospace;">--</strong> <button class="btn-outline btn-sm" onclick="copyElem('rdp-ip')">Copy</button></span>
+              <span><strong id="rdp-ip" style="font-family:monospace;">--</strong> <button type="button" class="btn-outline btn-sm" onclick="copyElem('rdp-ip')">Copy</button></span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Connection / RDP Port</span>
+              <span>
+                <strong id="rdp-port" data-port="" style="font-family:monospace; color:#fcd34d;">XXXX</strong>
+                <button type="button" id="btn-toggle-port" class="btn-outline btn-sm" onclick="toggleRdpPort()">Show Port</button>
+                <button type="button" class="btn-outline btn-sm" onclick="copyRdpPort()">Copy</button>
+              </span>
             </div>
             <div class="spec-row">
               <span class="spec-key">RDP Username</span>
-              <span><strong id="rdp-user" style="font-family:monospace;">--</strong> <button class="btn-outline btn-sm" onclick="copyElem('rdp-user')">Copy</button></span>
+              <span><strong id="rdp-user" style="font-family:monospace;">--</strong> <button type="button" class="btn-outline btn-sm" onclick="copyElem('rdp-user')">Copy</button></span>
             </div>
             <div class="spec-row">
               <span class="spec-key">RDP Password</span>
               <span>
                 <strong id="rdp-pass" data-secret="" style="font-family:monospace;">••••••••</strong>
-                <button class="btn-outline btn-sm" onclick="toggleRdpPass()">Show</button>
-                <button class="btn-outline btn-sm" onclick="copyRdpPass()">Copy</button>
+                <button type="button" class="btn-outline btn-sm" onclick="toggleRdpPass()">Show</button>
+                <button type="button" class="btn-outline btn-sm" onclick="copyRdpPass()">Copy</button>
               </span>
             </div>
           </div>
+
+          <!-- Collapsible Headscale & RDP Connection Quick-Guide -->
+          <details class="guide-dropdown">
+            <summary>
+              <span>📘 Headscale & RDP Connection Quick-Guide</span>
+              <span>▼</span>
+            </summary>
+            <ol style="margin-top:8px; padding-left:18px; font-size:0.81rem; color:#cbd5e1; line-height:1.55;">
+              <li>Connect your local machine to the assigned <strong>Headscale</strong> network/tailnet so your node can reach the workstation IP.</li>
+              <li>Click <strong>Show Port</strong> above to reveal your assigned connection port (hidden as <code>XXXX</code> by default).</li>
+              <li>Open <strong>Remote Desktop Connection (mstsc)</strong> and enter <code>&lt;IP&gt;:&lt;Port&gt;</code> (or the IP if standard port is used).</li>
+              <li>Sign in with your <strong>RDP Username</strong> and <strong>RDP Password</strong>, then launch your CAD/3D tools.</li>
+            </ol>
+          </details>
         </div>
       </div>
 
@@ -739,28 +827,28 @@
           <div id="post-msg-wa-prompt" class="hidden" style="margin-top:10px; background:rgba(37,211,102,0.12); border:1px solid var(--whatsapp); padding:9px 12px; border-radius:9px; display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
             <span style="font-size:0.82rem;">✅ Posted! Notify admin directly:</span>
             <div style="display:flex; gap:6px;">
-              <a id="post-msg-wa-link" href="#" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp</a>
+              <a id="post-msg-wa-link" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp</a>
               <a id="post-msg-sms-link" href="#" class="btn btn-primary btn-sm">🇺🇸 SMS</a>
             </div>
           </div>
         </div>
 
-        <!-- Collapsible Dropdown History + +2 Free Days Referral Reward Card -->
+        <!-- Past Payments, Receipts & Referral Rewards -->
         <div class="card">
-          <div class="card-title">🧾 Past Renewals, Trials & Referral Rewards</div>
+          <div class="card-title">🧾 Past Payments, Receipts & Referral Rewards</div>
 
-          <details class="history-dropdown">
+          <details class="history-dropdown" open>
             <summary>
-              <span>📂 Click to View Past Renewals, Trials & Paid History (<span id="hist-count">0</span>)</span>
+              <span>📂 Past Payments, Trials & History (<span id="hist-count">0</span>)</span>
               <span>▼</span>
             </summary>
             <div class="table-wrap" style="margin-top:10px; max-height:200px; overflow-y:auto;">
               <table>
                 <thead>
-                  <tr><th>Date</th><th>Plan / Type</th><th>PCs</th><th>Paid</th><th>Expiry</th></tr>
+                  <tr><th>Date</th><th>Plan / Type</th><th>PCs</th><th>Amount</th><th>Expiry</th></tr>
                 </thead>
                 <tbody id="client-history-tbody">
-                  <tr><td colspan="5" style="color:var(--muted);">No past renewals or trials recorded yet.</td></tr>
+                  <tr><td colspan="5" style="color:var(--muted);">No past payments or trials recorded yet.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -771,7 +859,7 @@
               <strong style="font-size:0.87rem; color:#fcd34d;">🤝 Refer a Friend = +2 Free Days!</strong>
               <div style="font-size:0.78rem; color:var(--muted);">Share your link—every friend who joins adds +2 free days to your plan</div>
             </div>
-            <button class="btn-whatsapp btn-sm" onclick="shareClientReferral()">📲 Share Referral Link</button>
+            <button type="button" class="btn-whatsapp btn-sm" onclick="shareClientReferral()">📲 Share Referral Link</button>
           </div>
         </div>
       </div>
@@ -783,8 +871,8 @@
         <div class="card-title">
           <span>🛡️ Admin Control Center (admin)</span>
           <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-            <span id="admin-alert-counter" class="badge badge-warn">0 Service Req | 0 Trials | 0 SOS</span>
-            <button class="btn-primary btn-sm" onclick="openAddClientModal()">➕ Add New Client</button>
+            <span id="admin-alert-counter" class="badge badge-warn">0 Pending/Req | 0 Trials | 0 SOS</span>
+            <button type="button" class="btn-primary btn-sm" onclick="openAddClientModal()">➕ Add New Client</button>
           </div>
         </div>
 
@@ -793,16 +881,16 @@
             <label><strong>📢 Highlighted Notice & Popout</strong></label>
             <div style="display:flex; gap:6px; margin-top:6px;">
               <input type="text" id="admin-broadcast-input" placeholder="Pops up live on all client screens..." />
-              <button class="btn-primary btn-sm" onclick="saveBroadcast()">Post</button>
-              <button class="btn-outline btn-sm" onclick="clearBroadcast()">Clear</button>
+              <button type="button" class="btn-primary btn-sm" onclick="saveBroadcast()">Post</button>
+              <button type="button" class="btn-outline btn-sm" onclick="clearBroadcast()">Clear</button>
             </div>
           </div>
 
           <div>
-            <label><strong>🪪 Sign-Up KYC Toggle</strong></label>
+            <label><strong>🪪 Sign-Up Proof Toggle</strong></label>
             <div class="switch-row" style="margin-top:6px;">
               <div>
-                <div style="font-size:0.84rem; font-weight:600;">Aadhaar & Proof</div>
+                <div style="font-size:0.84rem; font-weight:600;">ID & Proof</div>
                 <div style="font-size:0.72rem; color:var(--muted);" id="kyc-status-label">Currently OFF</div>
               </div>
               <label class="switch">
@@ -813,11 +901,11 @@
           </div>
 
           <div>
-            <label><strong>🟢 Server Status (30-Min Popout)</strong></label>
+            <label><strong>🟢 Server Status (Popout)</strong></label>
             <div class="switch-row" style="margin-top:6px;">
               <div>
                 <div style="font-size:0.84rem; font-weight:600;" id="sys-toggle-title">All PCs Online</div>
-                <div style="font-size:0.72rem; color:var(--muted);">Popout every 30 min</div>
+                <div style="font-size:0.72rem; color:var(--muted);">Status alert</div>
               </div>
               <label class="switch">
                 <input type="checkbox" id="toggle-sys" checked onchange="toggleSysSetting(this.checked)" />
@@ -842,69 +930,132 @@
         </div>
       </div>
 
-      <!-- DEDICATED 102-HOUR MACHINE / USER TIMER CONTROL PANEL (Admin Only) -->
+      <!-- ADMIN OFFERS & PROMOCODES MANAGER -->
+      <div class="card" style="border-color:rgba(16,185,129,0.5);">
+        <div class="card-title">
+          <span>🏷️ Offers & Promocodes Manager (Add, Edit & Save)</span>
+          <span style="font-size:0.78rem; color:var(--muted);">Active promocodes can be chosen by users on the payment section</span>
+        </div>
+
+        <div class="grid-2" style="gap:16px;">
+          <div class="cred-box" style="margin-top:0;">
+            <strong style="font-size:0.88rem; color:#6ee7b7;">🎁 Add / Edit Offer</strong>
+            <input type="hidden" id="edit-offer-idx" value="-1" />
+            <div class="grid-2" style="gap:8px; margin-top:8px;">
+              <div class="form-group"><label>Offer Badge / Tag</label><input type="text" id="offer-tag-inp" placeholder="e.g., Team Special" /></div>
+              <div class="form-group"><label>Offer Title *</label><input type="text" id="offer-title-inp" placeholder="e.g., 10% Off 5+ PCs" /></div>
+            </div>
+            <div class="grid-2" style="gap:8px;">
+              <div class="form-group"><label>Linked Code (Optional)</label><input type="text" id="offer-code-inp" placeholder="e.g., TEAM10" /></div>
+              <div class="form-group">
+                <label>Status</label>
+                <select id="offer-active-inp">
+                  <option value="true">Active (Visible to Users)</option>
+                  <option value="false">Hidden / Draft</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group"><label>Description *</label><input type="text" id="offer-desc-inp" placeholder="Short details shown to users..." /></div>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn-success btn-sm" onclick="saveOfferItem()">💾 Save Offer</button>
+              <button type="button" class="btn-outline btn-sm" onclick="resetOfferForm()">Reset</button>
+            </div>
+            <div id="admin-offers-list" style="margin-top:10px;"></div>
+          </div>
+
+          <div class="cred-box" style="margin-top:0;">
+            <strong style="font-size:0.88rem; color:#93c5fd;">🎟️ Add / Edit Promocode</strong>
+            <input type="hidden" id="edit-promo-idx" value="-1" />
+            <div class="grid-2" style="gap:8px; margin-top:8px;">
+              <div class="form-group"><label>Promo Code *</label><input type="text" id="promo-code-inp" placeholder="e.g., LATTICE10" style="text-transform:uppercase;" /></div>
+              <div class="form-group">
+                <label>Discount Type</label>
+                <select id="promo-type-inp">
+                  <option value="percent">Percentage (%)</option>
+                  <option value="flat">Flat Amount (₹ / $)</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid-2" style="gap:8px;">
+              <div class="form-group"><label>Discount Value *</label><input type="number" id="promo-val-inp" min="0" value="10" /></div>
+              <div class="form-group">
+                <label>Status</label>
+                <select id="promo-active-inp">
+                  <option value="true">Active (Selectable by Users)</option>
+                  <option value="false">Inactive</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group"><label>Note / Eligibility</label><input type="text" id="promo-note-inp" placeholder="e.g., Valid for 5+ PC monthly plan" /></div>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn-primary btn-sm" onclick="savePromoItem()">💾 Save Promocode</button>
+              <button type="button" class="btn-outline btn-sm" onclick="resetPromoForm()">Reset</button>
+            </div>
+            <div id="admin-promos-list" style="margin-top:10px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PER-USER TIMER, UPDATE TIME, RESET TIME & PER-USER MESSAGE CONTROL PANEL -->
       <div class="card" style="border-color:rgba(34, 211, 238, 0.55);">
         <div class="card-title">
-          <span>⏱️ Hourly Machine / User Timer Control (Default: <span id="disp-default-hours">102</span> Hours)</span>
-          <span style="font-size:0.78rem; color:var(--muted);">Alerts at 24h, 12h, 8h, 4h, 2h, 1h, 30m, 15m & Expiry</span>
+          <span>⏱️ Per-User Timer, Update Time, Reset Time & Direct User Message (Default: <span id="disp-default-hours">102</span>h)</span>
+          <span style="font-size:0.78rem; color:var(--muted);">Updates reflect live on each user's dashboard</span>
         </div>
 
         <div class="grid-3" style="margin-bottom:14px;">
-          <!-- Edit & Save Constant Default Hours -->
           <div class="cred-box" style="margin-top:0;">
             <label><strong>⚙️ Edit Default Constant Hours</strong></label>
             <div style="display:flex; gap:6px; margin-top:6px;">
               <input type="number" id="admin-default-hours-inp" min="1" max="9999" value="102" />
-              <button class="btn-primary btn-sm" onclick="saveDefaultTimerHours()">Save Default</button>
+              <button type="button" class="btn-primary btn-sm" onclick="saveDefaultTimerHours()">Save Default</button>
             </div>
-            <small style="color:var(--muted); font-size:0.73rem;">Stays fixed as default until you edit again.</small>
+            <small style="color:var(--muted); font-size:0.73rem;">Used for Reset Time unless custom hours are set.</small>
           </div>
 
-          <!-- Pick User / Machine, Visibility, Custom Message & Start/Renew -->
           <div class="cred-box" style="margin-top:0; grid-column: span 2;">
-            <label><strong>🖥️ Assign / Renew Timer, Visibility & Custom Message for Selected User / Machine</strong></label>
+            <label><strong>🖥️ Per-User Timer, Custom Renewal Hours ("Update Time") & Direct Message</strong></label>
             <div class="grid-3" style="gap:8px; margin-top:6px;">
               <select id="timer-target-uid" onchange="loadUserTimerFieldsToForm(this.value)">
                 <option value="">-- Select User / ID --</option>
               </select>
               <input type="text" id="timer-machine-name" placeholder="Machine Name / ID (e.g., WS-NODE-01)" />
+              <input type="number" id="timer-custom-hours-inp" min="1" max="9999" placeholder="Custom Hours (e.g. 102 or 72)" />
+            </div>
+
+            <div class="grid-2" style="gap:8px; margin-top:8px; align-items:center;">
               <select id="timer-user-visibility">
+                <option value="show">Visibility: Show Timer to This User</option>
                 <option value="auto">Visibility: Active Timer Only</option>
-                <option value="show">Visibility: Force Show to User</option>
                 <option value="hide">Visibility: Hide Timer from User</option>
               </select>
-            </div>
-            <div class="grid-2" style="gap:8px; margin-top:8px; align-items:center;">
-              <input type="text" id="timer-custom-msg" placeholder="Custom message to show this user (leave blank for none)..." />
-              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-                <label class="switch-row" style="padding:6px 10px; margin:0; flex:1;">
-                  <span style="font-size:0.78rem; font-weight:600;">Show Message</span>
-                  <span class="switch">
-                    <input type="checkbox" id="timer-show-msg-toggle" checked />
-                    <span class="slider"></span>
-                  </span>
-                </label>
-                <button class="btn-whatsapp btn-sm" onclick="startOrRenewUserTimer()">▶️ Start / Renew (<span id="btn-hrs-lbl">102</span>h)</button>
-                <button class="btn-danger btn-sm" onclick="stopUserTimer()">Stop</button>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <button type="button" class="btn-primary btn-sm" onclick="updateSelectedUserTimer()">🕒 Update Time</button>
+                <button type="button" class="btn-warn btn-sm" onclick="resetSelectedUserTimer()">🔄 Reset Time (<span id="btn-hrs-lbl">102</span>h)</button>
+                <button type="button" class="btn-danger btn-sm" onclick="stopUserTimer()">Stop</button>
               </div>
+            </div>
+
+            <div style="display:flex; gap:8px; margin-top:8px; align-items:center; flex-wrap:wrap;">
+              <input type="text" id="timer-custom-msg" style="flex:1; min-width:220px;" placeholder="Type message or renewal note for this specific user..." />
+              <button type="button" class="btn-whatsapp btn-sm" onclick="sendDirectMessageToSelectedUser()">📨 Send Message to User</button>
             </div>
           </div>
         </div>
 
-        <!-- Active Hourly Timers Live Table -->
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>User ID & Machine ID</th>
+                <th>User & Machine ID</th>
                 <th>Cycle & Visibility</th>
-                <th>Live Balance (Hours & Days)</th>
-                <th>User Message Rule</th>
-                <th>Actions</th>
+                <th>Live Balance & Renewal Time</th>
+                <th>Direct User Message</th>
+                <th>Quick Per-User Controls</th>
               </tr>
             </thead>
             <tbody id="admin-timers-tbody">
-              <tr><td colspan="5" style="color:var(--muted);">No hourly timers active. Select a user/machine above to start a 102-hour timer.</td></tr>
+              <tr><td colspan="5" style="color:var(--muted);">Loading users...</td></tr>
             </tbody>
           </table>
         </div>
@@ -913,16 +1064,16 @@
       <!-- MANAGE CLIENTS TABLE -->
       <div class="card">
         <div class="card-title">
-          <span>👥 Client Management, Payment Approval (30d Start), Date Adjustment & Headscale/RDP</span>
+          <span>👥 Client Management, Passwords, Part Payment Toggle, Receipts & Headscale/RDP</span>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>Client & Referral</th>
+                <th>Client, Password & Referral</th>
                 <th>Service Status, Trial & SOS</th>
-                <th>PC Qty (Min 5), Rate & Expiry</th>
-                <th>PC Specs & Headscale/RDP</th>
+                <th>PC Qty (1+), Rate, Part Pay & Expiry</th>
+                <th>PC Specs, Port & Headscale/RDP</th>
                 <th>Quick Actions</th>
               </tr>
             </thead>
@@ -944,13 +1095,195 @@
   <div id="popout-modal" class="modal-backdrop hidden">
     <div class="modal">
       <h3 id="modal-title" style="margin-bottom:10px; color:var(--warning);">🔔 Notice</h3>
-      <p id="modal-body" style="font-size:0.94rem; color:var(--text); margin-bottom:18px; white-space:pre-line;"></p>
+      <p id="modal-body" style="font-size:0.92rem; color:var(--text); margin-bottom:18px; white-space:pre-line;"></p>
       <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
-        <button id="modal-renew-timer-btn" class="btn-success btn-sm hidden" onclick="renewFromModal()">🔄 Renew Timer Now</button>
-        <a id="modal-wa-btn" href="https://wa.me/919790342116" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp (+91)</a>
+        <button type="button" id="modal-renew-timer-btn" class="btn-success btn-sm hidden" onclick="renewFromModal()">🔄 Reset Timer Now</button>
+        <a id="modal-wa-btn" href="https://wa.me/919790342116" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">🇮🇳 WhatsApp (+91)</a>
         <a href="sms:+19547512404" class="btn btn-primary btn-sm">🇺🇸 SMS (+1)</a>
         <a href="mailto:business@latticesteel.com" class="btn btn-outline btn-sm">✉️ Email</a>
-        <button class="btn-outline btn-sm" onclick="closeModal()">Got It</button>
+        <button type="button" class="btn-outline btn-sm" onclick="closeModal()">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORGOT PASSWORD + EMAIL OTP RESET MODAL -->
+  <div id="forgot-pw-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <h3 style="margin-bottom:8px; color:#60a5fa;">🔐 Forgot Password — Email OTP Verification</h3>
+      <p style="font-size:0.84rem; color:var(--muted); margin-bottom:14px;">
+        Enter your registered email ID to receive a 6-digit OTP and reset your account password.
+      </p>
+
+      <div id="otp-step-1">
+        <div class="form-group">
+          <label>Registered Email Address *</label>
+          <input type="email" id="fp-email" placeholder="you@example.com" />
+        </div>
+        <div style="display:flex; gap:8px; justify-content:flex-end;">
+          <button type="button" class="btn-outline btn-sm" onclick="closeForgotPasswordModal()">Cancel</button>
+          <button type="button" class="btn-primary btn-sm" onclick="sendEmailOtp()">📧 Send OTP to Email</button>
+        </div>
+      </div>
+
+      <div id="otp-step-2" class="hidden">
+        <div class="form-group">
+          <label>Enter 6-Digit OTP Sent to <strong id="fp-email-display"></strong> *</label>
+          <input type="text" id="fp-otp-input" maxlength="6" placeholder="123456" />
+        </div>
+        <div class="form-group">
+          <label>New Password (min 6 characters) *</label>
+          <input type="password" id="fp-new-password" minlength="6" placeholder="Enter new password" />
+        </div>
+        <div style="display:flex; gap:8px; justify-content:space-between; flex-wrap:wrap;">
+          <button type="button" class="btn-outline btn-sm" onclick="sendEmailOtp()">Resend OTP</button>
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="btn-outline btn-sm" onclick="closeForgotPasswordModal()">Cancel</button>
+            <button type="button" class="btn-success btn-sm" onclick="verifyOtpAndResetPassword()">✅ Verify OTP & Reset Password</button>
+          </div>
+        </div>
+      </div>
+
+      <p id="fp-status-msg" style="margin-top:12px; font-size:0.83rem; color:var(--warning);"></p>
+    </div>
+  </div>
+
+  <!-- CLIENT CHANGE PASSWORD MODAL -->
+  <div id="change-pw-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <h3 style="margin-bottom:8px; color:#60a5fa;">🔑 Change Your Account Password</h3>
+      <p style="font-size:0.83rem; color:var(--muted); margin-bottom:12px;">
+        Update your login password anytime. If required by Firebase security, enter your current password.
+      </p>
+      <div class="form-group">
+        <label>Current Password (optional unless re-auth needed)</label>
+        <input type="password" id="cp-current-pass" placeholder="Enter current password" />
+      </div>
+      <div class="form-group">
+        <label>New Password (min 6 characters) *</label>
+        <input type="password" id="cp-new-pass" minlength="6" placeholder="Enter new password" />
+      </div>
+      <div class="form-group">
+        <label>Confirm New Password *</label>
+        <input type="password" id="cp-confirm-pass" minlength="6" placeholder="Re-enter new password" />
+      </div>
+      <p id="cp-status-msg" style="font-size:0.82rem; color:var(--warning); margin-bottom:10px;"></p>
+      <div style="display:flex; gap:8px; justify-content:flex-end;">
+        <button type="button" class="btn-outline btn-sm" onclick="closeChangePasswordModal()">Cancel</button>
+        <button type="button" class="btn-primary btn-sm" onclick="submitChangePassword()">Update Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENT REQUEST PART PAYMENT MODAL -->
+  <div id="client-partpay-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <h3 style="margin-bottom:8px; color:#fcd34d;">📝 Request Part Payment</h3>
+      <p style="font-size:0.83rem; color:var(--muted); margin-bottom:12px;">
+        Submit your proposed partial payment amount and next payment date for admin review.
+      </p>
+      <div class="form-group">
+        <label>Proposed Part Payment Amount *</label>
+        <input type="number" id="req-part-amt" min="1" placeholder="Enter amount" />
+      </div>
+      <div class="form-group">
+        <label>Proposed Next Payment Date *</label>
+        <input type="date" id="req-part-date" />
+      </div>
+      <div class="form-group">
+        <label>Notes / Reference</label>
+        <input type="text" id="req-part-note" placeholder="e.g., Paying 50% today, balance on 10th" />
+      </div>
+      <div style="display:flex; gap:8px; justify-content:flex-end;">
+        <button type="button" class="btn-outline btn-sm" onclick="closePartPaymentRequestModal()">Cancel</button>
+        <button type="button" class="btn-warn btn-sm" onclick="submitPartPaymentRequest()">Submit Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN PARTIAL PAYMENT, DATES & DYNAMIC SCHEDULE MODAL -->
+  <div id="admin-partpay-modal" class="modal-backdrop hidden">
+    <div class="modal" style="max-width:720px;">
+      <h3 id="adm-pp-title" style="margin-bottom:10px; color:#fcd34d;">💰 Manage Partial Payment, Dates & Schedule</h3>
+      <input type="hidden" id="adm-pp-uid" />
+
+      <div class="switch-row" style="margin-bottom:12px;">
+        <div>
+          <strong style="font-size:0.88rem;">Allow Client "Request Part Payment" Option</strong>
+          <div style="font-size:0.75rem; color:var(--muted);">Default is OFF for all users. Turn ON only for users you allow.</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="adm-pp-allow-toggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="grid-3" style="gap:10px;">
+        <div class="form-group">
+          <label>Partial Amount Paid So Far</label>
+          <input type="number" id="adm-pp-paid" min="0" value="0" oninput="refreshAdminPartPayPreview()" />
+        </div>
+        <div class="form-group">
+          <label>Next Part Payment Date</label>
+          <input type="date" id="adm-pp-next-date" />
+        </div>
+        <div class="form-group">
+          <label>Full Payment Date</label>
+          <input type="date" id="adm-pp-full-date" />
+        </div>
+      </div>
+
+      <div id="adm-pp-live-summary" class="cred-box" style="margin-top:4px; margin-bottom:12px; font-size:0.83rem;"></div>
+
+      <div class="cred-box" style="margin-top:0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
+          <strong style="font-size:0.86rem; color:#93c5fd;">📅 Additional Part Payment Dates & Entries</strong>
+          <button type="button" class="btn-outline btn-sm" onclick="addInstallmentRow()">➕ Add Date Row</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Date</th><th>Installment / Label</th><th>Amount</th><th>Status / Note</th><th>Remove</th></tr>
+            </thead>
+            <tbody id="adm-pp-rows-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:14px;">
+        <button type="button" class="btn-outline btn-sm" onclick="closeAdminPartPayModal()">Cancel</button>
+        <button type="button" class="btn-success btn-sm" onclick="saveAdminPartPayData()">💾 Save Partial Payment & Dates</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN RECEIPTS & PAYMENT PROOFS MODAL -->
+  <div id="admin-receipts-modal" class="modal-backdrop hidden">
+    <div class="modal" style="max-width:720px;">
+      <h3 id="adm-rcpt-title" style="margin-bottom:10px; color:#6ee7b7;">🧾 Client Payment Receipts & Proofs</h3>
+      <input type="hidden" id="adm-rcpt-uid" />
+
+      <div class="table-wrap" style="max-height:240px; overflow-y:auto; margin-bottom:12px;">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Uploaded By</th><th>Amount / Ref</th><th>File</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="adm-rcpt-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="cred-box">
+        <strong style="font-size:0.85rem; color:#93c5fd;">➕ Upload Receipt on Behalf of Client (Auto-Compressed)</strong>
+        <div class="grid-3" style="gap:8px; margin-top:8px;">
+          <div class="form-group"><label>Date</label><input type="date" id="adm-rcpt-date" /></div>
+          <div class="form-group"><label>Amount</label><input type="number" id="adm-rcpt-amt" value="0" /></div>
+          <div class="form-group"><label>Ref / Note</label><input type="text" id="adm-rcpt-note" placeholder="UTR / Txn ID" /></div>
+        </div>
+        <div class="form-group"><label>Receipt File (Image auto-compressed or PDF under 750 KB)</label><input type="file" id="adm-rcpt-file" accept="image/*,.pdf" /></div>
+        <button type="button" class="btn-primary btn-sm" onclick="adminUploadReceiptForClient()">Save Receipt</button>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; margin-top:12px;">
+        <button type="button" class="btn-outline btn-sm" onclick="closeAdminReceiptsModal()">Close</button>
       </div>
     </div>
   </div>
@@ -959,16 +1292,16 @@
   <div id="view-client-modal" class="modal-backdrop hidden">
     <div class="modal">
       <h3 style="margin-bottom:12px;">👤 Full Client Details & Verification</h3>
-      <div id="view-client-body" style="font-size:0.9rem;"></div>
+      <div id="view-client-body" style="font-size:0.88rem;"></div>
       <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:16px;">
-        <button class="btn-outline btn-sm" onclick="document.getElementById('view-client-modal').classList.add('hidden')">Close</button>
+        <button type="button" class="btn-outline btn-sm" onclick="document.getElementById('view-client-modal').classList.add('hidden')">Close</button>
       </div>
     </div>
   </div>
 
   <!-- ADMIN HISTORY MANAGER MODAL -->
   <div id="admin-history-modal" class="modal-backdrop hidden">
-    <div class="modal" style="max-width:640px;">
+    <div class="modal" style="max-width:660px;">
       <h3 id="hist-modal-title" style="margin-bottom:10px;">🧾 Manage Client Renewal & Trial History</h3>
       <input type="hidden" id="hist-modal-uid" />
 
@@ -986,18 +1319,18 @@
         <div class="grid-3" style="gap:8px; margin-top:8px;">
           <div class="form-group"><label>Date</label><input type="date" id="new-hist-date" /></div>
           <div class="form-group"><label>Type / Label</label><input type="text" id="new-hist-label" placeholder="e.g., 30d Renewal or 2-Hr Trial" /></div>
-          <div class="form-group"><label>PC Count (Min 5)</label><input type="number" id="new-hist-pcs" value="5" min="5" /></div>
+          <div class="form-group"><label>PC Count</label><input type="number" id="new-hist-pcs" value="5" min="1" /></div>
         </div>
         <div class="grid-3" style="gap:8px;">
           <div class="form-group"><label>Amount Paid</label><input type="number" id="new-hist-amt" value="17500" /></div>
           <div class="form-group"><label>Days Added</label><input type="number" id="new-hist-days" value="30" /></div>
           <div class="form-group"><label>Expiry Date</label><input type="date" id="new-hist-exp" /></div>
         </div>
-        <button class="btn-primary btn-sm" onclick="addAdminHistoryEntry()">Save History Record</button>
+        <button type="button" class="btn-primary btn-sm" onclick="addAdminHistoryEntry()">Save History Record</button>
       </div>
 
       <div style="display:flex; justify-content:flex-end; margin-top:14px;">
-        <button class="btn-outline btn-sm" onclick="document.getElementById('admin-history-modal').classList.add('hidden')">Close</button>
+        <button type="button" class="btn-outline btn-sm" onclick="document.getElementById('admin-history-modal').classList.add('hidden')">Close</button>
       </div>
     </div>
   </div>
@@ -1015,6 +1348,10 @@
       </div>
       <div class="grid-2" style="gap:10px;">
         <div class="form-group"><label>Phone Number</label><input type="text" id="edit-phone" /></div>
+        <div class="form-group"><label>User Login Password (Account)</label><input type="text" id="edit-account-pass" placeholder="User created password" /></div>
+      </div>
+      <div class="grid-2" style="gap:10px;">
+        <div class="form-group"><label>Current Address</label><input type="text" id="edit-address" /></div>
         <div class="form-group">
           <label>Service / Payment Status</label>
           <select id="edit-service-status">
@@ -1025,7 +1362,6 @@
           </select>
         </div>
       </div>
-      <div class="form-group"><label>Current Address</label><input type="text" id="edit-address" /></div>
 
       <div class="grid-4" style="gap:8px;">
         <div class="form-group">
@@ -1036,7 +1372,7 @@
           </select>
         </div>
         <div class="form-group"><label>Per-PC Rate</label><input type="number" id="edit-rent" value="3500" /></div>
-        <div class="form-group"><label>PC Qty (Min 5)</label><input type="number" id="edit-pccount" value="5" min="5" /></div>
+        <div class="form-group"><label>PC Qty (Admin: 1+)</label><input type="number" id="edit-pccount" value="5" min="1" /></div>
         <div class="form-group"><label>Discount (%)</label><input type="number" id="edit-discount" value="0" min="0" max="100" /></div>
       </div>
 
@@ -1058,50 +1394,50 @@
       <div class="form-group"><label>Installed Software</label><input type="text" id="edit-notes" placeholder="SDS/2, Tekla, AutoCAD" /></div>
 
       <hr style="border-color:var(--border); margin:10px 0;" />
-      <div class="grid-3" style="gap:8px;">
+      <div class="grid-4" style="gap:8px;">
         <div class="form-group"><label>Headscale / RDP IP</label><input type="text" id="edit-rdp-ip" placeholder="100.64.0.x" /></div>
+        <div class="form-group"><label>Connection Port</label><input type="text" id="edit-rdp-port" placeholder="3389" /></div>
         <div class="form-group"><label>RDP Username</label><input type="text" id="edit-rdp-user" placeholder="Administrator" /></div>
         <div class="form-group"><label>RDP Password</label><input type="text" id="edit-rdp-pass" placeholder="Pass@123" /></div>
       </div>
 
       <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:10px;">
-        <button class="btn-outline btn-sm" onclick="closeEditModal()">Cancel</button>
-        <button class="btn-primary btn-sm" onclick="saveClientEdits()">Save Client Data</button>
+        <button type="button" class="btn-outline btn-sm" onclick="closeEditModal()">Cancel</button>
+        <button type="button" class="btn-primary btn-sm" onclick="saveClientEdits()">Save Client Data</button>
       </div>
     </div>
   </div>
 
-  <!-- FLOATING WHATSAPP BUTTON (India Number Only) -->
-  <a href="https://wa.me/919790342116?text=Hi%20admin%2C%20I%20need%20help%20with%20my%20Rented%20PC." target="_blank" class="wa-float">
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/919790342116?text=Hi%20admin%2C%20I%20need%20help%20with%20my%20Rented%20PC." target="_blank" rel="noopener" class="wa-float">
     💬 WhatsApp (+91)
   </a>
 
-  <!-- FIREBASE SDK & APP LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc, updateDoc, deleteDoc, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // =========================================================================
-    // PASTE YOUR FREE FIREBASE SPARK CONFIG HERE
-    // =========================================================================
-      const firebaseConfig = {
-    apiKey: "AIzaSyDHQkwAASTmkXQ-dCxcRedfX1pQ6AEl4G8",
-    authDomain: "remote-pc-rental.firebaseapp.com",
-    projectId: "remote-pc-rental",
-    storageBucket: "remote-pc-rental.firebasestorage.app",
-    messagingSenderId: "219094452898",
-    appId: "1:219094452898:web:2fc45b710ff9e2771025fb"
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyDHQkwAASTmkXQ-dCxcRedfX1pQ6AEl4G8",
+      authDomain: "remote-pc-rental.firebaseapp.com",
+      projectId: "remote-pc-rental",
+      storageBucket: "remote-pc-rental.firebasestorage.app",
+      messagingSenderId: "219094452898",
+      appId: "1:219094452898:web:2fc45b710ff9e2771025fb"
+    };
+
+    const EMAILJS_PUBLIC_KEY = "";
+    const EMAILJS_SERVICE_ID = "";
+    const EMAILJS_TEMPLATE_ID = "";
 
     const ADMIN_EMAIL = "mohanrajramesh4030@gmail.com";
     const BIZ_EMAIL = "business@latticesteel.com";
     const UPI_ID = "9790342116@icici";
     const WA_IN = "919790342116";
     const SMS_US = "+19547512404";
-    const MIN_PC_QTY = 5;
+    const MIN_USER_PC_QTY = 5;
 
-    // 9 Prior Intimation Checkpoints (in minutes remaining)
     const TIMER_THRESHOLDS = [
       { key: "24h", mins: 24 * 60, label: "24 Hours Before Expiry" },
       { key: "12h", mins: 12 * 60, label: "12 Hours Before Expiry" },
@@ -1129,9 +1465,84 @@
     let lastSysStateSeen = null;
     let defaultTimerHours = 102;
     let modalRenewTargetUid = null;
+    let revealedPasswords = {};
+    let activeOffers = [];
+    let activePromos = [];
+    let appliedPromoCode = "";
+    let draftInstallmentRows = [];
 
-    if ("Notification" in window && Notification.permission === "default") {
-      Notification.requestPermission().catch(() => {});
+    async function compressImageOrFileToDataUrl(file, maxWidth = 1280, quality = 0.72, maxFinalBytes = 750000) {
+      if (!file) return { dataUrl: "", fileName: "", wasCompressed: false };
+
+      if (!file.type || !file.type.startsWith("image/")) {
+        if (file.size > maxFinalBytes) {
+          throw new Error("File too large. Please upload a PDF/document under 750 KB.");
+        }
+        const rawDataUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+        return { dataUrl: rawDataUrl, fileName: file.name, wasCompressed: false };
+      }
+
+      const rawDataUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+
+      const img = await new Promise((resolve, reject) => {
+        const el = new Image();
+        el.onload = () => resolve(el);
+        el.onerror = () => reject(new Error("Could not load image for compression."));
+        el.src = rawDataUrl;
+      });
+
+      let targetW = img.naturalWidth || img.width;
+      let targetH = img.naturalHeight || img.height;
+
+      if (targetW > maxWidth) {
+        targetH = Math.round((targetH * maxWidth) / targetW);
+        targetW = maxWidth;
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = targetW;
+      canvas.height = targetH;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, targetW, targetH);
+
+      let currentQuality = quality;
+      let compressedUrl = canvas.toDataURL("image/jpeg", currentQuality);
+
+      while (compressedUrl.length * 0.75 > maxFinalBytes && currentQuality > 0.35) {
+        currentQuality = Number((currentQuality - 0.1).toFixed(2));
+        compressedUrl = canvas.toDataURL("image/jpeg", currentQuality);
+      }
+
+      if (compressedUrl.length * 0.75 > maxFinalBytes) {
+        throw new Error("Compressed image is still too large. Please crop or pick a smaller image.");
+      }
+
+      const baseName = (file.name || "upload").replace(/\.[^.]+$/, "");
+      return {
+        dataUrl: compressedUrl,
+        fileName: `${baseName}.jpg`,
+        wasCompressed: true
+      };
+    }
+
+    let toastTimer = null;
+    function notifyStatus(msg) {
+      const el = document.getElementById("status-toast");
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.remove("hidden");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.add("hidden"), 3400);
     }
 
     function formatCountdown(msRemaining) {
@@ -1170,7 +1581,6 @@
       triggerSysStatusPopout(currentSysOnline);
     }, 5 * 60 * 1000);
 
-    // 1-Second Live Ticker for Client Timer & Admin Timers + Milestone Alerts
     setInterval(() => {
       const now = Date.now();
 
@@ -1198,9 +1608,10 @@
           if (cell) {
             const remHrs = (remMs / 3600000).toFixed(1);
             const remDays = (remMs / 86400000).toFixed(2);
+            const expStr = new Date(t.expiresAt).toLocaleString();
             cell.innerHTML = remMs <= 0
-              ? `<strong style="color:var(--danger);">EXPIRED — Due for Renewal</strong>`
-              : `<strong style="color:#22d3ee; font-family:monospace;">${formatCountdown(remMs)}</strong><br><small style="color:var(--muted);">Balance: ${remHrs} hrs (${remDays} days)</small>`;
+              ? `<strong style="color:var(--danger);">EXPIRED — Due for Renewal</strong><br><small style="color:var(--muted);">Renewal: ${escapeHtml(expStr)}</small>`
+              : `<strong style="color:#22d3ee; font-family:monospace;">${formatCountdown(remMs)}</strong><br><small style="color:var(--muted);">Balance: ${remHrs}h (${remDays}d) • Renewal: ${escapeHtml(expStr)}</small>`;
           }
 
           const remMins = remMs / 60000;
@@ -1213,13 +1624,10 @@
 
               const mLabel = t.machineName || u.name;
               const remHrsTxt = (remMs / 3600000).toFixed(1);
-              const alertMsg = `⏱️ TIMER ALERT [${step.label}]\n\n• User: ${u.name} (${uid})\n• Machine / ID: ${mLabel}\n• Cycle: ${t.hours} Hours\n• Remaining: ${remMs <= 0 ? "EXPIRED — Renew Now!" : `${formatCountdown(remMs)} (${remHrsTxt} hrs)`}\n\nClick "Renew Timer Now" or forward this reminder to your WhatsApp (+919790342116).`;
+              const alertMsg = `⏱️ TIMER ALERT [${step.label}]\n\n• User: ${u.name} (${uid})\n• Machine / ID: ${mLabel}\n• Cycle: ${t.hours} Hours\n• Remaining: ${remMs <= 0 ? "EXPIRED — Renew Now!" : `${formatCountdown(remMs)} (${remHrsTxt} hrs)`}`;
               const waForward = `https://wa.me/${WA_IN}?text=${encodeURIComponent(alertMsg)}`;
 
               showModal(`⏱️ ${t.hours}h Timer Alert: ${step.label}`, alertMsg, waForward, uid);
-              if ("Notification" in window && Notification.permission === "granted") {
-                new Notification(`Timer Alert: ${mLabel}`, { body: `${step.label} — ${u.name}` });
-              }
               break;
             }
           }
@@ -1227,15 +1635,288 @@
       }
     }, 1000);
 
-    function calcTotals(u) {
+    function findPromoByCode(code) {
+      const normalized = String(code || "").trim().toUpperCase();
+      if (!normalized) return null;
+      return activePromos.find(p => p.active !== false && String(p.code || "").toUpperCase() === normalized) || null;
+    }
+
+    function calcTotals(u, isAdminView = false, promoCodeOverride = null) {
       const rate = Number(u.rentAmount || 0);
-      const qty = Math.max(MIN_PC_QTY, Number(u.pcCount || MIN_PC_QTY));
+      const rawQty = Number(u.pcCount || (isAdminView ? 1 : MIN_USER_PC_QTY));
+      const qty = isAdminView ? Math.max(1, rawQty) : Math.max(MIN_USER_PC_QTY, rawQty);
       const disc = Math.min(100, Math.max(0, Number(u.discountPercent || 0)));
       const subtotal = rate * qty;
       const discountAmt = Math.round((subtotal * disc) / 100);
-      const finalTotal = Math.max(0, subtotal - discountAmt);
-      return { rate, qty, disc, subtotal, discountAmt, finalTotal };
+      const afterAdminDisc = Math.max(0, subtotal - discountAmt);
+
+      const codeToUse = promoCodeOverride !== null ? promoCodeOverride : (u.appliedPromoCode || appliedPromoCode || "");
+      const promo = findPromoByCode(codeToUse);
+      let promoDiscountAmt = 0;
+      if (promo && afterAdminDisc > 0) {
+        if (promo.type === "flat") {
+          promoDiscountAmt = Math.min(afterAdminDisc, Math.max(0, Number(promo.value || 0)));
+        } else {
+          const pct = Math.min(100, Math.max(0, Number(promo.value || 0)));
+          promoDiscountAmt = Math.round((afterAdminDisc * pct) / 100);
+        }
+      }
+
+      const finalTotal = Math.max(0, afterAdminDisc - promoDiscountAmt);
+      return { rate, qty, disc, subtotal, discountAmt, promo, promoDiscountAmt, finalTotal };
     }
+
+    function renderOffersAndPromosUI() {
+      const grid = document.getElementById("user-offers-grid");
+      const promoSelect = document.getElementById("client-promocode-select");
+
+      if (grid) {
+        const visibleOffers = activeOffers.filter(o => o.active !== false);
+        const visiblePromos = activePromos.filter(p => p.active !== false);
+
+        if (visibleOffers.length === 0 && visiblePromos.length === 0) {
+          grid.innerHTML = `
+            <div class="offer-box">
+              <div>
+                <span class="badge badge-active">🎁 Standard Perk</span>
+                <div style="font-weight:700; margin-top:6px;">2-Hour Free Trial & +2 Referral Days</div>
+                <p style="font-size:0.81rem; color:var(--muted); margin-top:3px;">New signed-up clients get a 2-hour trial and +2 bonus days per referred friend.</p>
+              </div>
+            </div>`;
+        } else {
+          let html = visibleOffers.map(o => `
+            <div class="offer-box">
+              <div>
+                <span class="badge badge-active">${escapeHtml(o.tag || "Special Offer")}</span>
+                <div style="font-weight:700; margin-top:6px;">${escapeHtml(o.title)}</div>
+                <p style="font-size:0.81rem; color:var(--muted); margin-top:3px;">${escapeHtml(o.description)}</p>
+              </div>
+              ${o.code ? `<div style="font-size:0.78rem; color:#fcd34d;">Code: <span class="promo-chip-code">${escapeHtml(o.code)}</span></div>` : ""}
+            </div>`).join("");
+
+          html += visiblePromos.map(p => {
+            const labelVal = p.type === "flat" ? `${p.value} Off` : `${p.value}% Off`;
+            return `
+              <div class="offer-box" style="border-color:rgba(16,185,129,0.45);">
+                <div>
+                  <span class="badge badge-warn">🎟️ Promocode • ${escapeHtml(labelVal)}</span>
+                  <div style="font-weight:700; margin-top:6px;">Use Code: <span class="promo-chip-code">${escapeHtml(p.code)}</span></div>
+                  <p style="font-size:0.81rem; color:var(--muted); margin-top:3px;">${escapeHtml(p.note || "Applies directly to your billable total.")}</p>
+                </div>
+                <button type="button" class="btn-success btn-sm" onclick="quickUsePromoCode('${escapeHtml(p.code)}')">Apply ${escapeHtml(p.code)}</button>
+              </div>`;
+          }).join("");
+
+          grid.innerHTML = html;
+        }
+      }
+
+      if (promoSelect) {
+        const curCode = appliedPromoCode || (currentClientData && currentClientData.appliedPromoCode) || "";
+        const enabledPromos = activePromos.filter(p => p.active !== false);
+        promoSelect.innerHTML = `<option value="">-- No Promocode Selected --</option>` + enabledPromos.map(p => {
+          const desc = p.type === "flat" ? `Flat ${p.value} Off` : `${p.value}% Off`;
+          return `<option value="${escapeHtml(p.code)}" ${String(p.code).toUpperCase() === String(curCode).toUpperCase() ? "selected" : ""}>${escapeHtml(p.code)} (${escapeHtml(desc)})</option>`;
+        }).join("");
+      }
+
+      if (currentUser && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        renderAdminOffersAndPromosLists();
+      }
+      if (currentClientData && currentUser && currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        renderClientBillingAndReceipts(currentClientData, currentUser.uid);
+      }
+    }
+
+    window.quickUsePromoCode = async (code) => {
+      appliedPromoCode = String(code || "").trim().toUpperCase();
+      const inp = document.getElementById("client-promocode-input");
+      if (inp) inp.value = appliedPromoCode;
+      if (currentUser && currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        await updateDoc(doc(db, "users", currentUser.uid), { appliedPromoCode }).catch(() => {});
+      }
+      renderOffersAndPromosUI();
+      notifyStatus(`Promocode ${appliedPromoCode} selected! Check your updated billable total.`);
+    };
+
+    window.applySelectedPromocode = async () => {
+      const sel = document.getElementById("client-promocode-select").value;
+      appliedPromoCode = String(sel || "").trim().toUpperCase();
+      document.getElementById("client-promocode-input").value = appliedPromoCode;
+      if (currentUser && currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        await updateDoc(doc(db, "users", currentUser.uid), { appliedPromoCode }).catch(() => {});
+      }
+      renderOffersAndPromosUI();
+    };
+
+    window.applyTypedPromocode = async () => {
+      const typed = document.getElementById("client-promocode-input").value.trim().toUpperCase();
+      if (!typed) {
+        notifyStatus("Enter a promocode first.");
+        return;
+      }
+      const match = findPromoByCode(typed);
+      if (!match) {
+        notifyStatus(`Promocode "${typed}" is invalid or inactive.`);
+        return;
+      }
+      appliedPromoCode = match.code.toUpperCase();
+      if (currentUser && currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        await updateDoc(doc(db, "users", currentUser.uid), { appliedPromoCode }).catch(() => {});
+      }
+      renderOffersAndPromosUI();
+      notifyStatus(`Applied promocode ${appliedPromoCode}!`);
+    };
+
+    window.clearAppliedPromocode = async () => {
+      appliedPromoCode = "";
+      document.getElementById("client-promocode-select").value = "";
+      document.getElementById("client-promocode-input").value = "";
+      if (currentUser && currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        await updateDoc(doc(db, "users", currentUser.uid), { appliedPromoCode: "" }).catch(() => {});
+      }
+      renderOffersAndPromosUI();
+      notifyStatus("Promocode cleared.");
+    };
+
+    function renderAdminOffersAndPromosLists() {
+      const oList = document.getElementById("admin-offers-list");
+      const pList = document.getElementById("admin-promos-list");
+      if (oList) {
+        oList.innerHTML = activeOffers.length === 0
+          ? `<small style="color:var(--muted);">No offers saved yet.</small>`
+          : activeOffers.map((o, idx) => `
+            <div class="spec-row">
+              <div>
+                <strong>${escapeHtml(o.title)}</strong> <span class="badge ${o.active !== false ? 'badge-active' : 'badge-warn'}">${o.active !== false ? 'Active' : 'Hidden'}</span><br>
+                <small style="color:var(--muted);">${escapeHtml(o.description)}</small>
+              </div>
+              <div style="display:flex; gap:4px;">
+                <button type="button" class="btn-outline btn-sm" onclick="editOfferItem(${idx})">Edit</button>
+                <button type="button" class="btn-danger btn-sm" onclick="deleteOfferItem(${idx})">Del</button>
+              </div>
+            </div>`).join("");
+      }
+      if (pList) {
+        pList.innerHTML = activePromos.length === 0
+          ? `<small style="color:var(--muted);">No promocodes saved yet.</small>`
+          : activePromos.map((p, idx) => {
+            const vTxt = p.type === "flat" ? `Flat ${p.value}` : `${p.value}%`;
+            return `
+              <div class="spec-row">
+                <div>
+                  <strong class="promo-chip-code">${escapeHtml(p.code)}</strong> <strong>(${escapeHtml(vTxt)})</strong>
+                  <span class="badge ${p.active !== false ? 'badge-active' : 'badge-warn'}">${p.active !== false ? 'Active' : 'Off'}</span><br>
+                  <small style="color:var(--muted);">${escapeHtml(p.note || "")}</small>
+                </div>
+                <div style="display:flex; gap:4px;">
+                  <button type="button" class="btn-outline btn-sm" onclick="editPromoItem(${idx})">Edit</button>
+                  <button type="button" class="btn-danger btn-sm" onclick="deletePromoItem(${idx})">Del</button>
+                </div>
+              </div>`;
+          }).join("");
+      }
+    }
+
+    window.saveOfferItem = async () => {
+      const idx = Number(document.getElementById("edit-offer-idx").value);
+      const title = document.getElementById("offer-title-inp").value.trim();
+      const description = document.getElementById("offer-desc-inp").value.trim();
+      if (!title || !description) {
+        notifyStatus("Please enter both Offer Title and Description.");
+        return;
+      }
+      const item = {
+        tag: document.getElementById("offer-tag-inp").value.trim() || "Special Offer",
+        title,
+        description,
+        code: document.getElementById("offer-code-inp").value.trim().toUpperCase(),
+        active: document.getElementById("offer-active-inp").value === "true"
+      };
+      const updated = [...activeOffers];
+      if (idx >= 0 && updated[idx]) updated[idx] = item;
+      else updated.push(item);
+
+      await setDoc(doc(db, "settings", "global"), { offersList: updated }, { merge: true });
+      resetOfferForm();
+      notifyStatus("Offer saved and synced to users!");
+    };
+
+    window.editOfferItem = (idx) => {
+      const o = activeOffers[idx];
+      if (!o) return;
+      document.getElementById("edit-offer-idx").value = idx;
+      document.getElementById("offer-tag-inp").value = o.tag || "";
+      document.getElementById("offer-title-inp").value = o.title || "";
+      document.getElementById("offer-code-inp").value = o.code || "";
+      document.getElementById("offer-active-inp").value = String(o.active !== false);
+      document.getElementById("offer-desc-inp").value = o.description || "";
+    };
+
+    window.deleteOfferItem = async (idx) => {
+      const updated = activeOffers.filter((_, i) => i !== idx);
+      await setDoc(doc(db, "settings", "global"), { offersList: updated }, { merge: true });
+      notifyStatus("Offer removed.");
+    };
+
+    window.resetOfferForm = () => {
+      document.getElementById("edit-offer-idx").value = "-1";
+      document.getElementById("offer-tag-inp").value = "";
+      document.getElementById("offer-title-inp").value = "";
+      document.getElementById("offer-code-inp").value = "";
+      document.getElementById("offer-desc-inp").value = "";
+      document.getElementById("offer-active-inp").value = "true";
+    };
+
+    window.savePromoItem = async () => {
+      const idx = Number(document.getElementById("edit-promo-idx").value);
+      const code = document.getElementById("promo-code-inp").value.trim().toUpperCase();
+      const value = Math.max(0, Number(document.getElementById("promo-val-inp").value || 0));
+      if (!code) {
+        notifyStatus("Please enter a Promocode.");
+        return;
+      }
+      const item = {
+        code,
+        type: document.getElementById("promo-type-inp").value,
+        value,
+        active: document.getElementById("promo-active-inp").value === "true",
+        note: document.getElementById("promo-note-inp").value.trim()
+      };
+      const updated = [...activePromos];
+      if (idx >= 0 && updated[idx]) updated[idx] = item;
+      else updated.push(item);
+
+      await setDoc(doc(db, "settings", "global"), { promocodesList: updated }, { merge: true });
+      resetPromoForm();
+      notifyStatus(`Promocode ${code} saved!`);
+    };
+
+    window.editPromoItem = (idx) => {
+      const p = activePromos[idx];
+      if (!p) return;
+      document.getElementById("edit-promo-idx").value = idx;
+      document.getElementById("promo-code-inp").value = p.code || "";
+      document.getElementById("promo-type-inp").value = p.type || "percent";
+      document.getElementById("promo-val-inp").value = p.value || 0;
+      document.getElementById("promo-active-inp").value = String(p.active !== false);
+      document.getElementById("promo-note-inp").value = p.note || "";
+    };
+
+    window.deletePromoItem = async (idx) => {
+      const updated = activePromos.filter((_, i) => i !== idx);
+      await setDoc(doc(db, "settings", "global"), { promocodesList: updated }, { merge: true });
+      notifyStatus("Promocode removed.");
+    };
+
+    window.resetPromoForm = () => {
+      document.getElementById("edit-promo-idx").value = "-1";
+      document.getElementById("promo-code-inp").value = "";
+      document.getElementById("promo-type-inp").value = "percent";
+      document.getElementById("promo-val-inp").value = "10";
+      document.getElementById("promo-active-inp").value = "true";
+      document.getElementById("promo-note-inp").value = "";
+    };
 
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get("ref")) {
@@ -1243,14 +1924,14 @@
     }
 
     window.selectRentalTier = async (planName, suggestedQty, suggestedDays) => {
-      const qty = Math.max(MIN_PC_QTY, suggestedQty);
+      const qty = Math.max(MIN_USER_PC_QTY, suggestedQty);
       if (currentUser && currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
         await updateDoc(doc(db, "users", currentUser.uid), {
           pcCount: qty,
           totalDays: suggestedDays,
           selectedPlan: planName
         });
-        alert(`Applied "${planName}" (${qty} PCs, ${suggestedDays} days)! Your total payable amount and QR scanner have updated.`);
+        notifyStatus(`Applied "${planName}" (${qty} PCs, ${suggestedDays} days)!`);
       } else {
         showAuth("signup");
         document.getElementById("signup-pccount").value = qty;
@@ -1259,29 +1940,36 @@
       }
     };
 
-    // Listen to Global Settings
     onSnapshot(doc(db, "settings", "global"), (snap) => {
-      const data = snap.exists() ? snap.data() : { kycRequired: false, showTimerToAll: false, broadcast: "", broadcastId: 0, sysOnline: true, defaultTimerHours: 102 };
+      const data = snap.exists() ? snap.data() : {};
       kycRequired = !!data.kycRequired;
       showTimerToAll = !!data.showTimerToAll;
       currentBroadcast = data.broadcast || "";
       const broadcastId = data.broadcastId || 0;
       const sysOnline = data.sysOnline !== false;
       currentSysOnline = sysOnline;
+      activeOffers = Array.isArray(data.offersList) ? data.offersList : [];
+      activePromos = Array.isArray(data.promocodesList) ? data.promocodesList : [];
 
       defaultTimerHours = Number(data.defaultTimerHours || 102);
       const defDisp = document.getElementById("disp-default-hours");
       const defInp = document.getElementById("admin-default-hours-inp");
       const btnLbl = document.getElementById("btn-hrs-lbl");
+      const customHrsInp = document.getElementById("timer-custom-hours-inp");
       if (defDisp) defDisp.textContent = defaultTimerHours;
       if (defInp && document.activeElement !== defInp) defInp.value = defaultTimerHours;
       if (btnLbl) btnLbl.textContent = defaultTimerHours;
+      if (customHrsInp && !customHrsInp.value && document.activeElement !== customHrsInp) {
+        customHrsInp.value = defaultTimerHours;
+      }
 
       const showAllToggle = document.getElementById("toggle-show-timer-all");
       if (showAllToggle) {
         showAllToggle.checked = showTimerToAll;
         document.getElementById("show-timer-all-label").textContent = showTimerToAll ? "ON (Visible to All)" : "OFF (Per-User Only)";
       }
+
+      renderOffersAndPromosUI();
 
       if (currentClientData && currentUser && currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
         renderClientTimerCard(currentClientData);
@@ -1355,15 +2043,15 @@
         timerCard.classList.remove("hidden");
         document.getElementById("client-timer-machine").textContent = t.machineName || "Assigned Workstation";
         const expDateStr = new Date(t.expiresAt).toLocaleString();
-        document.getElementById("client-timer-meta").textContent = `Cycle: ${t.hours} Hours • Expires at: ${expDateStr}`;
+        document.getElementById("client-timer-meta").textContent = `Cycle: ${t.hours || defaultTimerHours} Hours • Updated Renewal Timing: ${expDateStr}`;
         document.getElementById("client-digital-clock").textContent = formatCountdown(t.expiresAt - Date.now());
-        const tMsg = `Hi Admin, I am ${d.name} (${d.email}). Please renew my ${t.hours}-hour timer for Machine: ${t.machineName || "Workstation"}.`;
+        const tMsg = `Hi Admin, I am ${d.name} (${d.email}). Please renew my ${t.hours || defaultTimerHours}-hour timer for Machine: ${t.machineName || "Workstation"}.`;
         document.getElementById("client-timer-wa-btn").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(tMsg)}`;
         document.getElementById("client-timer-sms-btn").href = `sms:${SMS_US}?body=${encodeURIComponent(tMsg)}`;
 
         const msgBox = document.getElementById("client-timer-custom-msg");
         if (t.showMessage && t.customMessage && t.customMessage.trim()) {
-          msgBox.textContent = "💬 Admin Note: " + t.customMessage.trim();
+          msgBox.textContent = "💬 Message from Admin: " + t.customMessage.trim();
           msgBox.classList.remove("hidden");
         } else {
           msgBox.classList.add("hidden");
@@ -1373,7 +2061,6 @@
       }
     }
 
-    // Auth State Listener
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       const tiersBox = document.getElementById("rental-tiers-showcase");
@@ -1385,14 +2072,28 @@
         document.getElementById("broadcast-banner").classList.add("hidden");
         document.getElementById("btn-nav-signin").classList.remove("hidden");
         document.getElementById("btn-nav-signup").classList.remove("hidden");
+        document.getElementById("btn-nav-changepw").classList.add("hidden");
         document.getElementById("btn-nav-signout").classList.add("hidden");
         document.getElementById("user-greeting").classList.add("hidden");
         return;
       }
 
+      try {
+        const pendingReset = JSON.parse(sessionStorage.getItem("pendingOtpPasswordReset") || "null");
+        if (pendingReset && pendingReset.email && pendingReset.email.toLowerCase() === user.email.toLowerCase() && pendingReset.newPassword) {
+          await updatePassword(user, pendingReset.newPassword);
+          await setDoc(doc(db, "users", user.uid), { accountPassword: pendingReset.newPassword }, { merge: true });
+          sessionStorage.removeItem("pendingOtpPasswordReset");
+          notifyStatus("✅ Your password has been updated successfully!");
+        }
+      } catch (e) {
+        console.warn("Password sync note:", e.message);
+      }
+
       document.getElementById("auth-section").classList.add("hidden");
       document.getElementById("btn-nav-signin").classList.add("hidden");
       document.getElementById("btn-nav-signup").classList.add("hidden");
+      document.getElementById("btn-nav-changepw").classList.remove("hidden");
       document.getElementById("btn-nav-signout").classList.remove("hidden");
       document.getElementById("user-greeting").classList.remove("hidden");
       document.getElementById("user-greeting").textContent = user.email;
@@ -1413,18 +2114,6 @@
       }
     });
 
-    function fileToBase64(file) {
-      return new Promise((resolve, reject) => {
-        if (!file) return resolve("");
-        if (file.size > 750000) return reject(new Error("File too large. Please upload under 700 KB."));
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
-
-    // Sign Up Handler
     window.handleSignUp = async (e) => {
       e.preventDefault();
       const msgEl = document.getElementById("auth-msg");
@@ -1435,33 +2124,43 @@
         const password = document.getElementById("signup-password").value;
         const phone = document.getElementById("signup-phone").value.trim();
         const address = document.getElementById("signup-address").value.trim();
-        const rawPcCount = Number(document.getElementById("signup-pccount").value || MIN_PC_QTY);
-        if (rawPcCount < MIN_PC_QTY) {
-          throw new Error(`Minimum PC user count is ${MIN_PC_QTY}.`);
+        const rawPcCount = Number(document.getElementById("signup-pccount").value || MIN_USER_PC_QTY);
+        if (rawPcCount < MIN_USER_PC_QTY) {
+          throw new Error(`Minimum PC user count is ${MIN_USER_PC_QTY}.`);
         }
         const pcCount = rawPcCount;
         const referredBy = document.getElementById("signup-ref").value.trim();
         const aadhaar = kycRequired ? document.getElementById("signup-aadhaar").value.trim() : "";
         const proofFile = kycRequired ? document.getElementById("signup-proof").files[0] : null;
-        const proofBase64 = proofFile ? await fileToBase64(proofFile) : "";
+        const compressedProof = proofFile ? await compressImageOrFileToDataUrl(proofFile) : { dataUrl: "", fileName: "" };
 
         const cred = await createUserWithEmailAndPassword(auth, email, password);
 
         await setDoc(doc(db, "users", cred.user.uid), {
-          name, email, phone, address, referredBy, aadhaar, proofBase64,
+          name, email, phone, address, referredBy, aadhaar,
+          proofBase64: compressedProof.dataUrl,
+          proofFileName: compressedProof.fileName,
+          accountPassword: password,
           selectedPlan: pcCount >= 10 ? "Enterprise Bulk (10+ PCs)" : "Team Rental (5 PCs)",
           serviceStatus: "awaiting_payment",
           trialStatus: "eligible",
           sosReboot: false,
+          partPaymentEnabled: false,
+          partialPaidAmount: 0,
+          nextPartPaymentDate: "",
+          fullPaymentDate: "",
+          installmentSchedule: [],
+          paymentReceipts: [],
           currency: "INR",
           rentAmount: 0,
           pcCount,
           discountPercent: 0,
+          appliedPromoCode: "",
           totalDays: 30,
           startDate: "",
           expiryDate: "",
           specs: { cpu: "Pending Assignment", ram: "--", gpu: "--", storage: "--", notes: "--" },
-          rdp: { ip: "--", user: "--", pass: "" },
+          rdp: { ip: "--", port: "", user: "--", pass: "" },
           history: []
         });
         msgEl.textContent = "";
@@ -1475,7 +2174,10 @@
       const msgEl = document.getElementById("auth-msg");
       msgEl.textContent = "Signing in...";
       try {
-        await signInWithEmailAndPassword(auth, document.getElementById("signin-email").value.trim(), document.getElementById("signin-password").value);
+        const email = document.getElementById("signin-email").value.trim().toLowerCase();
+        const password = document.getElementById("signin-password").value;
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(db, "users", cred.user.uid), { accountPassword: password }, { merge: true }).catch(() => {});
         msgEl.textContent = "";
       } catch (err) {
         msgEl.textContent = err.message;
@@ -1484,18 +2186,286 @@
 
     window.handleSignOut = () => signOut(auth);
 
-    // Load Client Dashboard
+    window.openForgotPasswordModal = () => {
+      document.getElementById("fp-email").value = document.getElementById("signin-email").value.trim();
+      document.getElementById("fp-otp-input").value = "";
+      document.getElementById("fp-new-password").value = "";
+      document.getElementById("fp-status-msg").textContent = "";
+      document.getElementById("otp-step-1").classList.remove("hidden");
+      document.getElementById("otp-step-2").classList.add("hidden");
+      document.getElementById("forgot-pw-modal").classList.remove("hidden");
+    };
+
+    window.closeForgotPasswordModal = () => document.getElementById("forgot-pw-modal").classList.add("hidden");
+
+    async function deliverOtpEmail(toEmail, otpCode) {
+      if (EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID) {
+        const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            lib_version: "3.11.0",
+            user_id: EMAILJS_PUBLIC_KEY,
+            service_id: EMAILJS_SERVICE_ID,
+            template_id: EMAILJS_TEMPLATE_ID,
+            template_params: { to_email: toEmail, otp_code: otpCode, app_name: "Lattice Remote PC" }
+          })
+        });
+        if (!res.ok) throw new Error("Failed to dispatch OTP email via EmailJS.");
+        return { sentViaEmailService: true };
+      }
+      return { sentViaEmailService: false };
+    }
+
+    window.sendEmailOtp = async () => {
+      const email = document.getElementById("fp-email").value.trim().toLowerCase();
+      const statusEl = document.getElementById("fp-status-msg");
+      if (!email) {
+        statusEl.textContent = "Please enter your registered email ID.";
+        return;
+      }
+      statusEl.textContent = "Generating and sending OTP to your email...";
+      const otpCode = String(Math.floor(100000 + Math.random() * 900000));
+      const expiresAt = Date.now() + 10 * 60 * 1000;
+
+      try {
+        await setDoc(doc(db, "otpResets", encodeURIComponent(email)), {
+          email, otpCode, expiresAt, createdAt: serverTimestamp()
+        });
+        const delivery = await deliverOtpEmail(email, otpCode);
+        document.getElementById("fp-email-display").textContent = email;
+        document.getElementById("otp-step-1").classList.add("hidden");
+        document.getElementById("otp-step-2").classList.remove("hidden");
+
+        if (delivery.sentViaEmailService) {
+          statusEl.textContent = `✅ 6-digit OTP sent to ${email} (valid for 10 minutes).`;
+        } else {
+          statusEl.innerHTML = `✅ OTP generated for <strong>${escapeHtml(email)}</strong> (valid 10m). <em>Demo/No-SMTP OTP:</em> <strong style="color:#22d3ee; font-family:monospace;">${otpCode}</strong>`;
+        }
+      } catch (err) {
+        statusEl.textContent = "Error sending OTP: " + err.message;
+      }
+    };
+
+    window.verifyOtpAndResetPassword = async () => {
+      const email = document.getElementById("fp-email").value.trim().toLowerCase();
+      const enteredOtp = document.getElementById("fp-otp-input").value.trim();
+      const newPassword = document.getElementById("fp-new-password").value;
+      const statusEl = document.getElementById("fp-status-msg");
+
+      if (!enteredOtp || enteredOtp.length !== 6) {
+        statusEl.textContent = "Please enter the 6-digit OTP.";
+        return;
+      }
+      if (!newPassword || newPassword.length < 6) {
+        statusEl.textContent = "New password must be at least 6 characters.";
+        return;
+      }
+
+      statusEl.textContent = "Verifying OTP...";
+      try {
+        const docId = encodeURIComponent(email);
+        const snap = await getDoc(doc(db, "otpResets", docId));
+        if (!snap.exists()) {
+          statusEl.textContent = "No OTP request found for this email. Request a new OTP.";
+          return;
+        }
+        const data = snap.data();
+        if (Date.now() > Number(data.expiresAt || 0)) {
+          statusEl.textContent = "OTP has expired. Click Resend OTP.";
+          return;
+        }
+        if (String(data.otpCode) !== enteredOtp) {
+          statusEl.textContent = "Invalid OTP code. Please try again.";
+          return;
+        }
+
+        await deleteDoc(doc(db, "otpResets", docId)).catch(() => {});
+        sessionStorage.setItem("pendingOtpPasswordReset", JSON.stringify({ email, newPassword }));
+
+        if (currentUser && currentUser.email.toLowerCase() === email) {
+          await updatePassword(currentUser, newPassword);
+          await setDoc(doc(db, "users", currentUser.uid), { accountPassword: newPassword }, { merge: true });
+          sessionStorage.removeItem("pendingOtpPasswordReset");
+          closeForgotPasswordModal();
+          notifyStatus("✅ Password reset successfully!");
+        } else {
+          const oldPass = prompt("OTP Verified! Enter your current password to update Firebase Auth now (or Cancel to apply on next sign-in):");
+          if (oldPass) {
+            const cred = await signInWithEmailAndPassword(auth, email, oldPass);
+            await updatePassword(cred.user, newPassword);
+            await setDoc(doc(db, "users", cred.user.uid), { accountPassword: newPassword }, { merge: true });
+            sessionStorage.removeItem("pendingOtpPasswordReset");
+            closeForgotPasswordModal();
+            notifyStatus("✅ OTP Verified & Password Reset Complete!");
+          } else {
+            statusEl.textContent = "✅ OTP verified! Sign in to apply your new password.";
+          }
+        }
+      } catch (err) {
+        statusEl.textContent = "Reset error: " + err.message;
+      }
+    };
+
+    window.openChangePasswordModal = () => {
+      document.getElementById("cp-current-pass").value = "";
+      document.getElementById("cp-new-pass").value = "";
+      document.getElementById("cp-confirm-pass").value = "";
+      document.getElementById("cp-status-msg").textContent = "";
+      document.getElementById("change-pw-modal").classList.remove("hidden");
+    };
+
+    window.closeChangePasswordModal = () => document.getElementById("change-pw-modal").classList.add("hidden");
+
+    window.submitChangePassword = async () => {
+      const curPass = document.getElementById("cp-current-pass").value;
+      const newPass = document.getElementById("cp-new-pass").value;
+      const confPass = document.getElementById("cp-confirm-pass").value;
+      const statusEl = document.getElementById("cp-status-msg");
+
+      if (!currentUser) return;
+      if (!newPass || newPass.length < 6) {
+        statusEl.textContent = "New password must be at least 6 characters.";
+        return;
+      }
+      if (newPass !== confPass) {
+        statusEl.textContent = "New password and confirmation do not match.";
+        return;
+      }
+
+      statusEl.textContent = "Updating password...";
+      try {
+        if (curPass) {
+          const cred = EmailAuthProvider.credential(currentUser.email, curPass);
+          await reauthenticateWithCredential(currentUser, cred);
+        }
+        await updatePassword(currentUser, newPass);
+        await setDoc(doc(db, "users", currentUser.uid), { accountPassword: newPass }, { merge: true });
+        closeChangePasswordModal();
+        notifyStatus("✅ Password changed successfully!");
+      } catch (err) {
+        if (err.code === "auth/requires-recent-login") {
+          statusEl.textContent = "Please enter your Current Password above to re-authenticate and update.";
+        } else {
+          statusEl.textContent = "Could not update password: " + err.message;
+        }
+      }
+    };
+
     let renewalReminderShown = false;
+
+    function renderClientBillingAndReceipts(d, uid) {
+      const sym = d.currency === "USD" ? "$" : "₹";
+      if (d.appliedPromoCode && !appliedPromoCode) {
+        appliedPromoCode = String(d.appliedPromoCode).toUpperCase();
+      }
+      const { rate, qty, disc, subtotal, discountAmt, promo, promoDiscountAmt, finalTotal } = calcTotals(d, false);
+
+      document.getElementById("disp-unit-rate").textContent = `${sym}${rate}/PC`;
+      document.getElementById("disp-discount-note").textContent = disc > 0 ? `🎉 ${disc}% Volume Discount Applied` : "Standard per-PC rate";
+      const pcQtyInp = document.getElementById("client-pc-qty");
+      if (pcQtyInp && document.activeElement !== pcQtyInp) pcQtyInp.value = qty;
+
+      document.getElementById("disp-total-payable").textContent = `${sym}${finalTotal}`;
+      let breakdownParts = [`${qty} PC(s) × ${sym}${rate}`];
+      if (disc > 0) breakdownParts.push(`-${disc}% (${sym}${discountAmt})`);
+      if (promo && promoDiscountAmt > 0) breakdownParts.push(`Promo ${promo.code} (-${sym}${promoDiscountAmt})`);
+      document.getElementById("disp-calc-breakdown").textContent = breakdownParts.join(" • ");
+
+      const promoFeedback = document.getElementById("client-promo-feedback");
+      if (promo) {
+        promoFeedback.textContent = `✅ Promocode "${promo.code}" applied — You save ${sym}${promoDiscountAmt}! Final Total: ${sym}${finalTotal}`;
+      } else if (appliedPromoCode) {
+        promoFeedback.textContent = `ℹ️ Code "${appliedPromoCode}" selected.`;
+      } else {
+        promoFeedback.textContent = "Select a promocode above if available to reduce your total billable amount.";
+      }
+
+      const partEnabled = !!d.partPaymentEnabled;
+      const partialPaid = Number(d.partialPaidAmount || 0);
+      const schedule = Array.isArray(d.installmentSchedule) ? d.installmentSchedule : [];
+      const instCard = document.getElementById("client-installment-card");
+      const reqPartBtn = document.getElementById("btn-request-part-payment");
+
+      if (partEnabled || partialPaid > 0 || d.nextPartPaymentDate || d.fullPaymentDate || schedule.length > 0) {
+        instCard.classList.remove("hidden");
+        const balanceRem = Math.max(0, finalTotal - partialPaid);
+        document.getElementById("inst-total-billable").textContent = `${sym}${finalTotal}`;
+        document.getElementById("inst-partial-paid").textContent = `${sym}${partialPaid}`;
+        document.getElementById("inst-balance-rem").textContent = `${sym}${balanceRem}`;
+        document.getElementById("inst-next-date").textContent = d.nextPartPaymentDate || "--";
+        document.getElementById("inst-full-date").textContent = d.fullPaymentDate || "--";
+
+        const schedEl = document.getElementById("inst-schedule-list");
+        if (schedule.length > 0) {
+          schedEl.innerHTML = `<strong>Installment Schedule:</strong> ` + schedule.map(row =>
+            `<span class="badge badge-warn" style="margin:2px;">${escapeHtml(row.date || "--")}: ${escapeHtml(row.label || "Part")} (${sym}${row.amount || 0})${row.status ? " • " + escapeHtml(row.status) : ""}</span>`
+          ).join(" ");
+        } else {
+          schedEl.innerHTML = "";
+        }
+
+        if (partEnabled) reqPartBtn.classList.remove("hidden");
+        else reqPartBtn.classList.add("hidden");
+      } else {
+        instCard.classList.add("hidden");
+      }
+
+      const todayStr = new Date().toISOString().split("T")[0];
+      document.getElementById("receipt-summary-date").textContent = `Date: ${todayStr}`;
+      document.getElementById("receipt-summary-lines").innerHTML = `
+        <div>• Client: <strong>${escapeHtml(d.name)}</strong> (${escapeHtml(d.email)})</div>
+        <div>• Plan: <strong>${escapeHtml(d.selectedPlan || "Team Rental")}</strong> • Quantity: <strong>${qty} PC(s)</strong></div>
+        <div>• Subtotal: ${sym}${subtotal}${disc > 0 ? ` • Discount: -${sym}${discountAmt}` : ""}${promoDiscountAmt > 0 ? ` • Promo (${escapeHtml(promo.code)}): -${sym}${promoDiscountAmt}` : ""}</div>
+        <div>• <strong>Total Billable: ${sym}${finalTotal}</strong>${partialPaid > 0 ? ` • Paid: ${sym}${partialPaid} • Balance: ${sym}${Math.max(0, finalTotal - partialPaid)}` : ""}</div>
+      `;
+
+      const rcpts = Array.isArray(d.paymentReceipts) ? d.paymentReceipts : [];
+      const rcptListEl = document.getElementById("client-uploaded-receipts-list");
+      if (rcpts.length === 0) {
+        rcptListEl.innerHTML = `<div style="color:var(--muted);">No payment receipts uploaded yet.</div>`;
+      } else {
+        rcptListEl.innerHTML = rcpts.map((r, i) => `
+          <div class="spec-row">
+            <div>
+              <strong>Receipt #${i + 1}</strong> (${escapeHtml(r.date || "--")}) • <span class="badge badge-active">Locked Proof</span><br>
+              <small style="color:var(--muted);">${escapeHtml(r.note || r.fileName || "Payment Receipt")} ${r.amount ? "• " + sym + r.amount : ""}</small>
+            </div>
+            ${r.fileData ? `<a href="${r.fileData}" download="${escapeHtml(r.fileName || `Receipt_${i + 1}`)}" class="btn btn-outline btn-sm">⬇️ View/Download</a>` : ""}
+          </div>`).join("");
+      }
+
+      document.getElementById("qr-amount-label").textContent = `₹${finalTotal}`;
+      document.getElementById("qr-qty-label").textContent = `${qty} PC(s)`;
+      document.getElementById("usd-total-label").textContent = `$${finalTotal} for ${qty} PC(s)`;
+
+      if (d.currency === "USD") {
+        document.getElementById("inr-upi-section").classList.add("hidden");
+        document.getElementById("usd-pay-section").classList.remove("hidden");
+      } else {
+        document.getElementById("inr-upi-section").classList.remove("hidden");
+        document.getElementById("usd-pay-section").classList.add("hidden");
+        const upiUri = `upi://pay?pa=${UPI_ID}&pn=admin%20PC%20Rental&am=${finalTotal || ""}&cu=INR`;
+        document.getElementById("upi-qr").src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiUri)}`;
+      }
+
+      const payText = `Hi admin, I am ${d.name} (${d.email}). Payment intimation for ${qty} PC(s), Total Billable: ${sym}${finalTotal}${promo ? ` (Promo: ${promo.code})` : ""}. Please review my uploaded receipt & activate.`;
+      document.getElementById("btn-wa-renew").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(payText)}`;
+      document.getElementById("btn-sms-renew-us").href = `sms:${SMS_US}?body=${encodeURIComponent(payText)}`;
+      document.getElementById("btn-email-renew").href = `mailto:${BIZ_EMAIL}?subject=${encodeURIComponent("Remote PC Payment Intimation - " + d.name)}&body=${encodeURIComponent(payText)}`;
+    }
+
     function loadClientDashboard(uid) {
       onSnapshot(doc(db, "users", uid), (snap) => {
         if (!snap.exists()) return;
         const d = snap.data();
         currentClientData = d;
         const sym = d.currency === "USD" ? "$" : "₹";
-        const { rate, qty, disc, finalTotal } = calcTotals(d);
+        const { qty, finalTotal } = calcTotals(d, false);
         const sStatus = d.serviceStatus || (d.expiryDate ? "active" : "awaiting_payment");
 
         renderClientTimerCard(d);
+        renderClientBillingAndReceipts(d, uid);
 
         document.getElementById("disp-selected-tier").textContent = d.selectedPlan || (qty >= 10 ? "Enterprise Bulk" : "Team Rental");
 
@@ -1545,14 +2515,6 @@
         const sosBtn = document.getElementById("btn-sos-reboot");
         sosBtn.textContent = d.sosReboot ? "🚨 Reboot Alert Sent (Active)" : "🚨 PC Frozen / Need Reboot";
 
-        document.getElementById("disp-unit-rate").textContent = `${sym}${rate}/PC`;
-        document.getElementById("disp-discount-note").textContent = disc > 0 ? `🎉 ${disc}% Admin Discount Applied` : "Standard per-PC rate";
-        document.getElementById("client-pc-qty").value = qty;
-        document.getElementById("disp-total-payable").textContent = `${sym}${finalTotal}`;
-        document.getElementById("disp-calc-breakdown").textContent = disc > 0
-          ? `${qty} PC(s) × ${sym}${rate} − ${disc}% off`
-          : `${qty} PC(s) × ${sym}${rate}`;
-
         const bar = document.getElementById("days-progress");
         const badge = document.getElementById("status-badge");
         const balText = document.getElementById("disp-balance-days");
@@ -1600,25 +2562,6 @@
           }
         }
 
-        document.getElementById("qr-amount-label").textContent = `₹${finalTotal}`;
-        document.getElementById("qr-qty-label").textContent = `${qty} PC(s)`;
-        document.getElementById("usd-total-label").textContent = `$${finalTotal} for ${qty} PC(s)`;
-
-        if (d.currency === "USD") {
-          document.getElementById("inr-upi-section").classList.add("hidden");
-          document.getElementById("usd-pay-section").classList.remove("hidden");
-        } else {
-          document.getElementById("inr-upi-section").classList.remove("hidden");
-          document.getElementById("usd-pay-section").classList.add("hidden");
-          const upiUri = `upi://pay?pa=${UPI_ID}&pn=admin%20PC%20Rental&am=${finalTotal || ""}&cu=INR`;
-          document.getElementById("upi-qr").src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiUri)}`;
-        }
-
-        const payText = `Hi admin, I am ${d.name} (${d.email}). I have paid ${sym}${finalTotal} (${qty} PC(s)${disc > 0 ? `, ${disc}% discount` : ""}) for my Remote PC plan. Please activate / extend my service.`;
-        document.getElementById("btn-wa-renew").href = `https://wa.me/${WA_IN}?text=${encodeURIComponent(payText)}`;
-        document.getElementById("btn-sms-renew-us").href = `sms:${SMS_US}?body=${encodeURIComponent(payText)}`;
-        document.getElementById("btn-email-renew").href = `mailto:${BIZ_EMAIL}?subject=${encodeURIComponent("Remote PC Payment Intimation - " + d.name)}&body=${encodeURIComponent(payText)}`;
-
         const s = d.specs || {};
         document.getElementById("spec-cpu").textContent = s.cpu || "Pending Assignment";
         document.getElementById("spec-ram").textContent = s.ram || "--";
@@ -1628,6 +2571,11 @@
 
         const rdp = d.rdp || {};
         document.getElementById("rdp-ip").textContent = rdp.ip || "--";
+        const portEl = document.getElementById("rdp-port");
+        portEl.dataset.port = rdp.port || "";
+        if (portEl.textContent !== "XXXX") {
+          portEl.textContent = rdp.port || "XXXX";
+        }
         document.getElementById("rdp-user").textContent = rdp.user || "--";
         const passEl = document.getElementById("rdp-pass");
         passEl.dataset.secret = rdp.pass || "";
@@ -1637,13 +2585,13 @@
         const hist = d.history || [];
         document.getElementById("hist-count").textContent = hist.length;
         if (hist.length === 0) {
-          histBody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);">No past renewals or trials recorded yet.</td></tr>`;
+          histBody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);">No past payments or trials recorded yet.</td></tr>`;
         } else {
           histBody.innerHTML = hist.slice().reverse().map(h => `
             <tr>
               <td>${escapeHtml(h.date)}</td>
               <td><strong>${escapeHtml(h.label || `${h.days}d Plan`)}</strong></td>
-              <td>${h.pcCount || MIN_PC_QTY} PC</td>
+              <td>${h.pcCount || MIN_USER_PC_QTY} PC</td>
               <td><strong>${sym}${h.amount || 0}</strong></td>
               <td>${escapeHtml(h.newExpiry || "--")}</td>
             </tr>`).join("");
@@ -1658,38 +2606,116 @@
           const m = docSnap.data();
           list.innerHTML += `
             <div class="msg-item">
-              <div><strong>You:</strong> ${escapeHtml(m.text)}</div>
-              ${m.reply ? `<div class="msg-reply"><strong>admin's Reply:</strong> ${escapeHtml(m.reply)}</div>` : `<div style="font-size:0.76rem; color:var(--muted); margin-top:4px;">Awaiting reply...</div>`}
+              <div><strong>${m.text === "[Admin Direct Notice]" ? "Admin Notice" : "You"}:</strong> ${escapeHtml(m.text === "[Admin Direct Notice]" ? m.reply : m.text)}</div>
+              ${m.text !== "[Admin Direct Notice]" && m.reply ? `<div class="msg-reply"><strong>admin's Reply:</strong> ${escapeHtml(m.reply)}</div>` : (m.text !== "[Admin Direct Notice]" ? `<div style="font-size:0.76rem; color:var(--muted); margin-top:4px;">Awaiting reply...</div>` : "")}
             </div>`;
         });
       });
     }
 
+    window.uploadUserPaymentReceipt = async () => {
+      if (!currentUser || !currentClientData) return;
+      const fileInp = document.getElementById("user-receipt-file");
+      const noteInp = document.getElementById("user-receipt-note");
+      const file = fileInp.files[0];
+      const note = noteInp.value.trim();
+
+      if (!file && !note) {
+        notifyStatus("Please attach a payment receipt file or enter a payment reference.");
+        return;
+      }
+
+      try {
+        const compressed = await compressImageOrFileToDataUrl(file);
+        const { finalTotal } = calcTotals(currentClientData, false);
+        const entry = {
+          id: "rcpt_" + Date.now(),
+          date: new Date().toISOString().split("T")[0],
+          uploadedBy: "Client (" + (currentClientData.name || currentUser.email) + ")",
+          amount: finalTotal,
+          note: note || (compressed.fileName || "Payment Proof"),
+          fileName: compressed.fileName,
+          fileData: compressed.dataUrl
+        };
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          paymentReceipts: arrayUnion(entry)
+        });
+        fileInp.value = "";
+        noteInp.value = "";
+        notifyStatus(compressed.wasCompressed
+          ? "✅ Image compressed & receipt submitted! Locked for proof and visible to admin."
+          : "✅ Receipt submitted! Locked for proof and visible to admin.");
+      } catch (err) {
+        notifyStatus("Upload error: " + err.message);
+      }
+    };
+
+    window.openPartPaymentRequestModal = () => {
+      if (!currentClientData || !currentClientData.partPaymentEnabled) {
+        notifyStatus("Part payment request is currently disabled by admin for your account.");
+        return;
+      }
+      document.getElementById("req-part-amt").value = "";
+      document.getElementById("req-part-date").value = currentClientData.nextPartPaymentDate || "";
+      document.getElementById("req-part-note").value = "";
+      document.getElementById("client-partpay-modal").classList.remove("hidden");
+    };
+
+    window.closePartPaymentRequestModal = () => document.getElementById("client-partpay-modal").classList.add("hidden");
+
+    window.submitPartPaymentRequest = async () => {
+      if (!currentUser || !currentClientData) return;
+      const amt = Number(document.getElementById("req-part-amt").value || 0);
+      const nextDate = document.getElementById("req-part-date").value;
+      const note = document.getElementById("req-part-note").value.trim();
+      if (amt <= 0) {
+        notifyStatus("Enter a valid part payment amount.");
+        return;
+      }
+      const reqObj = {
+        amount: amt,
+        nextDate,
+        note,
+        requestedAt: new Date().toISOString().split("T")[0],
+        status: "Pending Admin Approval"
+      };
+      await updateDoc(doc(db, "users", currentUser.uid), { partPaymentRequest: reqObj });
+      await addDoc(collection(db, "messages"), {
+        uid: currentUser.uid,
+        userName: currentClientData.name,
+        text: `[Part Payment Request] Amount: ${amt}, Next Date: ${nextDate || "N/A"}${note ? " — " + note : ""}`,
+        reply: "",
+        createdAt: serverTimestamp()
+      });
+      closePartPaymentRequestModal();
+      notifyStatus("✅ Part payment request sent to admin!");
+    };
+
     window.requestServiceActivation = async () => {
       if (!currentUser || !currentClientData) return;
       await updateDoc(doc(db, "users", currentUser.uid), { serviceStatus: "requested" });
-      const qty = Math.max(MIN_PC_QTY, Number(currentClientData.pcCount || MIN_PC_QTY));
+      const qty = Math.max(MIN_USER_PC_QTY, Number(currentClientData.pcCount || MIN_USER_PC_QTY));
       const msg = `🚀 SERVICE ACTIVATION REQUEST:\nName: ${currentClientData.name}\nEmail: ${currentClientData.email}\nPlan: ${currentClientData.selectedPlan || "Team Rental"}\nPC Count: ${qty}\nPlease confirm payment and activate my plan.`;
       window.open(`https://wa.me/${WA_IN}?text=${encodeURIComponent(msg)}`, "_blank");
     };
 
     window.updateClientPcQty = async () => {
       if (!currentUser || !currentClientData) return;
-      const entered = Number(document.getElementById("client-pc-qty").value || MIN_PC_QTY);
-      if (entered < MIN_PC_QTY) {
-        alert(`Minimum PC user count is ${MIN_PC_QTY}.`);
-        document.getElementById("client-pc-qty").value = MIN_PC_QTY;
+      const entered = Number(document.getElementById("client-pc-qty").value || MIN_USER_PC_QTY);
+      if (entered < MIN_USER_PC_QTY) {
+        notifyStatus(`Minimum PC user count on user portal is ${MIN_USER_PC_QTY}.`);
+        document.getElementById("client-pc-qty").value = MIN_USER_PC_QTY;
         return;
       }
-      const newQty = Math.min(100, entered);
+      const newQty = Math.min(200, entered);
       await updateDoc(doc(db, "users", currentUser.uid), { pcCount: newQty });
-      alert(`PC quantity updated to ${newQty}. Your total payable amount and UPI QR code have been updated!`);
+      notifyStatus(`PC quantity updated to ${newQty}. Total billable updated!`);
     };
 
     window.bookSignedUpFreeTrial = async (channel) => {
       if (!currentUser || !currentClientData) return;
       const todayStr = new Date().toISOString().split("T")[0];
-      const qty = Math.max(MIN_PC_QTY, Number(currentClientData.pcCount || MIN_PC_QTY));
+      const qty = Math.max(MIN_USER_PC_QTY, Number(currentClientData.pcCount || MIN_USER_PC_QTY));
       if (currentClientData.trialStatus !== "requested") {
         await updateDoc(doc(db, "users", currentUser.uid), {
           trialStatus: "requested",
@@ -1734,11 +2760,9 @@
       document.getElementById("post-msg-sms-link").href = `sms:${SMS_US}?body=${encodeURIComponent(pingMsg)}`;
       document.getElementById("post-msg-wa-prompt").classList.remove("hidden");
       input.value = "";
+      notifyStatus("Requirement posted!");
     };
 
-    // =========================================================================
-    // ADMIN CONSOLE & 102-HOUR TIMER LOGIC
-    // =========================================================================
     window.toggleShowTimerToAll = async (checked) => {
       await setDoc(doc(db, "settings", "global"), { showTimerToAll: checked }, { merge: true });
     };
@@ -1746,7 +2770,7 @@
     window.saveDefaultTimerHours = async () => {
       const val = Math.max(1, Number(document.getElementById("admin-default-hours-inp").value || 102));
       await setDoc(doc(db, "settings", "global"), { defaultTimerHours: val }, { merge: true });
-      alert(`Default timer constant saved as ${val} hours until you change it again!`);
+      notifyStatus(`Default timer constant saved as ${val} hours!`);
     };
 
     window.loadUserTimerFieldsToForm = (uid) => {
@@ -1754,56 +2778,322 @@
       if (!u) return;
       const t = u.hourlyTimer || {};
       document.getElementById("timer-machine-name").value = t.machineName || u.rdp?.ip || u.name;
-      document.getElementById("timer-user-visibility").value = t.visibility || "auto";
+      document.getElementById("timer-custom-hours-inp").value = t.hours || defaultTimerHours;
+      document.getElementById("timer-user-visibility").value = t.visibility || "show";
       document.getElementById("timer-custom-msg").value = t.customMessage || "";
-      document.getElementById("timer-show-msg-toggle").checked = Boolean(t.showMessage);
     };
 
     window.pickUserForTimer = (uid) => {
       document.getElementById("timer-target-uid").value = uid;
       loadUserTimerFieldsToForm(uid);
-      document.getElementById("timer-machine-name").focus();
+      document.getElementById("timer-custom-hours-inp").focus();
+      notifyStatus(`Selected ${cachedClients[uid]?.name || uid} for timer update.`);
     };
 
-    window.startOrRenewUserTimer = async (overrideUid) => {
-      const uid = overrideUid || document.getElementById("timer-target-uid").value;
+    window.updateSelectedUserTimer = async () => {
+      const uid = document.getElementById("timer-target-uid").value;
       if (!uid || !cachedClients[uid]) {
-        alert("Please select a user/client first.");
+        notifyStatus("Please select a user first.");
         return;
       }
       const u = cachedClients[uid];
       const existing = u.hourlyTimer || {};
-      const mNameInput = document.getElementById("timer-machine-name").value.trim();
-      const machineName = overrideUid ? (existing.machineName || u.rdp?.ip || u.name) : (mNameInput || existing.machineName || u.rdp?.ip || u.name);
-      const visibility = overrideUid ? (existing.visibility || "auto") : document.getElementById("timer-user-visibility").value;
-      const customMessage = overrideUid ? (existing.customMessage || "") : document.getElementById("timer-custom-msg").value.trim();
-      const showMessage = overrideUid ? Boolean(existing.showMessage) : document.getElementById("timer-show-msg-toggle").checked;
+      const hoursVal = Math.max(1, Number(document.getElementById("timer-custom-hours-inp").value || existing.hours || defaultTimerHours));
+      const machineName = document.getElementById("timer-machine-name").value.trim() || existing.machineName || u.rdp?.ip || u.name;
+      const visibility = document.getElementById("timer-user-visibility").value || "show";
+      const customMsg = document.getElementById("timer-custom-msg").value.trim();
 
+      const now = Date.now();
+      const expiresAt = now + hoursVal * 3600 * 1000;
+
+      await updateDoc(doc(db, "users", uid), {
+        hourlyTimer: {
+          ...existing,
+          active: true,
+          machineName,
+          hours: hoursVal,
+          visibility,
+          customMessage: customMsg || existing.customMessage || "",
+          showMessage: Boolean(customMsg || existing.customMessage),
+          startedAt: now,
+          expiresAt,
+          notifiedMilestones: {}
+        }
+      });
+      notifyStatus(`Updated timer for ${u.name} to ${hoursVal}h!`);
+    };
+
+    window.resetSelectedUserTimer = async (overrideUid) => {
+      const uid = overrideUid || document.getElementById("timer-target-uid").value;
+      if (!uid || !cachedClients[uid]) {
+        notifyStatus("Please select a user first.");
+        return;
+      }
+      const u = cachedClients[uid];
+      const existing = u.hourlyTimer || {};
       const hrs = defaultTimerHours;
       const now = Date.now();
       const expiresAt = now + hrs * 3600 * 1000;
 
       await updateDoc(doc(db, "users", uid), {
         hourlyTimer: {
+          ...existing,
           active: true,
-          machineName,
+          machineName: existing.machineName || u.rdp?.ip || u.name,
           hours: hrs,
-          visibility,
-          customMessage,
-          showMessage,
+          visibility: existing.visibility || "show",
           startedAt: now,
           expiresAt,
           notifiedMilestones: {}
         }
       });
+      notifyStatus(`Reset ${u.name}'s timer to ${hrs} hours!`);
     };
+
+    window.sendDirectMessageToSelectedUser = async () => {
+      const uid = document.getElementById("timer-target-uid").value;
+      if (!uid || !cachedClients[uid]) {
+        notifyStatus("Please select a user first.");
+        return;
+      }
+      const msgText = document.getElementById("timer-custom-msg").value.trim();
+      if (!msgText) {
+        notifyStatus("Enter a message to send to this user.");
+        return;
+      }
+      await sendDirectMessageToUser(uid, msgText);
+    };
+
+    window.sendRowMessageToUser = async (uid) => {
+      const inp = document.getElementById(`row-user-msg-${uid}`);
+      if (!inp) return;
+      const msgText = inp.value.trim();
+      if (!msgText) {
+        notifyStatus("Type a message first before clicking Send Msg.");
+        return;
+      }
+      await sendDirectMessageToUser(uid, msgText);
+    };
+
+    async function sendDirectMessageToUser(uid, msgText) {
+      const u = cachedClients[uid];
+      if (!u) return;
+      const existing = u.hourlyTimer || {};
+      await updateDoc(doc(db, "users", uid), {
+        "hourlyTimer.customMessage": msgText,
+        "hourlyTimer.showMessage": true,
+        "hourlyTimer.messageUpdatedAt": Date.now(),
+        "hourlyTimer.visibility": existing.visibility === "hide" ? "show" : (existing.visibility || "show")
+      });
+      await addDoc(collection(db, "messages"), {
+        uid,
+        userName: u.name,
+        text: "[Admin Direct Notice]",
+        reply: msgText,
+        createdAt: serverTimestamp()
+      });
+      notifyStatus(`Message sent to ${u.name}!`);
+    }
 
     window.stopUserTimer = async (overrideUid) => {
       const uid = overrideUid || document.getElementById("timer-target-uid").value;
       if (!uid || !cachedClients[uid]) return;
-      await updateDoc(doc(db, "users", uid), {
-        "hourlyTimer.active": false
+      await updateDoc(doc(db, "users", uid), { "hourlyTimer.active": false });
+      notifyStatus(`Stopped timer for ${cachedClients[uid].name}.`);
+    };
+
+    window.toggleAdminUserPassword = (uid) => {
+      revealedPasswords[uid] = !revealedPasswords[uid];
+      const span = document.getElementById(`admin-pw-val-${uid}`);
+      const btn = document.getElementById(`admin-pw-btn-${uid}`);
+      const u = cachedClients[uid] || {};
+      const pw = u.accountPassword || "(Not recorded)";
+      if (span) span.textContent = revealedPasswords[uid] ? pw : "••••••••";
+      if (btn) btn.textContent = revealedPasswords[uid] ? "Hide Pass" : "Show Pass";
+    };
+
+    window.toggleUserPartPayment = async (uid, checked) => {
+      await updateDoc(doc(db, "users", uid), { partPaymentEnabled: !!checked });
+      notifyStatus(`Part Payment option ${checked ? "ENABLED" : "DISABLED"} for ${cachedClients[uid]?.name || uid}.`);
+    };
+
+    window.openAdminPartPayModal = (uid) => {
+      const u = cachedClients[uid];
+      if (!u) return;
+      document.getElementById("adm-pp-uid").value = uid;
+      document.getElementById("adm-pp-title").textContent = `💰 Partial Payment & Dates — ${u.name}`;
+      document.getElementById("adm-pp-allow-toggle").checked = !!u.partPaymentEnabled;
+      document.getElementById("adm-pp-paid").value = Number(u.partialPaidAmount || 0);
+      document.getElementById("adm-pp-next-date").value = u.nextPartPaymentDate || "";
+      document.getElementById("adm-pp-full-date").value = u.fullPaymentDate || "";
+      draftInstallmentRows = Array.isArray(u.installmentSchedule)
+        ? u.installmentSchedule.map(r => ({ ...r }))
+        : [];
+      renderAdminPartPayRows();
+      refreshAdminPartPayPreview();
+      document.getElementById("admin-partpay-modal").classList.remove("hidden");
+    };
+
+    window.closeAdminPartPayModal = () => document.getElementById("admin-partpay-modal").classList.add("hidden");
+
+    window.refreshAdminPartPayPreview = () => {
+      const uid = document.getElementById("adm-pp-uid").value;
+      const u = cachedClients[uid];
+      if (!u) return;
+      const sym = u.currency === "USD" ? "$" : "₹";
+      const { finalTotal } = calcTotals(u, true);
+      const paid = Number(document.getElementById("adm-pp-paid").value || 0);
+      const bal = Math.max(0, finalTotal - paid);
+      const reqInfo = u.partPaymentRequest
+        ? `<div style="margin-top:6px; color:#fcd34d;">📩 User Requested: <strong>${sym}${u.partPaymentRequest.amount}</strong> • Next Date: <strong>${escapeHtml(u.partPaymentRequest.nextDate || "--")}</strong> ${u.partPaymentRequest.note ? "(" + escapeHtml(u.partPaymentRequest.note) + ")" : ""}</div>`
+        : "";
+      document.getElementById("adm-pp-live-summary").innerHTML = `
+        Total Billable: <strong>${sym}${finalTotal}</strong> • Partial Paid: <strong style="color:var(--success);">${sym}${paid}</strong> • Remaining Balance: <strong style="color:var(--warning);">${sym}${bal}</strong>
+        ${reqInfo}
+      `;
+    };
+
+    window.addInstallmentRow = () => {
+      draftInstallmentRows.push({
+        date: new Date().toISOString().split("T")[0],
+        label: `Part #${draftInstallmentRows.length + 1}`,
+        amount: 0,
+        status: "Scheduled"
       });
+      renderAdminPartPayRows();
+    };
+
+    window.removeInstallmentRow = (idx) => {
+      draftInstallmentRows.splice(idx, 1);
+      renderAdminPartPayRows();
+    };
+
+    function renderAdminPartPayRows() {
+      const tbody = document.getElementById("adm-pp-rows-tbody");
+      if (!tbody) return;
+      if (draftInstallmentRows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);">No extra installment date rows. Click "+ Add Date Row" to add dates & amounts.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = draftInstallmentRows.map((row, idx) => `
+        <tr>
+          <td><input type="date" value="${escapeHtml(row.date || "")}" onchange="draftInstallmentRows[${idx}].date = this.value" style="padding:5px;" /></td>
+          <td><input type="text" value="${escapeHtml(row.label || "")}" onchange="draftInstallmentRows[${idx}].label = this.value" style="padding:5px;" /></td>
+          <td><input type="number" value="${Number(row.amount || 0)}" onchange="draftInstallmentRows[${idx}].amount = Number(this.value || 0)" style="padding:5px; width:90px;" /></td>
+          <td><input type="text" value="${escapeHtml(row.status || "")}" onchange="draftInstallmentRows[${idx}].status = this.value" style="padding:5px;" /></td>
+          <td><button type="button" class="btn-danger btn-sm" onclick="removeInstallmentRow(${idx})">Del</button></td>
+        </tr>`).join("");
+    }
+
+    window.saveAdminPartPayData = async () => {
+      const uid = document.getElementById("adm-pp-uid").value;
+      if (!uid || !cachedClients[uid]) return;
+      const partPaymentEnabled = document.getElementById("adm-pp-allow-toggle").checked;
+      const partialPaidAmount = Math.max(0, Number(document.getElementById("adm-pp-paid").value || 0));
+      const nextPartPaymentDate = document.getElementById("adm-pp-next-date").value;
+      const fullPaymentDate = document.getElementById("adm-pp-full-date").value;
+
+      await updateDoc(doc(db, "users", uid), {
+        partPaymentEnabled,
+        partialPaidAmount,
+        nextPartPaymentDate,
+        fullPaymentDate,
+        installmentSchedule: draftInstallmentRows
+      });
+      closeAdminPartPayModal();
+      notifyStatus("Partial payment & dates saved!");
+    };
+
+    window.openAdminReceiptsModal = (uid) => {
+      const u = cachedClients[uid];
+      if (!u) return;
+      document.getElementById("adm-rcpt-uid").value = uid;
+      document.getElementById("adm-rcpt-title").textContent = `🧾 Payment Receipts — ${u.name}`;
+      document.getElementById("adm-rcpt-date").value = new Date().toISOString().split("T")[0];
+      document.getElementById("adm-rcpt-amt").value = calcTotals(u, true).finalTotal;
+      document.getElementById("adm-rcpt-note").value = "";
+      document.getElementById("adm-rcpt-file").value = "";
+      renderAdminReceiptsTable(uid);
+      document.getElementById("admin-receipts-modal").classList.remove("hidden");
+    };
+
+    window.closeAdminReceiptsModal = () => document.getElementById("admin-receipts-modal").classList.add("hidden");
+
+    function renderAdminReceiptsTable(uid) {
+      const u = cachedClients[uid];
+      const sym = u.currency === "USD" ? "$" : "₹";
+      const rcpts = Array.isArray(u.paymentReceipts) ? u.paymentReceipts : [];
+      const tbody = document.getElementById("adm-rcpt-tbody");
+      if (rcpts.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);">No receipts uploaded yet.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = rcpts.map((r, idx) => `
+        <tr>
+          <td>${escapeHtml(r.date || "--")}</td>
+          <td><small>${escapeHtml(r.uploadedBy || "User")}</small></td>
+          <td><strong>${sym}${r.amount || 0}</strong><br><small style="color:var(--muted);">${escapeHtml(r.note || "")}</small></td>
+          <td>${r.fileData ? `<a href="${r.fileData}" download="${escapeHtml(r.fileName || `Receipt_${idx + 1}`)}" class="btn btn-outline btn-sm">⬇️ File</a>` : `<small style="color:var(--muted);">Note only</small>`}</td>
+          <td>
+            <button type="button" class="btn-outline btn-sm" onclick="editAdminReceipt('${uid}', ${idx})">Edit</button>
+            <button type="button" class="btn-danger btn-sm" onclick="deleteAdminReceipt('${uid}', ${idx})">Del</button>
+          </td>
+        </tr>`).join("");
+    }
+
+    window.adminUploadReceiptForClient = async () => {
+      const uid = document.getElementById("adm-rcpt-uid").value;
+      const u = cachedClients[uid];
+      if (!u) return;
+      const file = document.getElementById("adm-rcpt-file").files[0];
+      const date = document.getElementById("adm-rcpt-date").value || new Date().toISOString().split("T")[0];
+      const amount = Number(document.getElementById("adm-rcpt-amt").value || 0);
+      const note = document.getElementById("adm-rcpt-note").value.trim() || "Admin Uploaded Receipt";
+
+      try {
+        const compressed = await compressImageOrFileToDataUrl(file);
+        const entry = {
+          id: "rcpt_" + Date.now(),
+          date,
+          uploadedBy: "Admin",
+          amount,
+          note,
+          fileName: compressed.fileName,
+          fileData: compressed.dataUrl
+        };
+        const updated = [...(u.paymentReceipts || []), entry];
+        await updateDoc(doc(db, "users", uid), { paymentReceipts: updated });
+        cachedClients[uid].paymentReceipts = updated;
+        renderAdminReceiptsTable(uid);
+        notifyStatus(compressed.wasCompressed ? "Image compressed & receipt saved!" : "Receipt saved!");
+      } catch (err) {
+        notifyStatus("Error: " + err.message);
+      }
+    };
+
+    window.editAdminReceipt = async (uid, idx) => {
+      const u = cachedClients[uid];
+      if (!u || !u.paymentReceipts[idx]) return;
+      const cur = u.paymentReceipts[idx];
+      const newAmt = prompt("Update receipt amount:", cur.amount || 0);
+      if (newAmt === null) return;
+      const newNote = prompt("Update receipt note/ref:", cur.note || "");
+      const updated = [...u.paymentReceipts];
+      updated[idx] = { ...cur, amount: Number(newAmt || 0), note: newNote !== null ? newNote : cur.note };
+      await updateDoc(doc(db, "users", uid), { paymentReceipts: updated });
+      cachedClients[uid].paymentReceipts = updated;
+      renderAdminReceiptsTable(uid);
+      notifyStatus("Receipt updated!");
+    };
+
+    window.deleteAdminReceipt = async (uid, idx) => {
+      const u = cachedClients[uid];
+      if (!u || !confirm("Delete this payment receipt?")) return;
+      const updated = u.paymentReceipts.filter((_, i) => i !== idx);
+      await updateDoc(doc(db, "users", uid), { paymentReceipts: updated });
+      cachedClients[uid].paymentReceipts = updated;
+      renderAdminReceiptsTable(uid);
+      notifyStatus("Receipt deleted!");
     };
 
     function loadAdminPanel() {
@@ -1821,42 +3111,51 @@
         let reqCount = 0;
         let trialCount = 0;
         let sosCount = 0;
-        let timerRowCount = 0;
+        let userCount = 0;
 
         snap.forEach((docSnap) => {
           const u = docSnap.data();
           const uid = docSnap.id;
           if ((u.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()) return;
           cachedClients[uid] = u;
+          userCount++;
 
           const t = u.hourlyTimer || {};
           const mLabel = t.machineName ? ` [${t.machineName}]` : "";
           timerSelect.innerHTML += `<option value="${uid}">${escapeHtml(u.name)}${escapeHtml(mLabel)} (${escapeHtml(uid.slice(0, 7))})</option>`;
 
-          // Show row in Hourly Timer Table if timer is active OR has custom visibility/message configured
-          if (t.active || (t.expiresAt && (t.visibility === "show" || t.showMessage))) {
-            timerRowCount++;
-            const remMs = (t.expiresAt || 0) - Date.now();
-            const remHrs = (remMs / 3600000).toFixed(1);
-            const remDays = (remMs / 86400000).toFixed(2);
-            const visLabel = t.visibility === "show" ? "Force Show" : t.visibility === "hide" ? "Hidden from User" : "Auto (Active/All)";
-            const msgStatus = (t.showMessage && t.customMessage)
-              ? `<span class="badge badge-active">Shown</span> <small>${escapeHtml(t.customMessage)}</small>`
-              : `<span class="badge badge-warn">Message Hidden</span>`;
+          const remMs = t.expiresAt ? (t.expiresAt - Date.now()) : null;
+          const visLabel = t.visibility === "show" ? "Shown to User" : t.visibility === "hide" ? "Hidden from User" : "Auto (Active/All)";
+          const msgStatus = (t.showMessage && t.customMessage)
+            ? `<span class="badge badge-active">Live</span> <small>${escapeHtml(t.customMessage)}</small>`
+            : `<span class="badge badge-warn">No Active Msg</span>`;
 
-            timersTbody.innerHTML += `
-              <tr>
-                <td><strong>${escapeHtml(t.machineName || "Workstation")}</strong><br><small style="color:var(--muted);">${escapeHtml(u.name)} • ID: ${escapeHtml(uid.slice(0, 8))}...</small></td>
-                <td><strong>${t.hours || defaultTimerHours}h</strong> (${t.active ? "Running" : "Stopped"})<br><small style="color:#93c5fd;">${visLabel}</small></td>
-                <td id="admin-timer-cell-${uid}">${!t.expiresAt ? "--" : remMs <= 0 ? `<strong style="color:var(--danger);">EXPIRED — Due for Renewal</strong>` : `<strong style="color:#22d3ee; font-family:monospace;">${formatCountdown(remMs)}</strong><br><small style="color:var(--muted);">Balance: ${remHrs} hrs (${remDays} days)</small>`}</td>
-                <td>${msgStatus}</td>
-                <td>
-                  <button class="btn-success btn-sm" onclick="startOrRenewUserTimer('${uid}')">🔄 Renew +${defaultTimerHours}h</button>
-                  <button class="btn-outline btn-sm" onclick="pickUserForTimer('${uid}')">Edit Rule</button>
-                  <button class="btn-danger btn-sm" onclick="stopUserTimer('${uid}')">Stop</button>
-                </td>
-              </tr>`;
-          }
+          const liveTimeHtml = !t.expiresAt
+            ? `<span style="color:var(--muted);">Not Started</span>`
+            : remMs <= 0
+              ? `<strong style="color:var(--danger);">EXPIRED — Due for Renewal</strong><br><small style="color:var(--muted);">Renewal: ${escapeHtml(new Date(t.expiresAt).toLocaleString())}</small>`
+              : `<strong style="color:#22d3ee; font-family:monospace;">${formatCountdown(remMs)}</strong><br><small style="color:var(--muted);">Balance: ${(remMs / 3600000).toFixed(1)}h • Renewal: ${escapeHtml(new Date(t.expiresAt).toLocaleString())}</small>`;
+
+          timersTbody.innerHTML += `
+            <tr>
+              <td><strong>${escapeHtml(u.name)}</strong><br><small style="color:var(--muted);">PC/ID: ${escapeHtml(t.machineName || u.rdp?.ip || uid.slice(0, 8))}</small></td>
+              <td><strong>${t.hours || defaultTimerHours}h</strong> (${t.active ? "Running" : "Idle"})<br><small style="color:#93c5fd;">${visLabel}</small></td>
+              <td id="admin-timer-cell-${uid}">${liveTimeHtml}</td>
+              <td>
+                <div style="margin-bottom:4px;">${msgStatus}</div>
+                <div style="display:flex; gap:4px;">
+                  <input type="text" id="row-user-msg-${uid}" value="${escapeHtml(t.customMessage || "")}" placeholder="Message to user..." style="padding:4px 7px; font-size:0.78rem;" />
+                  <button type="button" class="btn-whatsapp btn-sm" onclick="sendRowMessageToUser('${uid}')">Send Msg</button>
+                </div>
+              </td>
+              <td>
+                <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                  <button type="button" class="btn-primary btn-sm" onclick="pickUserForTimer('${uid}')">Update Time</button>
+                  <button type="button" class="btn-warn btn-sm" onclick="resetSelectedUserTimer('${uid}')">Reset Time</button>
+                  <button type="button" class="btn-danger btn-sm" onclick="stopUserTimer('${uid}')">Stop</button>
+                </div>
+              </td>
+            </tr>`;
 
           const sStatus = u.serviceStatus || (u.expiryDate ? "active" : "awaiting_payment");
           if (sStatus === "requested" || sStatus === "awaiting_payment") reqCount++;
@@ -1864,36 +3163,36 @@
           if (u.sosReboot) sosCount++;
 
           const sym = u.currency === "USD" ? "$" : "₹";
-          const { rate, qty, disc, finalTotal } = calcTotals(u);
+          const { rate, qty, disc, finalTotal } = calcTotals(u, true);
           const s = u.specs || {};
           const rdp = u.rdp || {};
+          const isPassShown = !!revealedPasswords[uid];
+          const passDisplay = isPassShown ? (u.accountPassword || "(Not recorded)") : "••••••••";
+          const partOn = !!u.partPaymentEnabled;
+          const partialPaid = Number(u.partialPaidAmount || 0);
+          const rcptCount = Array.isArray(u.paymentReceipts) ? u.paymentReceipts.length : 0;
 
           let statusHtml = "";
-          if (sStatus === "active") {
-            statusHtml = `<span class="badge badge-active">✅ Active</span>`;
-          } else if (sStatus === "requested") {
-            statusHtml = `<span class="badge badge-warn">🚀 Service Requested</span>`;
-          } else if (sStatus === "rejected") {
-            statusHtml = `<span class="badge badge-expired">❌ Rejected</span>`;
-          } else {
-            statusHtml = `<span class="badge badge-warn">⏳ Awaiting Payment</span>`;
-          }
+          if (sStatus === "active") statusHtml = `<span class="badge badge-active">✅ Active</span>`;
+          else if (sStatus === "requested") statusHtml = `<span class="badge badge-warn">🚀 Service Requested</span>`;
+          else if (sStatus === "rejected") statusHtml = `<span class="badge badge-expired">❌ Rejected</span>`;
+          else statusHtml = `<span class="badge badge-warn">⏳ Awaiting Payment</span>`;
 
           const trialBadge = u.trialStatus === "requested"
-            ? `<div style="margin-top:4px;"><span class="badge badge-warn">🎁 2-HR TRIAL REQ</span> <button class="btn-success btn-sm" onclick="markTrialDone('${uid}')">Done</button></div>`
+            ? `<div style="margin-top:4px;"><span class="badge badge-warn">🎁 2-HR TRIAL REQ</span> <button type="button" class="btn-success btn-sm" onclick="markTrialDone('${uid}')">Done</button></div>`
             : u.trialStatus === "completed"
             ? `<div style="margin-top:4px;"><span class="badge badge-active">Trial Done</span></div>`
             : "";
 
           const sosBadge = u.sosReboot
-            ? `<div style="margin-top:4px;"><span class="badge badge-expired">🚨 REBOOT NEEDED</span> <button class="btn-outline btn-sm" onclick="clearSos('${uid}')">Clear</button></div>`
+            ? `<div style="margin-top:4px;"><span class="badge badge-expired">🚨 REBOOT NEEDED</span> <button type="button" class="btn-outline btn-sm" onclick="clearSos('${uid}')">Clear</button></div>`
             : "";
 
           let expiryControlHtml = "";
           if (sStatus !== "active" || !u.expiryDate) {
             expiryControlHtml = `
               <small style="color:var(--warning);">No expiry set yet</small><br>
-              <button class="btn-success btn-sm" style="margin-top:4px;" onclick="approvePaymentAndStart30('${uid}')">✅ Approve Paid & Start 30d</button>
+              <button type="button" class="btn-success btn-sm" style="margin-top:4px;" onclick="approvePaymentAndStart30('${uid}')">✅ Approve Paid & Start 30d</button>
             `;
           } else {
             const exp = new Date(u.expiryDate);
@@ -1902,13 +3201,26 @@
             expiryControlHtml = `
               <small>Exp: <strong>${u.expiryDate}</strong></small> <span class="badge ${bal <= 5 ? 'badge-warn' : 'badge-active'}">${bal}d left</span>
               <div style="margin-top:4px; display:flex; gap:4px; flex-wrap:wrap;">
-                <button class="btn-primary btn-sm" onclick="extendDays('${uid}', 30, '')">+30d</button>
-                <button class="btn-outline btn-sm" onclick="adjustExpiryByDays('${uid}', 1)" title="Add 1 Day">+1d</button>
-                <button class="btn-outline btn-sm" onclick="adjustExpiryByDays('${uid}', -1)" title="Reduce 1 Day">-1d</button>
-                <button class="btn-warn btn-sm" onclick="extendDays('${uid}', 2, '🎁 +2d Referral Bonus')" title="Referral Reward">+2d Ref</button>
+                <button type="button" class="btn-primary btn-sm" onclick="extendDays('${uid}', 30, '')">+30d</button>
+                <button type="button" class="btn-outline btn-sm" onclick="adjustExpiryByDays('${uid}', 1)">+1d</button>
+                <button type="button" class="btn-outline btn-sm" onclick="adjustExpiryByDays('${uid}', -1)">-1d</button>
+                <button type="button" class="btn-warn btn-sm" onclick="extendDays('${uid}', 2, '🎁 +2d Referral Bonus')">+2d Ref</button>
               </div>
             `;
           }
+
+          const partInfoHtml = `
+            <div style="margin-top:5px; padding-top:5px; border-top:1px dashed var(--border); font-size:0.76rem;">
+              <label style="display:inline-flex; align-items:center; gap:5px; cursor:pointer; color:#fcd34d;">
+                <input type="checkbox" ${partOn ? "checked" : ""} onchange="toggleUserPartPayment('${uid}', this.checked)" style="width:auto; min-height:auto;" />
+                Part Pay ${partOn ? "ON" : "OFF"}
+              </label>
+              <div>Paid: <strong>${sym}${partialPaid}</strong> / ${sym}${finalTotal}</div>
+              ${u.nextPartPaymentDate ? `<div>Next: <strong>${escapeHtml(u.nextPartPaymentDate)}</strong></div>` : ""}
+              ${u.fullPaymentDate ? `<div>Full: <strong>${escapeHtml(u.fullPaymentDate)}</strong></div>` : ""}
+              <button type="button" class="btn-warn btn-sm" style="margin-top:3px; padding:2px 7px; font-size:0.72rem;" onclick="openAdminPartPayModal('${uid}')">Edit Part Pay & Dates</button>
+            </div>
+          `;
 
           const rawPhone = String(u.phone || "").trim();
           const digits = rawPhone.replace(/\D/g, "");
@@ -1918,7 +3230,7 @@
             contactBtn = `<a href="sms:+${digits}?body=${encodeURIComponent(reminderText)}" class="btn btn-primary btn-sm">🇺🇸 SMS</a>`;
           } else if (digits.length >= 10) {
             const waNum = digits.length === 10 ? "91" + digits : digits;
-            contactBtn = `<a href="https://wa.me/${waNum}?text=${encodeURIComponent(reminderText)}" target="_blank" class="btn btn-whatsapp btn-sm">🇮🇳 WA</a>`;
+            contactBtn = `<a href="https://wa.me/${waNum}?text=${encodeURIComponent(reminderText)}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">🇮🇳 WA</a>`;
           }
 
           tbody.innerHTML += `
@@ -1926,38 +3238,45 @@
               <td>
                 <strong>${escapeHtml(u.name)}</strong><br>
                 <small style="color:var(--muted);">${escapeHtml(u.email)}<br>${escapeHtml(u.phone || "")}</small>
+                <div style="margin-top:4px; font-size:0.76rem;">
+                  Pass: <strong id="admin-pw-val-${uid}" style="font-family:monospace; color:#93c5fd;">${escapeHtml(passDisplay)}</strong>
+                  <button type="button" id="admin-pw-btn-${uid}" class="btn-outline btn-sm" style="padding:2px 7px; min-height:auto; font-size:0.72rem;" onclick="toggleAdminUserPassword('${uid}')">${isPassShown ? "Hide Pass" : "Show Pass"}</button>
+                </div>
                 ${u.referredBy ? `<br><span class="badge badge-warn">Ref by: ${escapeHtml(u.referredBy)}</span>` : ""}
               </td>
               <td>
                 ${statusHtml}${trialBadge}${sosBadge}
-                <div style="margin-top:5px;">
-                  <button class="btn-outline btn-sm" onclick="viewClientDetails('${uid}')">Info / Proof</button>
+                <div style="margin-top:5px; display:flex; gap:4px; flex-wrap:wrap;">
+                  <button type="button" class="btn-outline btn-sm" onclick="viewClientDetails('${uid}')">Info / Proof</button>
+                  <button type="button" class="btn-success btn-sm" onclick="openAdminReceiptsModal('${uid}')">Receipts (${rcptCount})</button>
                 </div>
               </td>
               <td>
                 <strong>${qty} PC(s)</strong> × ${sym}${rate} ${disc > 0 ? `<span class="badge badge-active">${disc}% Off</span>` : ""}<br>
                 <strong>Total: ${sym}${finalTotal}</strong><br>
                 ${expiryControlHtml}
+                ${partInfoHtml}
               </td>
               <td>
                 <small><strong>${escapeHtml(s.cpu || "-")}</strong> | ${escapeHtml(s.ram || "-")}<br>
-                ${escapeHtml(s.gpu || "-")} | HS IP: ${escapeHtml(rdp.ip || "-")}</small>
+                ${escapeHtml(s.gpu || "-")} | HS IP: ${escapeHtml(rdp.ip || "-")}<br>
+                Port: <strong style="color:#fcd34d;">${escapeHtml(rdp.port || "XXXX")}</strong></small>
               </td>
               <td>
                 <div style="display:flex; gap:4px; flex-wrap:wrap;">
-                  <button class="btn-outline btn-sm" onclick="pickUserForTimer('${uid}')" title="Set 102h Timer">⏱️ Timer</button>
-                  <button class="btn-outline btn-sm" onclick="openEditModal('${uid}')">Edit</button>
-                  <button class="btn-outline btn-sm" onclick="openAdminHistoryModal('${uid}')">History</button>
+                  <button type="button" class="btn-outline btn-sm" onclick="pickUserForTimer('${uid}')">⏱️ Timer</button>
+                  <button type="button" class="btn-outline btn-sm" onclick="openEditModal('${uid}')">Edit</button>
+                  <button type="button" class="btn-outline btn-sm" onclick="openAdminHistoryModal('${uid}')">History</button>
                   ${contactBtn}
-                  <button class="btn-danger btn-sm" onclick="deleteClientRecord('${uid}')">Del</button>
+                  <button type="button" class="btn-danger btn-sm" onclick="deleteClientRecord('${uid}')">Del</button>
                 </div>
               </td>
             </tr>`;
         });
 
         if (prevSelectedUid) timerSelect.value = prevSelectedUid;
-        if (timerRowCount === 0) {
-          timersTbody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);">No hourly timers active. Select a user/machine above to start a ${defaultTimerHours}-hour timer.</td></tr>`;
+        if (userCount === 0) {
+          timersTbody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);">No client accounts found yet.</td></tr>`;
         }
         document.getElementById("admin-alert-counter").textContent = `${reqCount} Pending/Req | ${trialCount} Trials | ${sosCount} SOS`;
       });
@@ -1975,7 +3294,7 @@
               ${m.reply ? `<div class="msg-reply"><strong>Your Reply:</strong> ${escapeHtml(m.reply)}</div>` : ""}
               <div style="display:flex; gap:8px; margin-top:8px;">
                 <input type="text" id="reply-inp-${id}" placeholder="Write reply to ${escapeHtml(m.userName)}..." value="${escapeHtml(m.reply || '')}" />
-                <button class="btn-primary btn-sm" onclick="sendAdminReply('${id}')">Reply</button>
+                <button type="button" class="btn-primary btn-sm" onclick="sendAdminReply('${id}')">Reply</button>
               </div>
             </div>`;
         });
@@ -1985,7 +3304,7 @@
     window.approvePaymentAndStart30 = async (uid) => {
       const u = cachedClients[uid];
       if (!u) return;
-      const { qty, finalTotal } = calcTotals(u);
+      const { qty, finalTotal } = calcTotals(u, true);
       const today = new Date();
       const exp = new Date();
       exp.setDate(today.getDate() + 30);
@@ -2006,6 +3325,7 @@
           newExpiry: expStr
         })
       });
+      notifyStatus(`Approved & started 30-day plan for ${u.name}!`);
     };
 
     window.adjustExpiryByDays = async (uid, deltaDays) => {
@@ -2018,23 +3338,22 @@
         expiryDate: newExpiry,
         totalDays: Math.max(1, (u.totalDays || 30) + deltaDays)
       });
+      notifyStatus(`Adjusted expiry by ${deltaDays > 0 ? "+" + deltaDays : deltaDays}d to ${newExpiry}.`);
     };
 
-    window.markTrialDone = async (uid) => { await updateDoc(doc(db, "users", uid), { trialStatus: "completed" }); };
-    window.clearSos = async (uid) => { await updateDoc(doc(db, "users", uid), { sosReboot: false }); };
+    window.markTrialDone = async (uid) => { await updateDoc(doc(db, "users", uid), { trialStatus: "completed" }); notifyStatus("Trial marked completed."); };
+    window.clearSos = async (uid) => { await updateDoc(doc(db, "users", uid), { sosReboot: false }); notifyStatus("Reboot SOS cleared."); };
 
     window.saveBroadcast = async () => {
       const text = document.getElementById("admin-broadcast-input").value.trim();
-      await setDoc(doc(db, "settings", "global"), {
-        broadcast: text,
-        broadcastId: Date.now()
-      }, { merge: true });
-      alert("Highlighted notice posted and popped up live to all clients!");
+      await setDoc(doc(db, "settings", "global"), { broadcast: text, broadcastId: Date.now() }, { merge: true });
+      notifyStatus("Highlighted notice posted live to clients!");
     };
 
     window.clearBroadcast = async () => {
       document.getElementById("admin-broadcast-input").value = "";
       await setDoc(doc(db, "settings", "global"), { broadcast: "", broadcastId: 0 }, { merge: true });
+      notifyStatus("Notice cleared.");
     };
 
     window.toggleKycSetting = async (checked) => { await setDoc(doc(db, "settings", "global"), { kycRequired: checked }, { merge: true }); };
@@ -2044,19 +3363,20 @@
       const u = cachedClients[uid];
       if (!u) return;
       const proofHtml = u.proofBase64
-        ? `<div style="margin-top:10px;"><strong>Digital ID Proof:</strong><br><a href="${u.proofBase64}" download="KYC_${escapeHtml(u.name)}" class="btn btn-primary btn-sm" style="margin-top:6px;">⬇️ Download Submitted Proof</a></div>`
+        ? `<div style="margin-top:10px;"><strong>Digital Proof:</strong><br><a href="${u.proofBase64}" download="${escapeHtml(u.proofFileName || `Proof_${u.name}.jpg`)}" class="btn btn-primary btn-sm" style="margin-top:6px;">⬇️ Download Submitted Proof</a></div>`
         : `<div style="margin-top:8px; color:var(--muted);">No digital proof uploaded.</div>`;
 
       document.getElementById("view-client-body").innerHTML = `
         <div class="spec-row"><span class="spec-key">User ID</span><strong style="font-family:monospace;">${escapeHtml(uid)}</strong></div>
         <div class="spec-row"><span class="spec-key">Full Name</span><strong>${escapeHtml(u.name)}</strong></div>
         <div class="spec-row"><span class="spec-key">Email</span><strong>${escapeHtml(u.email)}</strong></div>
+        <div class="spec-row"><span class="spec-key">Account Password</span><strong style="font-family:monospace; color:#93c5fd;">${escapeHtml(u.accountPassword || "(Not recorded)")}</strong></div>
         <div class="spec-row"><span class="spec-key">Phone</span><strong>${escapeHtml(u.phone || "--")}</strong></div>
         <div class="spec-row"><span class="spec-key">Current Address</span><strong>${escapeHtml(u.address || "--")}</strong></div>
         <div class="spec-row"><span class="spec-key">Selected Plan</span><strong>${escapeHtml(u.selectedPlan || "Team Rental")}</strong></div>
-        <div class="spec-row"><span class="spec-key">PC Count & Discount</span><strong>${Math.max(MIN_PC_QTY, Number(u.pcCount || MIN_PC_QTY))} PC(s) | ${u.discountPercent || 0}% Off</strong></div>
+        <div class="spec-row"><span class="spec-key">PC Count & Discount</span><strong>${Math.max(1, Number(u.pcCount || 1))} PC(s) | ${u.discountPercent || 0}% Off</strong></div>
         <div class="spec-row"><span class="spec-key">Referred By</span><strong>${escapeHtml(u.referredBy || "Direct")}</strong></div>
-        <div class="spec-row"><span class="spec-key">ID Number</span><strong>${escapeHtml(u.aadhaar || "Not Provided")}</strong></div>
+        <div class="spec-row"><span class="spec-key">ID / Reference</span><strong>${escapeHtml(u.aadhaar || "Not Provided")}</strong></div>
         <div class="spec-row"><span class="spec-key">Service Status</span><strong>${escapeHtml(u.serviceStatus || "awaiting_payment")}</strong></div>
         ${proofHtml}
       `;
@@ -2066,7 +3386,7 @@
     window.extendDays = async (uid, daysToAdd, customLabel) => {
       const u = cachedClients[uid];
       if (!u) return;
-      const { qty, finalTotal } = calcTotals(u);
+      const { qty, finalTotal } = calcTotals(u, true);
       const base = (u.expiryDate && new Date(u.expiryDate) > new Date()) ? new Date(u.expiryDate) : new Date();
       base.setDate(base.getDate() + daysToAdd);
       const newExpiry = base.toISOString().split("T")[0];
@@ -2086,6 +3406,7 @@
           newExpiry
         })
       });
+      notifyStatus(`Extended ${u.name}'s plan by ${daysToAdd} days!`);
     };
 
     window.openAdminHistoryModal = (uid) => {
@@ -2096,8 +3417,8 @@
       const todayStr = new Date().toISOString().split("T")[0];
       document.getElementById("new-hist-date").value = todayStr;
       document.getElementById("new-hist-exp").value = u.expiryDate || todayStr;
-      document.getElementById("new-hist-pcs").value = Math.max(MIN_PC_QTY, Number(u.pcCount || MIN_PC_QTY));
-      document.getElementById("new-hist-amt").value = calcTotals(u).finalTotal;
+      document.getElementById("new-hist-pcs").value = Math.max(1, Number(u.pcCount || 1));
+      document.getElementById("new-hist-amt").value = calcTotals(u, true).finalTotal;
       renderAdminHistoryRows(uid);
       document.getElementById("admin-history-modal").classList.remove("hidden");
     };
@@ -2115,12 +3436,12 @@
         <tr>
           <td>${escapeHtml(h.date)}</td>
           <td>${escapeHtml(h.label || `${h.days}d Plan`)}</td>
-          <td>${h.pcCount || MIN_PC_QTY}</td>
+          <td>${h.pcCount || 1}</td>
           <td>${sym}${h.amount || 0}</td>
           <td>${escapeHtml(h.newExpiry || "--")}</td>
           <td>
-            <button class="btn-outline btn-sm" onclick="editHistoryAmount('${uid}', ${idx})">Edit</button>
-            <button class="btn-danger btn-sm" onclick="deleteHistoryEntry('${uid}', ${idx})">Del</button>
+            <button type="button" class="btn-outline btn-sm" onclick="editHistoryAmount('${uid}', ${idx})">Edit</button>
+            <button type="button" class="btn-danger btn-sm" onclick="deleteHistoryEntry('${uid}', ${idx})">Del</button>
           </td>
         </tr>`).join("");
     }
@@ -2132,7 +3453,7 @@
       const entry = {
         date: document.getElementById("new-hist-date").value,
         label: document.getElementById("new-hist-label").value.trim() || "30d Renewal",
-        pcCount: Math.max(MIN_PC_QTY, Number(document.getElementById("new-hist-pcs").value || MIN_PC_QTY)),
+        pcCount: Math.max(1, Number(document.getElementById("new-hist-pcs").value || 1)),
         amount: Number(document.getElementById("new-hist-amt").value || 0),
         days: Number(document.getElementById("new-hist-days").value || 30),
         newExpiry: document.getElementById("new-hist-exp").value
@@ -2141,6 +3462,7 @@
       await updateDoc(doc(db, "users", uid), { history: updatedHist });
       cachedClients[uid].history = updatedHist;
       renderAdminHistoryRows(uid);
+      notifyStatus("History record added!");
     };
 
     window.editHistoryAmount = async (uid, idx) => {
@@ -2170,11 +3492,13 @@
       const u = cachedClients[uid];
       if (!confirm(`Permanently delete ALL data for ${u ? u.name : "this client"}? This cannot be undone.`)) return;
       await deleteDoc(doc(db, "users", uid));
+      notifyStatus("Client record deleted.");
     };
 
     window.sendAdminReply = async (msgId) => {
       const reply = document.getElementById(`reply-inp-${msgId}`).value.trim();
       await updateDoc(doc(db, "messages", msgId), { reply });
+      notifyStatus("Reply sent!");
     };
 
     window.openAddClientModal = () => {
@@ -2184,11 +3508,12 @@
       document.getElementById("edit-name").value = "";
       document.getElementById("edit-email").value = "";
       document.getElementById("edit-phone").value = "";
+      document.getElementById("edit-account-pass").value = "";
       document.getElementById("edit-address").value = "";
       document.getElementById("edit-service-status").value = "awaiting_payment";
       document.getElementById("edit-currency").value = "INR";
       document.getElementById("edit-rent").value = 3500;
-      document.getElementById("edit-pccount").value = MIN_PC_QTY;
+      document.getElementById("edit-pccount").value = 1;
       document.getElementById("edit-discount").value = 0;
       document.getElementById("edit-days").value = 30;
       document.getElementById("edit-start").value = "";
@@ -2199,6 +3524,7 @@
       document.getElementById("edit-storage").value = "";
       document.getElementById("edit-notes").value = "";
       document.getElementById("edit-rdp-ip").value = "";
+      document.getElementById("edit-rdp-port").value = "";
       document.getElementById("edit-rdp-user").value = "";
       document.getElementById("edit-rdp-pass").value = "";
       document.getElementById("edit-client-modal").classList.remove("hidden");
@@ -2213,11 +3539,12 @@
       document.getElementById("edit-name").value = u.name || "";
       document.getElementById("edit-email").value = u.email || "";
       document.getElementById("edit-phone").value = u.phone || "";
+      document.getElementById("edit-account-pass").value = u.accountPassword || "";
       document.getElementById("edit-address").value = u.address || "";
       document.getElementById("edit-service-status").value = u.serviceStatus || (u.expiryDate ? "active" : "awaiting_payment");
       document.getElementById("edit-currency").value = u.currency || "INR";
       document.getElementById("edit-rent").value = u.rentAmount || 0;
-      document.getElementById("edit-pccount").value = Math.max(MIN_PC_QTY, Number(u.pcCount || MIN_PC_QTY));
+      document.getElementById("edit-pccount").value = Math.max(1, Number(u.pcCount || 1));
       document.getElementById("edit-discount").value = u.discountPercent || 0;
       document.getElementById("edit-days").value = u.totalDays || 30;
       document.getElementById("edit-start").value = u.startDate || "";
@@ -2230,6 +3557,7 @@
       document.getElementById("edit-notes").value = s.notes || "";
       const rdp = u.rdp || {};
       document.getElementById("edit-rdp-ip").value = rdp.ip || "";
+      document.getElementById("edit-rdp-port").value = rdp.port || "";
       document.getElementById("edit-rdp-user").value = rdp.user || "";
       document.getElementById("edit-rdp-pass").value = rdp.pass || "";
       document.getElementById("edit-client-modal").classList.remove("hidden");
@@ -2256,11 +3584,12 @@
         name: document.getElementById("edit-name").value.trim(),
         email: document.getElementById("edit-email").value.trim().toLowerCase(),
         phone: document.getElementById("edit-phone").value.trim(),
+        accountPassword: document.getElementById("edit-account-pass").value,
         address: document.getElementById("edit-address").value.trim(),
         serviceStatus: statusVal,
         currency: document.getElementById("edit-currency").value,
         rentAmount: Number(document.getElementById("edit-rent").value),
-        pcCount: Math.max(MIN_PC_QTY, Number(document.getElementById("edit-pccount").value || MIN_PC_QTY)),
+        pcCount: Math.max(1, Number(document.getElementById("edit-pccount").value || 1)),
         discountPercent: Math.min(100, Math.max(0, Number(document.getElementById("edit-discount").value || 0))),
         totalDays: Number(document.getElementById("edit-days").value),
         startDate: startVal,
@@ -2274,6 +3603,7 @@
         },
         rdp: {
           ip: document.getElementById("edit-rdp-ip").value,
+          port: document.getElementById("edit-rdp-port").value.trim(),
           user: document.getElementById("edit-rdp-user").value,
           pass: document.getElementById("edit-rdp-pass").value
         }
@@ -2283,11 +3613,16 @@
         payload.history = [];
         payload.sosReboot = false;
         payload.trialStatus = "eligible";
+        payload.partPaymentEnabled = false;
+        payload.partialPaidAmount = 0;
+        payload.installmentSchedule = [];
+        payload.paymentReceipts = [];
         await setDoc(doc(db, "users", uid), payload);
       } else {
         await updateDoc(doc(db, "users", uid), payload);
       }
       closeEditModal();
+      notifyStatus("Client data saved!");
     };
 
     window.handleLandingTrialClick = () => {
@@ -2298,11 +3633,11 @@
 
     window.sharePortal = () => {
       const url = window.location.origin + window.location.pathname;
-      const text = `Check out Lattice Remote PC — Custom workstations on rent via Headscale & RDP (Min. 5 PCs | 2-Hour Free Trial for members)! WhatsApp, SMS & Calls: +919790342116 | SMS & Calls: +19547512404 | Email: ${BIZ_EMAIL} | ${url}`;
+      const text = `Check out Lattice Remote PC — Custom workstations on rent via Headscale & RDP (2-Hour Free Trial for members)! WhatsApp, SMS & Calls: +919790342116 | SMS & Calls: +19547512404 | Email: ${BIZ_EMAIL} | ${url}`;
       if (navigator.share) {
         navigator.share({ title: "Lattice Remote PC Rental", text, url }).catch(() => {});
       } else {
-        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+        copyText(text, "Share link & details copied to clipboard!");
       }
     };
 
@@ -2338,6 +3673,24 @@
       document.getElementById("form-signup").classList.toggle("hidden", mode !== "signup");
     };
     window.togglePw = (id) => { const el = document.getElementById(id); el.type = el.type === "password" ? "text" : "password"; };
+
+    window.toggleRdpPort = () => {
+      const el = document.getElementById("rdp-port");
+      const btn = document.getElementById("btn-toggle-port");
+      if (el.textContent === "XXXX") {
+        el.textContent = el.dataset.port || "(Not Set)";
+        if (btn) btn.textContent = "Hide Port";
+      } else {
+        el.textContent = "XXXX";
+        if (btn) btn.textContent = "Show Port";
+      }
+    };
+    window.copyRdpPort = () => {
+      const portVal = document.getElementById("rdp-port").dataset.port;
+      if (portVal) copyText(portVal, "Connection Port copied!");
+      else notifyStatus("No port assigned yet.");
+    };
+
     window.toggleRdpPass = () => {
       const el = document.getElementById("rdp-pass");
       if (!el.dataset.secret) return;
@@ -2345,7 +3698,12 @@
     };
     window.copyRdpPass = () => { const sec = document.getElementById("rdp-pass").dataset.secret; if (sec) copyText(sec, "RDP Password copied!"); };
     window.copyElem = (id) => copyText(document.getElementById(id).textContent, "Copied to clipboard!");
-    window.copyText = (txt, msg) => { navigator.clipboard.writeText(txt); alert(msg); };
+    window.copyText = (txt, msg) => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).catch(() => {});
+      }
+      notifyStatus(msg);
+    };
 
     function showModal(title, body, customWaUrl = null, renewUid = null) {
       document.getElementById("modal-title").textContent = title;
@@ -2354,7 +3712,7 @@
       modalRenewTargetUid = renewUid;
       const renewBtn = document.getElementById("modal-renew-timer-btn");
       if (renewUid) {
-        renewBtn.textContent = `🔄 Renew +${defaultTimerHours}h Now`;
+        renewBtn.textContent = `🔄 Reset +${defaultTimerHours}h Now`;
         renewBtn.classList.remove("hidden");
       } else {
         renewBtn.classList.add("hidden");
@@ -2363,7 +3721,7 @@
     }
     window.renewFromModal = async () => {
       if (modalRenewTargetUid) {
-        await startOrRenewUserTimer(modalRenewTargetUid);
+        await resetSelectedUserTimer(modalRenewTargetUid);
         closeModal();
       }
     };
